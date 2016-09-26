@@ -1,0 +1,39 @@
+<%= render partial: 'admin_partials/index/header', locals: { section_title:  t("controller."+params[:controller]),
+                                                  section_sub_title:  t("action."+params[:action]),
+                                                  page_title: t("strings.document.listing"),
+                                                  new_path: new_document_path,
+                                                  new_button_name: t("strings.document.new"),
+                                                  search_form_path: documents_path } %>
+
+<%= render "admin_partials/errors/notices" %>
+
+        <div class="box-body table-responsive no-padding">
+          <div class="table_div">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th><%= t("activerecord.attributes.document.file") %></th>
+                <th><%= t("activerecord.attributes.document.level") %></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @documents.each do |document| %>
+                <tr>
+                  <td><%= link_to document.file_file_name, document.file.url(:original) %></td>
+                  <td><%= get_level(document.level) %></td>
+                  <td>
+                    <div class="btn-group">
+                      <%= link_to t("strings.admin.edit"), edit_document_path(document), class:"btn btn-info" %>
+                      <%= link_to t("strings.admin.destroy"), document, method: :delete, data: { confirm: t("strings.admin.are_you_sure") }, class:"btn btn-info" %>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        </div><!-- /.box-body -->
+
+
+<%= render partial: 'admin_partials/index/footer', locals: { paginate_object: @documents} %>

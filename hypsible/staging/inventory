@@ -1,0 +1,35 @@
+<<<<<<< HEAD
+127.0.0.1 ansible_ssh_port=22
+
+[all]
+127.0.0.1
+
+[application]
+127.0.0.1
+
+[vm]
+127.0.0.1
+
+[staging]
+127.0.0.1
+
+[postgresql]
+127.0.0.1
+=======
+188.166.156.167 ansible_ssh_port=22
+
+[all]
+188.166.156.167
+
+[application]
+188.166.156.167
+
+[vm]
+188.166.156.167
+
+[staging]
+188.166.156.167
+
+[postgresql]
+188.166.156.167
+>>>>>>> staging

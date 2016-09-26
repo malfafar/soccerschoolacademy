@@ -1,0 +1,119 @@
+@include breakpoint($xs)
+{
+
+		.login_page
+		{
+			@include span(16 of 18);
+			margin-left: span(1 of 18);
+			margin-top: 30px;
+
+			h2
+			{
+				text-align: center;
+			}
+
+			form{
+
+				width: 100%;
+
+					.field
+					{
+						width: 100%;
+						margin-bottom: 30px;
+
+						input[type="email"], input[type="password"]
+						{
+							width: 100% !important;
+							height: 30px;
+						}
+					}
+
+			}
+
+
+			.actions-links{
+				text-align: center;
+				margin-top: 30px;
+				a
+				{
+					color: $semi_dark_gray;
+
+				}
+			}
+
+		}
+
+
+		.password_page
+		{
+			@include span(16 of 18);
+			margin-left: span(1 of 18);
+			margin-top: 30px;
+
+			h2
+			{
+				text-align: center;
+			}
+
+			form{
+
+				width: 100%;
+
+					.field
+					{
+						width: 100%;
+						margin-bottom: 30px;
+
+						input[type="email"], input[type="password"]
+						{
+							width: 100% !important;
+							height: 30px;
+						}
+					}
+
+			}
+
+		}
+}
+
+@include breakpoint($medium)
+{
+	.login_page
+	{
+		@include span(10 of 18);
+		margin-left: span(4 of 18);
+		margin-top: 30px;
+	}
+
+	.password_page
+	{
+		@include span(12 of 18);
+		margin-left: span(3 of 18);
+		margin-top: 30px;
+	}
+}
+
+
+
+@include breakpoint($mn)
+{
+	.login_page
+	{
+		@include span(6 of 18);
+		margin-left: span(6 of 18);
+		margin-top: 30px;
+	}
+
+	.password_page
+	{
+		@include span(6 of 18);
+		margin-left: span(6 of 18);
+		margin-top: 30px;
+	}
+}
+
+
+.error_explanation
+{
+	color: $orange;
+}

@@ -1,0 +1,5 @@
+.vagrant
+# ansible/group_vars/production/env_variables.yml
+ansible/group_vars/development/env_variables.yml
+# ansible/group_vars/staging/env_variables.yml
+*.retry

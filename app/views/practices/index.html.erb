@@ -1,0 +1,36 @@
+<%= render partial: 'admin_partials/index/header', locals: { section_title: t("controller."+params[:controller]),
+                                                  section_sub_title: t("action."+params[:action]),
+                                                  page_title: t("strings.practice.listing"),
+                                                  new_path: new_practice_path,
+                                                  new_button_name: t("strings.practice.new"),
+                                                  search_form_path: practices_path } %>
+
+<%= render "admin_partials/errors/notices" %>
+
+        <div class="box-body table-responsive no-padding">
+          <div class="table_div">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th><%= t("activerecord.attributes.practice.practice_date") %></th>
+                <th><%= t("activerecord.attributes.practice.observations") %></th>
+                <th><%= t("activerecord.attributes.practice.team_season") %></th>
+                <th></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @practices.each do |practice| %>
+                <tr>
+                  <td><%= practice.practice_date.strftime("%m/%d/%Y - %H:%M") %></td>
+                  <td><%= truncate(practice.observations, length: 25) %></td>
+                  <td><%= practice.team_season.team.name + " - " + practice.team_season.season.start_year.to_s + "/" + practice.team_season.season.end_year.to_s  %></td>
+                  <%= render partial: 'admin_partials/index/buttons', locals: { object: practice, edit_path: edit_practice_path(practice) } %>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          </div>
+        </div><!-- /.box-body -->
+
+<%= render partial: 'admin_partials/index/footer', locals: { paginate_object: @practices} %>

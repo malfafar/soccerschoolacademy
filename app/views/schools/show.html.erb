@@ -1,0 +1,12 @@
+<%= render partial: 'admin_partials/show/header', locals: { section_title: t("controller."+params[:controller]),
+                                                  section_sub_title:  t("action."+params[:action]),
+                                                  page_title: t("strings.school.show")   } %>
+
+<%= render "admin_partials/errors/notices" %>
+
+          <strong><%= t("activerecord.attributes.school.name") %></strong>
+          <p class="text-muted">
+            <%= @school.name %>
+          </p>
+
+<%= render partial: 'admin_partials/show/footer', locals: {edit_path: edit_school_path(@school), back_path: schools_path}%>

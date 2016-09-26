@@ -1,0 +1,14 @@
+  <div class="box-body">
+    <%= form_for(@school) do |f| %>
+      <%= render partial: 'admin_partials/errors/errors_form', locals: { current_object: @school} %>
+
+      <div class="form-group">
+        <%= f.label :name %><br>
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+      <div class="box-footer">
+        <%= f.submit "Submit",  class: "btn btn-primary"  %>
+      </div>
+    <% end %>
+  </div>
+</div>

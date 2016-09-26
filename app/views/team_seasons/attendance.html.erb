@@ -1,0 +1,165 @@
+<style>
+.state-button
+{
+	border: none !important;
+}
+
+.tableDiv td
+{
+  padding-right: 10px;
+  font-size: 12px;
+}
+</style>
+
+<%= render partial: 'admin_partials/index/header', locals: { section_title: t("strings.sidebar.attendance_board"),
+                                                  section_sub_title: @team_season.team.name,
+                                                  page_title: @start_date.strftime("%m/%Y"),
+                                                  new_path: nil,
+                                                  new_button_name: "",
+                                                  search_form_path: nil } %>
+
+<%= render "admin_partials/errors/notices" %>
+
+        <div class="box-body">
+          <div style="margin-bottom: 30px;"><%= select_tag 'states', options_for_select([[ t("strings.states.disabled"), -1]]+get_states_options) %></div>
+
+          <div id="tableDiv_Arrays" class="tableDiv table table-hover">
+            <table id="Open_Text_Arrays" class="FixedTables" style="float: left; width: 800px; overflow: auto; height: 493px;">
+              <thead>
+                <tr class="header">
+                  <th><%= t('activerecord.models.player') %></th>
+                  <% @elements.each do |element| %>
+                    <% if element[1] %>
+                      <th class="th-match">
+                    <% else %>
+                      <th class="th-practice">
+                    <% end %>
+                    <%= element[0].strftime("%d") %></th>
+                  <% end %>
+                  <% if @stat %>
+                    <%= render "attendance_stats_header"%>
+                  <% end %>
+                </tr>
+              </thead>
+
+
+              <tbody>
+                <% @players.each do |player| %>
+                  <tr>
+                    <td> <%= player.name %> </td>
+                    <% @elements.each do |element| %>
+                      <td>
+                        <% if element[1] %>
+                          <% statistic = player.statistics.where(match_id: element[2]).first %>
+                          <%= form_for statistic, remote: true do |f| %>
+                            <%= f.hidden_field :state, value: 1, class: "hidden_field_state" %>
+
+                            <%= f.submit get_state_initial(statistic.state), class: "state-button", id: "statistic-state-#{statistic.id}", style: "background-color: #{get_state_colors(statistic.state);}" %>
+                          <% end %>
+                          <% if statistic.state == state_late() %>
+                            <div class="late-time"><%= statistic.late_minutes %></div>
+                          <% else %>
+                            <div class="late-time"></div>
+                          <% end %>
+                        <% else %>
+                          <% practice = player.player_practices.where(practice_id: element[2]).first %>
+                          <%= form_tag update_player_practice_practices_path(practice), remote: true do |f| %>
+                            <%= hidden_field_tag :state, 1, class: "hidden_field_state" %>
+
+                            <%= submit_tag get_state_initial(practice.state), class: "state-button", id: "practice-state-#{practice.id}", style: "background-color: #{get_state_colors(practice.state);}" %>
+                          <% end %>
+                          <% if practice.state == state_late() %>
+                            <div class="late-time"><%= practice.late_minutes %></div>
+                          <% else %>
+                            <div class="late-time"></div>
+                          <% end %>
+                        <% end %>
+
+                      </td>
+                    <% end %>
+                    <% if @stat %>
+                      <% player_stats = player.total_statistics(nil, @start_date, @end_date) %>
+                      <%= render partial: "attendance_stats_body", locals: { stats: player_stats} %>
+                    <% end %>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+
+<%= render partial: 'admin_partials/index/footer', locals: { paginate_object: nil} %>
+
+        <!-- </div>
+
+      </div> -->
+      <!-- /.box -->
+    <!-- </div> -->
+    <!-- /.col -->
+  <!-- </div> -->
+  <!-- Small modal -->
+  <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel", id="late-modal">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="late-form">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- </section> -->
+
+<script>
+  $(document).on('ready page:load', function(){
+    $(".state-button").each(function(){
+      $(this).attr("disabled", true);
+      //$(":submit").removeAttr("disabled");
+    });
+  });
+
+  $(".tableDiv").each(function() {
+    var Id = $(this).get(0).id;
+    var maintbheight = 50;
+    var maintbwidth = 100;
+
+    $("#" + Id + " .FixedTables").fixedTable({
+      width: maintbwidth,
+      height: maintbheight,
+      fixedColumns: 1,
+      // header style
+      classHeader: "fixedHead",
+      // footer style
+      classFooter: "fixedFoot",
+      // fixed column on the left
+      classColumn: "fixedColumn",
+      // the width of fixed column on the left
+      fixedColumnWidth: 10,
+      // table's parent div's id
+      outerId: Id,
+
+
+    });
+  });
+
+  $("#states").change(function() {
+    var state = $(this).val();
+    if (state != -1)
+    {
+      $(".state-button").each(function(){
+        $(this).removeAttr("disabled");
+      });
+      $( ".hidden_field_state" ).each(function() {
+        $(this).val(state);
+      });
+    }
+    else {
+      $(".state-button").each(function(){
+        $(this).attr("disabled", true);
+        //$(":submit").removeAttr("disabled");
+      });
+    }
+  });
+
+</script>

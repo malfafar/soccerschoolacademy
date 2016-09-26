@@ -1,0 +1,59 @@
+<div class="container">
+
+	<h2>Contactos</h2>
+
+	<% if flash[:notice] %>
+	  <div class="error_explanation center">
+
+
+
+	      <div class="alert alert-success alert-dismissable">
+	        <%= flash[:notice] %>
+	      </div>
+
+  	</div>
+	<% end %>
+	<% if flash[:alert] %>
+		<div class="error_explanation center">
+
+
+				<div class="alert alert-danger alert-dismissable">
+					<%= flash[:alert] %>
+				</div>
+		</div>
+	<% end %>
+
+	<%= form_tag send_contact_path, class: "form" do %>
+		<div class="form_column" id="col1">
+			<div class="form_input">
+				<span class="form_label">Nome *</span>
+				<%= text_field_tag( "contact_info[name]", nil, class: "inputs", required: true)  %>
+			</div>
+
+			<div class="form_input">
+				<span class="form_label">E-mail *</span>
+				<%= email_field_tag( "contact_info[email]", nil, class: "inputs", required: true) %>
+			</div>
+
+			<div class="form_input">
+				<span class="form_label">Telefone</span>
+				<%= text_field_tag( "contact_info[phone]", nil, class: "inputs") %>
+			</div>
+		</div>
+
+		<div class="form_column" id="col2">
+			<div class="form_input">
+				<span class="form_label">Mensagem *</span>
+				<%= text_area_tag( "contact_info[message]", nil, class: "message", placeholder: "Escreva a sua mensagem...") %>
+			</div>
+		</div>
+
+		<div class="form_button">
+			<%= submit_tag( "ENVIAR", class:"medium_button primary_button") %>
+		</div>
+	<% end %>
+
+
+</div>
+
+<div class="map" id="googleMap"></div>

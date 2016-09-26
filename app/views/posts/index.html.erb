@@ -1,0 +1,42 @@
+<%= render partial: 'admin_partials/index/header', locals: { section_title:  t("controller."+params[:controller]),
+                                                  section_sub_title:  t("action."+params[:action]),
+                                                  page_title: t("strings.post.listing") ,
+                                                  new_path: new_post_path,
+                                                  new_button_name: t("strings.post.new"),
+                                                  search_form_path: posts_path } %>
+
+<%= render "admin_partials/errors/notices" %>
+
+        <div class="box-body table-responsive no-padding">
+          <div class="table_div">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th><%= t("activerecord.attributes.post.photo") %></th>
+                <th><%= t("activerecord.attributes.post.title") %></th>
+                <th><%= t("activerecord.attributes.post.text") %></th>
+                <th><%= t("activerecord.attributes.post.author") %></th>
+                <th><%= t("activerecord.attributes.post.private") %></th>
+                <th><%= t("activerecord.attributes.post.updated_at") %></th>
+                <th></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @posts.each do |post| %>
+                <tr>
+                  <td><%= image_tag post.photo.url(:thumb) %></td>
+                  <td><%= post.title %></td>
+                  <td><%= truncate(post.text, length: 80) %></td>
+                  <td><%= post.coach ? post.coach.name : t("strings.post.no_author") %></td>
+                  <td><%= t post.private.to_s %></td>
+                  <td><%= post.updated_at.strftime("%d/%m/%Y") %></td>
+                  <%= render partial: 'admin_partials/index/buttons', locals: { object: post, edit_path: edit_post_path(post) } %>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          </div>  
+        </div><!-- /.box-body -->
+
+<%= render partial: 'admin_partials/index/footer', locals: { paginate_object: @posts} %>

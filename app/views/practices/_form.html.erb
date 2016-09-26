@@ -1,0 +1,39 @@
+  <div class="box-body">
+    <%= form_for(@practice) do |f| %>
+      <%= render partial: 'admin_partials/errors/errors_form', locals: { current_object: @practice} %>
+
+      <div class="form-group">
+        <%= f.label :practice_date %><br>
+        <%= f.text_field :practice_date, class: "form-control", id: "select-date", data: { date_format: 'YYYY-MM-DD HH:mm'}, required: true %>
+      </div>
+      <div class="form-group">
+        <%= f.label :observations %><br>
+        <%= f.text_area :observations, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :team_season %><br>
+        <%= f.select :team_season_id, TeamSeason.includes(:team, :season).all.collect {|p| [ p.team.name + " " + p.season.start_year.to_s + "/" + p.season.end_year.to_s, p.id ] }, {}, class: "form-control"  %>
+      </div>
+
+      <div class="box-footer">
+        <%= f.submit class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  $(document).on("ready page:load", function () {
+      $('#select-date').datetimepicker(
+      {
+        icons: {
+          time: "fa fa-clock-o",
+          date: "fa fa-calendar",
+          up: "fa fa-arrow-up",
+          down: "fa fa-arrow-down",
+          previous: "fa fa-arrow-left",
+          next:  "fa fa-arrow-right"
+        }
+      });
+  });
+</script>

@@ -1,0 +1,3 @@
+$('#late-modal').modal('toggle');
+
+$("#statistic-state-<%= @statistic.id %>").parent().parent().children(".late-time").html("<%= @statistic.late_minutes %>");

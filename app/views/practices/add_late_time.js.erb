@@ -1,0 +1,3 @@
+$('#late-modal').modal('toggle');
+
+$("#practice-state-<%= @player_practice.id %>").parent().parent().children(".late-time").html("<%= @player_practice.late_minutes %>");

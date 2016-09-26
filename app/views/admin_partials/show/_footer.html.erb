@@ -1,0 +1,16 @@
+        <% if edit_path || back_path %>
+          <div class="box-footer with-border">
+            <% if edit_path %>
+              <%= link_to t("strings.admin.edit"), edit_path %> |
+            <% end %>
+            <% if back_path %>
+              <%= link_to t("strings.admin.back"), back_path %>
+            <% end %>
+
+          </div>
+        <% end %>
+
+      </div><!-- /.box -->
+    </div><!-- /.col -->
+  </div><!-- /.row -->
+</section><!-- /.content -->

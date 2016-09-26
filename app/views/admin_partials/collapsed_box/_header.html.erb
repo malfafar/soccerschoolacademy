@@ -1,0 +1,7 @@
+<div class="form-group col-md-12">
+
+  <% if expanded %>
+    <%= render partial: 'admin_partials/collapsed_box/open_header', locals: { title: title, color_class: color_class} %>
+  <% else %>
+    <%= render partial: 'admin_partials/collapsed_box/close_header', locals: { title: title, color_class: color_class} %>
+  <% end %>

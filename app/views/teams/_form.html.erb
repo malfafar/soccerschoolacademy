@@ -1,0 +1,32 @@
+<div class="box-body">
+  <%= form_for(@team) do |f| %>
+    <%= render partial: 'admin_partials/errors/errors_form', locals: { current_object: @team} %>
+
+    <div class="form-group">
+      <%= f.label :name %><br>
+      <%= f.text_field :name, class: "form-control", required: true %>
+    </div>
+    <div class="form-group">
+      <%= f.label :description %><br>
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :n10 %><br>
+      <%= f.check_box :n10 %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :level %><br>
+      <% if params[:action] == "edit" %>
+        <%= f.select :level, options_for_select(get_levels_options, selected:  @team.level.to_s), {}, class: "form-control", required: true %>
+      <% else %>
+        <%= f.select :level, options_for_select(get_levels_options), {}, class: "form-control", required: true %>
+      <% end %>
+    </div>
+
+    <div class="box-footer">
+      <%= f.submit "Submit",  class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

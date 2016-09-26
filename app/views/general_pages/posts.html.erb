@@ -1,0 +1,36 @@
+<div class="container">
+
+	<h2>Notícias</h2>
+
+	<% @posts.each do |post| %>
+
+		<% if @team_season %>
+			<%= link_to show_post_path(post) + "/team_season/" + @team_season.id.to_s do %>
+				<div class="news_thumb">
+					<%= image_tag post.photo.url(:small), class: "news_image_thumb" %>
+					<div class="news_post_thumb">
+						<h4><%= post.title %></h4>
+						<h5>Autor: <%= post.coach ? post.coach.name : "No author" %></h5>
+						<p><%= truncate(post.text, length: 180) %></p>
+					</div>
+				</div>
+			<% end %>
+
+		<% else %>
+			<%= link_to show_post_path(post) do %>
+				<div class="news_thumb">
+					<%= image_tag post.photo.url(:small), class: "news_image_thumb"  %>
+					<div class="news_post_thumb">
+						<h4><%= post.title %></h4>
+						<h5>Autor: <%= post.coach ? post.coach.name : "No author" %></h5>
+						<h5>Data: <%= post.updated_at.strftime("%d/%m/%Y") %></h5>
+						<p><%= truncate(post.text, length: 180) %></p>
+					</div>
+				</div>
+			<% end %>
+		<% end %>
+
+	<% end %>
+	<%= paginate @posts %>
+
+</div>

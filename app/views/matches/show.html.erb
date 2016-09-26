@@ -1,0 +1,202 @@
+<%= render partial: 'admin_partials/content_header', locals: {section_title: t("controller."+params[:controller]), section_sub_title: t("action."+params[:action])} %>
+
+<!-- Main content -->
+<section class="content">
+    <!-- Header -->
+  <div class="box box-default">
+    <div class="box-header with-border">
+      <h3 class="box-title"> <i class="fa fa-futbol-o"></i> <%= t("activerecord.attributes.match.matchday") + " " +  @match.matchday.to_s %>  | <%= @match.match_date.strftime("%m/%d/%Y - %H:%M") %>
+      </h3>
+    </div>
+
+    <div class="box-body">
+
+      <%= render "admin_partials/errors/notices" %>
+
+      <div class="col-md-1"></div>
+      <div class="col-md-2">
+        <%= @match.home_team.team.name %>
+      </div>
+      <div class="col-md-1">
+        -
+      </div>
+      <div class="col-md-2">
+        <%= @match.home_goals %>
+      </div>
+      <div class="col-md-1">
+        x
+      </div>
+      <div class="col-md-2">
+        <%= @match.away_goals %>
+      </div>
+      <div class="col-md-1">
+        -
+      </div>
+      <div class="col-md-2">
+        <%= @match.away_team.team.name %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Home Team -->
+    <div class="col-md-6">
+      <div class="box box-default">
+        <div class="box-header with-border">
+          <i class="fa fa-shield"></i>
+          <h3 class="box-title"><%= @match.home_team.team.name %></h3>
+        </div><!-- /.box-header -->
+
+        <div class="box-body">
+
+
+
+          <strong><%= t("strings.match.home_team_players") %></strong>
+          <br>
+          <p>
+            <div class="table_div">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th><%= t("strings.match.player") %></th>
+                  <th><%= t("strings.match.goals") %></th>
+                  <th><%= t("strings.match.penalties") %></th>
+                  <th><%= t("strings.match.assists") %></th>
+                  <th><%= t("strings.match.played_minutes") %> </th>
+                  <th><%= t("strings.match.yellows") %></th>
+                  <th><%= t("strings.match.red") %></th>
+                  <th><%= t("strings.match.own_goals") %> </th>
+                  <th><%= t("strings.match.state") %></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @match.home_team.players.each do |player| %>
+                  <tr>
+                    <% player_stat = player.statistics.where(match_id: @match.id).first %>
+                    <td><%= link_to player.name, coach_show_player_path(player) %></td>
+                    <td><%= player_stat ? player_stat.goals : "n/i" %></td>
+                    <td><%= player_stat ? player_stat.penalties : "n/i"  %></td>
+                    <td><%= player_stat ? player_stat.assists : "n/i"  %></td>
+                    <td><%= player_stat ? player_stat.played_minutes : "n/i"  %></td>
+                    <td><%= player_stat ? player_stat.first_yellow &&  player_stat.second_yellow ? "2" : player_stat.first_yellow || player_stat.second_yellow ? "1" : "0"  : "n/i" %> </td>
+                    <td><%= player_stat ? player_stat.red ? "1" : "0"  : "n/i" %></td>
+                    <td><%= player_stat ? player_stat.own_goals  : "n/i" %></td>
+                    <td><%= player_stat ? get_state(player_stat.state)  : "n/i" %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+            </div>
+          </p>
+
+          <strong><%= t("activerecord.attributes.match.home_observations") %></strong>
+          <p class="text-muted">
+            <%= @match.home_observations %>
+          </p>
+        </div><!-- /.box-body -->
+      </div><!-- /.box -->
+    </div><!-- /.col -->
+
+    <!-- Away Team -->
+    <div class="col-md-6">
+      <div class="box box-default">
+        <div class="box-header with-border">
+          <i class="fa fa-shield"></i>
+          <h3 class="box-title"><%= @match.away_team.team.name %></h3>
+        </div><!-- /.box-header -->
+
+        <div class="box-body">
+
+
+          <strong><%= t("strings.match.away_team_players") %></strong>
+          <br>
+          <p>
+            <div class="table_div">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th><%= t("strings.match.player") %></th>
+                  <th><%= t("strings.match.goals") %></th>
+                  <th><%= t("strings.match.penalties") %></th>
+                  <th><%= t("strings.match.assists") %></th>
+                  <th><%= t("strings.match.played_minutes") %> </th>
+                  <th><%= t("strings.match.yellows") %></th>
+                  <th><%= t("strings.match.red") %></th>
+                  <th><%= t("strings.match.own_goals") %> </th>
+                  <th><%= t("strings.match.state") %></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @match.away_team.players.each do |player| %>
+                  <tr>
+                    <% player_stat = player.statistics.where(match_id: @match.id).first %>
+                    <td><%= link_to player.name, coach_show_player_path(player) %></td>
+                    <td><%= player_stat ? player_stat.goals : "n/i" %></td>
+                    <td><%= player_stat ? player_stat.penalties : "n/i"  %></td>
+                    <td><%= player_stat ? player_stat.assists : "n/i"  %></td>
+                    <td><%= player_stat ? player_stat.played_minutes : "n/i"  %></td>
+                    <td><%= player_stat ? player_stat.first_yellow &&  player_stat.second_yellow ? "2" : player_stat.first_yellow || player_stat.second_yellow ? "1" : "0"  : "n/i" %> </td>
+                    <td><%= player_stat ? player_stat.red ? "1" : "0"  : "n/i" %></td>
+                    <td><%= player_stat ? player_stat.own_goals  : "n/i" %></td>
+                    <td><%= player_stat ? get_state(player_stat.state)  : "n/i" %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+            </div>
+          </p>
+
+          <strong><%= t("activerecord.attributes.match.away_observations") %></strong>
+          <p class="text-muted">
+            <%= @match.away_observations %>
+          </p>
+        </div><!-- /.box-body -->
+      </div><!-- /.box -->
+    </div><!-- /.col -->
+  </div>
+
+  <!-- Observations and Aditional Information -->
+  <div class="box box-default">
+    <div class="box-body">
+      <strong><%= t("activerecord.attributes.match.delegate1") %></strong>
+      <p class="text-muted">
+        <%= @match.delegate1 %>
+      </p>
+
+
+      <strong><%= t("activerecord.attributes.match.delegate2") %></strong>
+      <p class="text-muted">
+        <%= @match.delegate2 %>
+      </p>
+
+      <strong><%= t("activerecord.attributes.match.referee1") %></strong>
+      <p class="text-muted">
+        <%= @match.referee1 %>
+      </p>
+
+      <strong><%= t("activerecord.attributes.match.referee2") %></strong>
+      <p class="text-muted">
+        <%= @match.referee2 %>
+      </p>
+
+      <strong><%= t("activerecord.attributes.match.referee3") %></strong>
+      <p class="text-muted">
+        <%= @match.referee3 %>
+      </p>
+
+
+      <strong><%= t("activerecord.attributes.match.ref_observations") %></strong>
+      <p class="text-muted">
+        <%= @match.ref_observations %>
+      </p>
+
+    </div>
+  </div>
+
+  <div class="box box-default">
+    <div class="box-body">
+      <%= link_to t("strings.admin.edit"), edit_match_path(@match) %> |
+      <%= link_to t("strings.admin.back"), matches_path %>
+    </div>
+  </div>
+</section>

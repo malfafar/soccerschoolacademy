@@ -1,0 +1,193 @@
+<%= render partial: 'admin_partials/show/header', locals: { section_title: t("controller."+params[:controller]),
+                                                  section_sub_title: t("action."+params[:action]),
+                                                  page_title: t("strings.player.show") } %>
+
+<%= render "admin_partials/errors/notices" %>
+
+
+          <% if @player.player_auth %>
+            <strong>Email:</strong>
+            <p class="text-muted">
+              <%= @player.player_auth.email %>
+            </p>
+          <% end %>
+
+          <strong>Fotografia:</strong>
+          <p class="text-muted">
+            <%= image_tag @player.avatar.url(:thumb) %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.player.name") %></strong>
+          <p class="text-muted">
+            <%= @player.name %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.player.birthday")  %></strong>
+          <p class="text-muted">
+            <%= @player.birthday %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.player.address")  %></strong>
+          <p class="text-muted">
+            <%= @player.address %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.player.district")  %></strong>
+          <p class="text-muted">
+            <%= @player.district %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.player.zipcode")  %></strong>
+          <p class="text-muted">
+            <%= @player.zipcode %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.player.phone")  %></strong>
+          <p class="text-muted">
+            <%= @player.phone %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.player.school")  %></strong>
+          <p class="text-muted">
+            <%= @player.school ? @player.school.name : "No School" %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.player.birthplace")  %></strong>
+          <p class="text-muted">
+            <%= @player.birthplace %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.player.nationality")  %></strong>
+          <p class="text-muted">
+            <%= @player.nationality %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.player.id_card_number")  %></strong>
+          <p class="text-muted">
+            <%= @player.id_card_number %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.player.vat_id")  %></strong>
+          <p class="text-muted">
+            <%= @player.vat_id %>
+          </p>
+
+          <% if @player.guardian %>
+            <strong> <%= t("activerecord.attributes.player.guardian")  %> </strong>
+            <p clas="text-muted">
+                <%= link_to @player.guardian.name, guardian_path(@player.guardian) %>
+            </p>
+
+            <strong><%= t("activerecord.attributes.player.guardian_family_degree") %></strong>
+            <p class="text-muted">
+              <%= @player.guardian_family_degree %>
+            </p>
+
+            <strong><%= t("activerecord.attributes.player.second_parent") %></strong>
+            <p class="text-muted">
+              <%= @player.second_parent %>
+            </p>
+          <% end %>
+
+
+
+
+
+          <div class="box-header">
+            <h3 class="box-title"><%= t("strings.player.measurement_exams") %></h3>
+            <div class="box-tools">
+              <div class="input-group" style="width: 150px;">
+                <%= link_to t("strings.exams.new"), "#exam-form", id: "new-exam" %>
+              </div>
+            </div>
+          </div><!-- /.box-header -->
+          <div class="box-body table-responsive no-padding">
+            <table class="table table-hover">
+              <tr>
+                <th><%= t("activerecord.attributes.exam.id") %></th>
+                <th><%= t("activerecord.attributes.exam.exam_date") %></th>
+                <th><%= t("activerecord.attributes.exam.weight") %></th>
+                <th><%= t("activerecord.attributes.exam.height") %></th>
+              </tr>
+              <% @player.exams.each do |exam| %>
+                <tr>
+                  <td><%= exam.id %></td>
+                  <td><%= exam.exam_date %></td>
+                  <td><%= exam.weight %></td>
+                  <td><%= exam.height %></td>
+                </tr>
+              <% end %>
+            </table>
+          </div><!-- /.box-body -->
+
+          <div name="exam-form" id="exam-form"></div>
+          <br>
+          <br>
+          <p>
+            <div class="box-header">
+              <h3 class="box-title"><%= t("strings.medical.title") %></h3>
+              <div class="box-tools">
+
+              </div>
+            </div><!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+              <strong><%= t("strings.medical.date") %></strong>
+              <div class="med-exams">
+                <div class="med-exam"></div>
+                <% @player.medicals.each do |medical| %>
+                  <div class="med-exam">
+                    <%= medical %>
+                  </div>
+                <% end %>
+              </div>
+            </div><!-- /.box-body -->
+            <br>
+            <div class="input-group" >
+              <%= t("strings.medical.new") %>
+              <%= form_tag coach_add_medical_path(@player), remote: true do %>
+                <div style="display: inline-block;">
+                  <%= text_field_tag :medical_date, nil, class: "form-control", id: "select-medical-date", data: { date_format: 'YYYY-MM-DD'} %>
+                  <%= submit_tag t("strings.medical.add"), class: "btn btn-primary"%>
+                </div>
+              <% end %>
+            </div>
+          </p>
+
+
+<%= render partial: 'admin_partials/show/footer', locals: {edit_path: coach_edit_player_path(@player), back_path: :back}%>
+
+
+<%#= link_to 'Edit',  coach_edit_player_path(player) %>
+<%#= link_to 'Back', players_path %>
+
+<script>
+  $(document).on("ready page:load", function(){
+    $("#new-exam").on("click", function(){
+      $('#exam-form').html("<%= escape_javascript render(partial: 'exam_form', locals: {player: @player}) %>");
+      $('#select-date').datetimepicker(
+      {
+        icons: {
+          time: "fa fa-clock-o",
+          date: "fa fa-calendar",
+          up: "fa fa-arrow-up",
+          down: "fa fa-arrow-down",
+          previous: "fa fa-arrow-left",
+          next:  "fa fa-arrow-right"
+        }
+      });
+    });
+
+
+    $('#select-medical-date').datetimepicker(
+    {
+      icons: {
+        time: "fa fa-clock-o",
+        date: "fa fa-calendar",
+        up: "fa fa-arrow-up",
+        down: "fa fa-arrow-down",
+        previous: "fa fa-arrow-left",
+        next:  "fa fa-arrow-right"
+      }
+    });
+  });
+</script>

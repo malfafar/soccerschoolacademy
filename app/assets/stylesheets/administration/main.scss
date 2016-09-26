@@ -1,0 +1,120 @@
+a:hover, a:active, a:focus
+{
+  text-decoration: none;
+}
+
+.form-group
+{
+	font-size: 12px;
+
+	textarea
+	{
+		height: 140px;
+	}
+
+	label
+	{
+		font-size: 12px;
+	}
+
+	input[type="radio"], input[type="checkbox"]
+	{
+		margin: 4px;
+	}
+}
+
+#navigation
+{
+  background-color: rgb(255, 255, 255);
+  z-index: 99;
+  width: 100%;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+.box-tools
+{
+  margin: 20px;
+}
+
+.smaller_font
+{
+	label
+	{
+		font-size: 8.5px !important;
+	}
+}
+
+.checkboxes
+{
+    padding-top: 30px;
+}
+
+.box-body
+{
+	overflow: auto;
+}
+
+.address_style
+{
+	resize: none;
+	max-width: 100%;
+	max-height: 50px;
+}
+
+.divide
+{
+
+	width: 45% !important;
+	display: inline-block !important;
+
+	margin-right: 2% !important;
+}
+
+
+.edit_link
+{
+	padding-left: 5px;
+}
+
+.cal_btn
+{
+	padding: 0px 2px;
+}
+
+.name_btn
+{
+	padding: 0px 2px;
+	margin-top: 2px;
+  font-size: 9px;
+}
+
+.week
+{
+  font-size: 10px;
+}
+
+.room_col
+{
+  min-width: 140px;
+}
+
+.checked_pad
+{
+	margin: 4px 40px 0px 4px !important;
+}
+
+.input-group
+{
+	max-width: 850px;
+}
+
+.box-body
+{
+  overflow-x: hidden;
+}
+
+.box-header > .box-tools
+{
+  top: -17px;
+}

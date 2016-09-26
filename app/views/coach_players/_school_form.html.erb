@@ -1,0 +1,9 @@
+<% if !@player.errors.any? %>
+  <% @player.build_school %>
+<% end %>
+<%= ff.fields_for :school do |fff| %>
+  <div class="form-group">
+    <%= fff.label :name %>
+    <%= fff.text_field :name, class: "form-control" %>
+  </div>
+<% end %>

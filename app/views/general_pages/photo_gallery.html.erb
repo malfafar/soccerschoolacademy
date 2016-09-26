@@ -1,0 +1,40 @@
+
+<div class="bluegallery">
+	<!-- <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+		<div class="slides"></div>
+		<h3 class="titles"></h3>
+		<a class="prev">‹</a>
+		<a class="next">›</a>
+		<a class="close">×</a>
+		<a class="play-pause"></a>
+	</div> -->
+  <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <!--<p class="description"></p>-->
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <!-- <ol class="indicator"></ol> -->
+  </div>
+
+	<div id="links">
+    <% @photos.each do |photo| %>
+      <% if !photo.video %>
+        <%= link_to photo.photo.url(:full), title: photo.title do %>
+          <%= image_tag photo.photo.url(:gallery), class: "gallery_thumb" %>
+        <% end %>
+      <% else %>
+        <%= link_to photo.video_url, title: photo.title, type: "text/html", "data-youtube" => youtube_id(photo.video_url), poster: youtube_preview(photo.video_url) do %>
+          <%= image_tag youtube_preview(photo.video_url), class: "gallery_thumb" %>
+        <% end %>
+      <% end %>
+      <!-- <strong> description </strong>
+      <%#= photo.description %> -->
+    <% end %>
+	</div>
+</div>
+
+
+<%= paginate @photos %>

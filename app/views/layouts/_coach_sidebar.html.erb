@@ -1,0 +1,498 @@
+<section class="sidebar">
+  <!-- Sidebar user panel -->
+  <div class="user-panel">
+    <div class="pull-left image">
+      <span> &nbsp; </span>
+    </div>
+    <div class="pull-left info">
+      <p><%= t("activerecord.models.coach") %></p>
+      <a href="#">
+        <i class="fa fa-circle text-success"></i> Online
+      </a>
+    </div>
+  </div>
+  <!-- sidebar menu: : style can be found in sidebar.less -->
+  <ul class="sidebar-menu">
+    <li class="header"><%= t("strings.sidebar.title.coach_dashboard") %></li>
+    <% if params[:controller]=='team_seasons' && params[:action]=="attendance" %>
+      <li class="active treeview">
+    <% else %>
+      <li class="treeview">
+    <% end %>
+      <a href="#">
+        <i class="fa fa-book"></i> <span><%= t("strings.sidebar.attendance_board") %></span> <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+        <% current_coach.team_seasons.includes(:team, :season).where(season_id: @current_season.id).each do | team_season |%>
+          <% if params[:id].to_i == team_season.id %>
+            <li class="active">
+          <% else %>
+            <li>
+          <% end %>
+            <%= link_to attendance_team_seasons_path(team_season) do %>
+              <i class="fa fa-list"></i>
+                <%= team_season.team.name + " - " + team_season.season.start_year.to_s + "/" + team_season.season.end_year.to_s %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+    <!-- INICIO MENU PLAYERS -->
+    <% if params[:controller]=='coach_players' %>
+      <li class="active treeview">
+    <% else %>
+      <li class="treeview">
+    <% end %>
+      <a href="#">
+        <i class="fa fa-users"></i> <span><%= t("strings.sidebar.title.players") %></span> <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+        <% if params[:action]=='index' %>
+           <li class="active">
+        <% else %>
+           <li>
+        <% end %>
+          <%= link_to coach_index_players_path do %>
+            <i class="fa fa-list"></i>
+              <%= t("strings.sidebar.all.players") %>
+          <% end %>
+        </li>
+        <% if params[:action]=='new' %>
+           <li class="active">
+        <% else %>
+           <li>
+        <% end %>
+          <%= link_to coach_new_player_path do %>
+            <i class="fa fa-plus"></i>
+              <%= t("strings.sidebar.new.players") %>
+          <% end %>
+        </li>
+      </ul>
+    </li>
+    <!-- FINAL MENU PLAYERS -->
+
+    <!-- INICIO MENU GUARDIANS -->
+    <% if params[:controller]=='guardians' %>
+      <li class="active treeview">
+    <% else %>
+      <li class="treeview">
+    <% end %>
+      <a href="#">
+        <i class="fa fa-male"></i> <span><%= t("strings.sidebar.title.guardians") %></span> <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+        <% if params[:action]=='index' %>
+           <li class="active">
+        <% else %>
+           <li>
+        <% end %>
+          <%= link_to guardians_path do %>
+            <i class="fa fa-list"></i>
+              <%= t("strings.sidebar.all.guardians") %>
+          <% end %>
+        </li>
+        <% if params[:action]=='new' %>
+           <li class="active">
+        <% else %>
+           <li>
+        <% end %>
+          <%= link_to new_guardian_path do %>
+            <i class="fa fa-plus"></i>
+              <%= t("strings.sidebar.new.guardians") %>
+          <% end %>
+        </li>
+      </ul>
+    </li>
+    <!-- FINAL MENU GUARDIANS -->
+
+    <!-- INICIO MENU TEAMS -->
+    <% if params[:controller]=='teams' %>
+      <li class="active treeview">
+    <% else %>
+      <li class="treeview">
+    <% end %>
+      <a href="#">
+        <i class="fa fa-shield"></i> <span><%= t("strings.sidebar.title.teams") %></span> <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+        <% if params[:action]=='index' %>
+           <li class="active">
+        <% else %>
+           <li>
+        <% end %>
+          <%= link_to teams_path do %>
+            <i class="fa fa-list"></i>
+              <%= t("strings.sidebar.all.teams") %>
+          <% end %>
+        </li>
+        <% if params[:action]=='new' %>
+           <li class="active">
+        <% else %>
+           <li>
+        <% end %>
+          <%= link_to new_team_path do %>
+            <i class="fa fa-plus"></i>
+              <%= t("strings.sidebar.new.teams") %>
+          <% end %>
+        </li>
+      </ul>
+    </li>
+    <!-- FINAL MENU TEAMS -->
+
+
+    <!-- INICIO MENU TEAMS SEASONS -->
+    <% if params[:controller]=='team_seasons' %>
+      <li class="active treeview">
+    <% else %>
+      <li class="treeview">
+    <% end %>
+      <a href="#">
+        <i class="fa fa-calendar"></i> <span><%= t("strings.sidebar.title.team_seasons") %></span> <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+        <% if params[:action]=='index' %>
+           <li class="active">
+        <% else %>
+           <li>
+        <% end %>
+          <%= link_to team_seasons_path do %>
+            <i class="fa fa-list"></i>
+              <%= t("strings.sidebar.all.team_seasons") %>
+          <% end %>
+        </li>
+        <% if params[:action]=='new' %>
+           <li class="active">
+        <% else %>
+           <li>
+        <% end %>
+          <%= link_to new_team_season_path do %>
+            <i class="fa fa-plus"></i>
+              <%= t("strings.sidebar.new.team_seasons") %>
+          <% end %>
+        </li>
+      </ul>
+    </li>
+    <!-- FINAL MENU TEAM SEASONS -->
+
+
+    <!-- INICIO MENU MATCHES -->
+    <% if params[:controller]=='matches' %>
+      <li class="active treeview">
+    <% else %>
+      <li class="treeview">
+    <% end %>
+      <a href="#">
+        <i class="fa fa-futbol-o"></i> <span><%= t("strings.sidebar.title.matches") %></span> <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+        <% if params[:action]=='index' %>
+           <li class="active">
+        <% else %>
+           <li>
+        <% end %>
+          <%= link_to matches_path do %>
+            <i class="fa fa-list"></i>
+              <%= t("strings.sidebar.all.matches") %>
+          <% end %>
+        </li>
+        <% if params[:action]=='new' %>
+           <li class="active">
+        <% else %>
+           <li>
+        <% end %>
+          <%= link_to new_match_path do %>
+            <i class="fa fa-plus"></i>
+              <%= t("strings.sidebar.new.matches") %>
+          <% end %>
+        </li>
+      </ul>
+    </li>
+    <!-- FINAL MENU MATCHES -->
+
+    <!-- INICIO MENU PRACTICES -->
+    <% if params[:controller]=='practices' %>
+      <li class="active treeview">
+    <% else %>
+      <li class="treeview">
+    <% end %>
+      <a href="#">
+        <i class="fa fa-star"></i> <span><%= t("strings.sidebar.title.practices") %></span> <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+        <% if params[:action]=='index' %>
+           <li class="active">
+        <% else %>
+           <li>
+        <% end %>
+          <%= link_to practices_path do %>
+            <i class="fa fa-list"></i>
+              <%= t("strings.sidebar.all.practices") %>
+          <% end %>
+        </li>
+        <% if params[:action]=='new' %>
+           <li class="active">
+        <% else %>
+           <li>
+        <% end %>
+          <%= link_to new_practice_path do %>
+            <i class="fa fa-plus"></i>
+              <%= t("strings.sidebar.new.practices") %>
+          <% end %>
+        </li>
+      </ul>
+    </li>
+    <!-- FINAL MENU PRACTICES -->
+
+    <!-- INICIO MENU SEASONS -->
+    <% if params[:controller]=='competitions' %>
+      <li class="active treeview">
+    <% else %>
+      <li class="treeview">
+    <% end %>
+      <a href="#">
+        <i class="fa fa-trophy"></i> <span><%= t("strings.sidebar.title.competitions") %></span> <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+        <% if params[:action]=='index' %>
+           <li class="active">
+        <% else %>
+           <li>
+        <% end %>
+          <%= link_to competitions_path do %>
+            <i class="fa fa-list"></i>
+              <%= t("strings.sidebar.all.competitions") %>
+          <% end %>
+        </li>
+        <% if params[:action]=='new' %>
+           <li class="active">
+        <% else %>
+           <li>
+        <% end %>
+          <%= link_to new_competition_path do %>
+            <i class="fa fa-plus"></i>
+              <%= t("strings.sidebar.new.competitions") %>
+          <% end %>
+        </li>
+      </ul>
+    </li>
+    <!-- FINAL MENU SEASONS -->
+
+    <!-- INICIO MENU SEASONS -->
+    <%# if params[:controller]=='seasons' %>
+      <!-- <li class="active treeview"> -->
+    <%# else %>
+      <!-- <li class="treeview"> -->
+    <%# end %>
+      <!-- <a href="#">
+        <i class="fa fa-trophy"></i> <span>Seasons</span> <i class="fa fa-angle-left pull-right"></i>
+      </a> -->
+      <!-- <ul class="treeview-menu"> -->
+        <%# if params[:action]=='index' %>
+           <!-- <li class="active"> -->
+        <%# else %>
+           <!-- <li> -->
+        <%# end %>
+          <%#= link_to seasons_path do %>
+            <!-- <i class="fa fa-list"></i>
+              All Seasons
+          <%# end %>
+        </li> -->
+        <%# if params[:action]=='new' %>
+           <!-- <li class="active"> -->
+        <%# else %>
+           <!-- <li> -->
+        <%# end %>
+          <%#= link_to new_season_path do %>
+            <!-- <i class="fa fa-plus"></i>
+              New Season -->
+          <%# end %>
+        <!-- </li>
+      </ul>
+    </li> -->
+    <!-- FINAL MENU SEASONS -->
+
+    <!-- INICIO MENU NOTICIAS -->
+    <% if params[:controller]=='posts' %>
+      <li class="active treeview">
+    <% else %>
+      <li class="treeview">
+    <% end %>
+      <a href="#">
+        <i class="fa fa-newspaper-o"></i> <span><%= t("strings.sidebar.title.news") %></span> <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+        <% if params[:action]=='index' %>
+           <li class="active">
+        <% else %>
+           <li>
+        <% end %>
+          <%= link_to posts_path do %>
+            <i class="fa fa-list"></i>
+            <%= t("strings.sidebar.all.news") %>
+          <% end %>
+        </li>
+        <% if params[:action]=='new' %>
+           <li class="active">
+        <% else %>
+           <li>
+        <% end %>
+          <%= link_to new_post_path do %>
+            <i class="fa fa-plus"></i>
+            <%= t("strings.sidebar.new.news") %>
+          <% end %>
+        </li>
+      </ul>
+    </li>
+    <!-- FINAL MENU NOTICIAS -->
+
+    <!-- INICIO MENU PHOTOS -->
+    <% if params[:controller]=='photos' %>
+      <li class="active treeview">
+    <% else %>
+      <li class="treeview">
+    <% end %>
+      <a href="#">
+        <i class="fa fa-camera-retro"></i> <span><%= t("strings.sidebar.title.photos") %></span>
+        <i class="fa fa-angle-left pull-right"></i>
+        <span class="label bg-red pull-right"><%= @pending_photos_count %></span>
+      </a>
+      <ul class="treeview-menu">
+        <% if params[:action]=='index' %>
+           <li class="active">
+        <% else %>
+           <li>
+        <% end %>
+          <%= link_to photos_path do %>
+            <i class="fa fa-list"></i>
+            <%= t("strings.sidebar.all.photos") %> </a>
+          <% end %>
+        </li>
+        <% if params[:action]=='new' %>
+           <li class="active">
+        <% else %>
+           <li>
+        <% end %>
+          <%= link_to new_photo_path do %>
+            <i class="fa fa-plus"></i>
+            <%= t("strings.sidebar.new.photos") %>
+          <% end %>
+        </li>
+        <% if params[:action]=='index_pending' %>
+           <li class="active">
+        <% else %>
+           <li>
+        <% end %>
+          <%= link_to index_pending_path do %>
+            <i class="fa fa-spinner"></i> <%= t("strings.sidebar.all.pending_photos") %>
+            <small class="label bg-red" style="margin-left: 13px;"><%= @pending_photos_count %></small>
+          <% end %>
+        </li>
+      </ul>
+    </li>
+    <!-- FINAL MENU PHOTOS -->
+
+    <!-- INICIO MENU SCHOOLS -->
+    <% if params[:controller]=='schools' %>
+      <li class="active treeview">
+    <% else %>
+      <li class="treeview">
+    <% end %>
+      <a href="#">
+        <i class="fa fa-home"></i> <span><%= t("strings.sidebar.title.schools") %></span> <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+        <% if params[:action]=='index' %>
+           <li class="active">
+        <% else %>
+           <li>
+        <% end %>
+          <%= link_to schools_path do %>
+            <i class="fa fa-list"></i>
+            <%= t("strings.sidebar.all.schools") %>
+          <% end %>
+        </li>
+        <% if params[:action]=='new' %>
+           <li class="active">
+        <% else %>
+           <li>
+        <% end %>
+          <%= link_to new_school_path do %>
+            <i class="fa fa-plus"></i>
+            <%= t("strings.sidebar.new.schools") %>
+          <% end %>
+        </li>
+      </ul>
+    </li>
+    <!-- FINAL MENU SCHOOLS -->
+
+    <!-- INICIO MENU DOCUMENTS -->
+    <% if params[:controller]=='documents' %>
+      <li class="active treeview">
+    <% else %>
+      <li class="treeview">
+    <% end %>
+      <a href="#">
+        <i class="fa fa-file-o"></i> <span><%= t("strings.sidebar.title.documents") %></span> <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+        <% if params[:action]=='index' %>
+           <li class="active">
+        <% else %>
+           <li>
+        <% end %>
+          <%= link_to documents_path do %>
+            <i class="fa fa-list"></i>
+            <%= t("strings.sidebar.all.documents") %>
+          <% end %>
+        </li>
+        <% if params[:action]=='new' %>
+           <li class="active">
+        <% else %>
+           <li>
+        <% end %>
+          <%= link_to new_document_path do %>
+            <i class="fa fa-plus"></i>
+            <%= t("strings.sidebar.new.documents") %>
+          <% end %>
+        </li>
+      </ul>
+    </li>
+    <!-- FINAL MENU DOCUMENTS -->
+
+    <!-- INICIO MENU SLIDES -->
+    <% if params[:controller]=='slides' %>
+      <li class="active treeview">
+    <% else %>
+      <li class="treeview">
+    <% end %>
+      <a href="#">
+        <i class="fa fa-picture-o"></i> <span><%= t("strings.sidebar.title.slides") %></span> <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+        <% if params[:action]=='index' %>
+           <li class="active">
+        <% else %>
+           <li>
+        <% end %>
+          <%= link_to slides_path do %>
+            <i class="fa fa-list"></i>
+            <%= t("strings.sidebar.all.slides") %>
+          <% end %>
+        </li>
+        <% if params[:action]=='new' %>
+           <li class="active">
+        <% else %>
+           <li>
+        <% end %>
+          <%= link_to new_slide_path do %>
+            <i class="fa fa-plus"></i>
+            <%= t("strings.sidebar.new.slides") %>
+          <% end %>
+        </li>
+      </ul>
+    </li>
+    <!-- FINAL MENU SLIDES -->
+
+  </ul>
+</section>
+<!-- /.sidebar -->

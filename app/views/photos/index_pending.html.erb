@@ -1,0 +1,44 @@
+
+<%= render partial: 'admin_partials/index/header', locals: {section_title: t("controller."+params[:controller]),
+                                                  section_sub_title:  t("action."+params[:action]),
+                                                  page_title: t("strings.photo.listing"),
+                                                  new_path: nil,
+                                                  new_button_name: "",
+                                                  search_form_path: index_pending_path } %>
+
+<%= render "admin_partials/errors/notices" %>
+
+        <div class="box-body table-responsive no-padding">
+          <div class="table_div">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th><%= t("activerecord.attributes.photo.photo") %></th>
+                <th><%= t("activerecord.attributes.photo.title") %></th>
+                <th><%= t("activerecord.attributes.photo.description") %></th>
+                <th><%= t("activerecord.attributes.photo.approved") %></th>
+                <th><%= t("activerecord.attributes.photo.private") %></th>
+                <th><%= t("activerecord.attributes.photo.match") %></th>
+                <th colspan="3"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @photos.each do |photo| %>
+                <tr>
+                  <td><%= image_tag photo.photo.url(:thumb) %></td>
+                  <td><%= photo.title %></td>
+                  <td><%= photo.description %></td>
+                  <td><%= t photo.approved.to_s %></td>
+                  <td><%= photo.private ? t(photo.private.to_s)  : t("strings.photo.no_info")%></td>
+                  <td><%= photo.match_id ? t("strings.photo.match") : photo.team_season_id ? t("strings.photo.team") : t("strings.photo.general")%>
+                  <%= render partial: 'admin_partials/index/buttons', locals: { object: photo, edit_path: edit_photo_path(photo, oldaction: params[:action]) } %>
+                  <!-- <td><%#= link_to 'Edit', edit_photo_path(photo, oldaction: params[:action]) , class:"btn btn-info" %></td> -->
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          </div>
+        </div><!-- /.box-body -->
+
+<%= render partial: 'admin_partials/index/footer', locals: { paginate_object: @photos} %>

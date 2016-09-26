@@ -1,0 +1,32 @@
+
+
+  <div class="box-body">
+    <%= form_for(@guardian) do |f| %>
+      <%= render partial: 'admin_partials/errors/errors_form', locals: { current_object: @guardian} %>
+
+      <%= f.fields_for :guardian_auth, @guardian_auth do |ff| %>
+        <% if @guardian_auth %>
+          <%= ff.hidden_field :guardian_auth_id, value: @guardian_auth.id %>
+        <% end %>
+
+        <div class="form-group">
+          <%= ff.label :email %>
+          <%= ff.text_field :email, class: "form-control" %>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= f.label :name %><br>
+        <%= f.text_field :name, class: "form-control"%>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :phone %><br>
+        <%= f.text_field :phone, class: "form-control" %>
+      </div>
+
+      <div class="box-footer">
+        <%= f.submit class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>

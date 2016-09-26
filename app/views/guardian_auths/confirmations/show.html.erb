@@ -1,0 +1,48 @@
+<h2>Account Activation</h2>
+
+<%= form_for resource, :as => resource_name, :url => update_guardian_confirmation_path, :html => {:method => 'patch'}, :id => 'activation-form' do |f| %>
+  <%= devise_error_messages! %>
+  <fieldset>
+    <legend>Account Activation</legend>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tempor, nulla porttitor accumsan auctor, elit eros mollis nisl, eget consequat metus arcu et erat. Nulla vel metus massa. Vestibulum tincidunt tristique turpis, eu imperdiet sem varius ut. Nam vitae feugiat tellus. Vivamus leo odio, semper ac enim eget, facilisis commodo urna. Integer dictum tellus a tempor scelerisque. Integer eu augue gravida, elementum nisi nec, posuere tortor. Fusce neque nibh, elementum non eleifend in, porta in lectus. Nulla facilisi. Fusce interdum ornare semper. Suspendisse posuere metus tempor venenatis imperdiet. Nullam nec lorem facilisis, aliquam erat ut, rhoncus magna. Duis at dolor purus. Nullam eu facilisis tellus, porttitor finibus diam. Nulla auctor risus sed turpis laoreet mollis.
+    <br><br>
+    Interdum et malesuada fames ac ante ipsum primis in faucibus. Etiam turpis lacus, tristique sit amet pretium nec, elementum a dolor. Phasellus interdum velit eget maximus luctus. Nulla malesuada convallis malesuada. Quisque ultricies nibh dolor, vitae faucibus augue tincidunt ac. Fusce nisi tellus, maximus pretium molestie id, malesuada non lacus. Praesent sit amet diam ac ante pretium imperdiet. Aenean eu volutpat odio. Pellentesque dolor nisi, finibus quis pharetra in, rutrum nec nisl. Nulla facilisi. In condimentum vulputate rutrum. Nam dapibus ante vitae augue pulvinar elementum. Pellentesque sit amet accumsan nunc. Nullam at euismod justo, vel vehicula mi.
+    <br><br>
+    Curabitur quis iaculis enim. Donec auctor placerat maximus. Nunc aliquet augue lorem. Nunc sed lorem sed lacus condimentum tincidunt. Curabitur consequat cursus sodales. Quisque pellentesque, arcu sed pharetra accumsan, metus diam vestibulum nisi, nec faucibus ex orci ac sem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vestibulum eros eleifend, fermentum dui quis, pharetra risus. Sed tempor sit amet sapien vitae convallis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec mollis quis odio ac viverra. Praesent a efficitur justo. Nulla sit amet dapibus nulla. Ut varius lacus non metus consequat iaculis. Duis vitae leo velit. Sed at eros tincidunt, scelerisque orci et, porta nisi.</p>
+    <br><br>
+    Aceito
+    <%= check_box_tag :accept, 0, false ,class: "accept" %><br>
+
+  <% if @requires_password %>
+      <p>
+        <%= f.label :password,'Choose a Password:' %>
+        <%= f.password_field :password %>
+      </p>
+      <p>
+        <%= f.label :password_confirmation,'Password Confirmation:' %>
+        <%= f.password_field :password_confirmation%>
+      </p>
+  <% end %>
+  <%= hidden_field_tag :confirmation_token,@confirmation_token %>
+  <p><%= f.submit "Activate", {class: "activate", disabled: true}   %></p>
+  <script>
+
+  $(document).on("ready page:load", function(){
+    console.log("OH");
+    console.log($(".accept"));
+    $(".accept").on("change", function(){
+      console.log("HEY");
+      console.log( $(this).is(':checked'));
+      if($(this).is(':checked'))
+      {
+        $(".activate").prop('disabled', false);
+        console.log("Enable");
+      } else {
+        $(".activate").prop('disabled', true);
+        console.log("Disable");
+      }
+    });
+  });
+  </script>
+  </fieldset>
+<% end %>

@@ -1,0 +1,23 @@
+<%= render partial: 'admin_partials/show/header', locals: { section_title:  t("controller."+params[:controller]),
+                                                  section_sub_title:  t("action."+params[:action]),
+                                                  page_title: t("strings.competition.show")  } %>
+
+<%= render "admin_partials/errors/notices" %>
+
+
+          <strong><%= t "activerecord.attributes.competition.nr_teams" %></strong>
+          <p class="text-muted">
+            <%= @competition.nr_teams %>
+          </p>
+
+          <strong><%= t "activerecord.attributes.competition.knockout" %></strong>
+          <p class="text-muted">
+            <%= t @competition.knockout.to_s %>
+          </p>
+
+          <strong><%= t "activerecord.attributes.competition.name" %></strong>
+          <p class="text-muted">
+            <%= @competition.name %>
+          </p>
+
+<%= render partial: 'admin_partials/show/footer', locals: {edit_path: edit_competition_path(@competition), back_path: competitions_path}%>

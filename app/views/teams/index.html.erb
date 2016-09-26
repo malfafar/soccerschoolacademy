@@ -1,0 +1,39 @@
+<%= render partial: 'admin_partials/index/header', locals: { section_title: t("controller."+params[:controller]),
+                                                  section_sub_title: t("action."+params[:action]),
+                                                  page_title: t("strings.team.listing"),
+                                                  new_path: new_team_path,
+                                                  new_button_name: t("strings.team.new"),
+                                                  search_form_path: teams_path } %>
+
+<%= render "admin_partials/errors/notices" %>
+
+        <div class="box-body table-responsive no-padding">
+          <div class="table_div">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th><%= t("activerecord.attributes.team.name") %></th>
+                  <th><%= t("activerecord.attributes.team.description") %></th>
+                  <th><%= t("activerecord.attributes.team.n10") %></th>
+                  <th><%= t("activerecord.attributes.team.level") %></th>
+                  <th></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% @teams.each do |team| %>
+                  <tr>
+                    <td><%= team.name %></td>
+                    <td><%= team.description %></td>
+                    <td><%= t team.n10.to_s %></td>
+                    <td><%= get_level(team.level) %></td>
+                    <%= render partial: 'admin_partials/index/buttons', locals: { object: team, edit_path: edit_team_path(team) } %>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </table>
+        </div>
+        </div><!-- /.box-body -->
+
+<%= render partial: 'admin_partials/index/footer', locals: { paginate_object: @teams} %>

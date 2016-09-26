@@ -1,0 +1,15 @@
+<% if current_object.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(current_object.errors.count, t("strings.admin.errors.error")) %> <%= t("strings.admin.errors.prohibited_save") %>:</h2>
+
+
+    <% current_object.errors.full_messages.each do |message| %>
+      <div class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h4><i class="icon fa fa-ban"></i> <%= t("strings.admin.alert") %></h4>
+        <%= message %>
+      </div>
+    <% end %>
+
+  </div>
+<% end %>

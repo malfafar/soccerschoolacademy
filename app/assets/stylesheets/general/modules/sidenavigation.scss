@@ -1,0 +1,73 @@
+/* SIDE MENU */
+.side_nav
+{
+	position: absolute;
+	display: block;
+	width: 300px;
+	height: 100%;
+	background-color: $side_nav_background;
+	list-style-type: none;
+	padding: 0;
+	margin-top: 0;
+	border-top: solid 8px $side_nav_highlight;
+
+	.team_name
+	{
+		color: $text_light;
+		font-weight: $bold_font;
+		font-size: 20px;
+		background-color: $side_nav_name;
+		text-transform: none !important;
+	}
+
+	li
+	{
+		padding-top: 25px;
+		padding-bottom: 25px;
+		text-transform: uppercase;
+		padding-left: 40px;
+		font-size: 16px;
+		font-weight: $medium_font;
+
+		a, a:visited
+		{
+			color: $text_light;
+		}
+	}
+
+	.side_nav_sub
+	{
+		padding-top: 25px;
+		padding-bottom: 25px;
+		text-transform: uppercase;
+		padding-left: 80px;
+		font-weight: $medium_font;
+		background-color: $side_nav_sub !important;
+		border-bottom: solid 1px $side_nav_sub_separator;
+
+		a, a:visited
+		{
+			color: $text_light;
+		}
+	}
+
+	.side_nav_sub_active
+	{
+		text-decoration: underline;
+	}
+
+	.side_nav_active
+	{
+		border-left: solid 5px $side_nav_highlight;
+		padding-left: 35px;
+	}
+
+	.side_nav_separator
+	{
+		width: 85%;
+		margin-left: 7.5%;
+		border: 1px solid $side_nav_separator;
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+}

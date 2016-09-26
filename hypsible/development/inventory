@@ -1,0 +1,16 @@
+127.0.0.1 ansible_ssh_port=22
+
+[all]
+127.0.0.1
+
+[application]
+127.0.0.1
+
+[vm]
+127.0.0.1
+
+[development]
+127.0.0.1
+
+[postgresql]
+127.0.0.1

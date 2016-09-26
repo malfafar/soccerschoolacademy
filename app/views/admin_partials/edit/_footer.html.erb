@@ -1,0 +1,15 @@
+
+        <% if back_path || object_to_show %>
+          <div class="box-footer">
+            <% if object_to_show %>
+              <%= link_to t("strings.admin.show"), object_to_show %> |
+            <% end %>
+            <% if back_path %>
+              <%= link_to  t("strings.admin.back"), back_path %>
+            <% end %>
+          </div>
+        <% end %>
+
+    </div>
+  </div>
+</section>

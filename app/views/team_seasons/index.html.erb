@@ -1,0 +1,34 @@
+<%= render partial: 'admin_partials/index/header', locals: { section_title:  t("controller."+params[:controller]),
+                                                  section_sub_title:  t("action."+params[:action]),
+                                                  page_title: t("strings.team_season.listing"),
+                                                  new_path: new_team_season_path,
+                                                  new_button_name: t("strings.team_season.new"),
+                                                  search_form_path: team_seasons_path } %>
+
+<%= render "admin_partials/errors/notices" %>
+
+        <div class="box-body table-responsive no-padding">
+          <div class="table_div">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th><%= t("activerecord.attributes.team_season.team_name") %></th>
+                <th><%= t("activerecord.attributes.team_season.season") %></th>
+                <th></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @team_seasons.each do |team_season| %>
+                <tr>
+                  <td><%= team_season.team.name %></td>
+                  <td><%= team_season.season.start_year.to_s + "/" + team_season.season.end_year.to_s %></td>
+                  <%= render partial: 'admin_partials/index/buttons', locals: { object: team_season, edit_path: edit_team_season_path(team_season) } %>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          </div>
+        </div><!-- /.box-body -->
+
+<%= render partial: 'admin_partials/index/footer', locals: { paginate_object: @team_seasons} %>

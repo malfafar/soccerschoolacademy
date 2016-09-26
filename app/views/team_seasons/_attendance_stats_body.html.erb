@@ -1,0 +1,19 @@
+
+<% get_states_options().each do |state| %>
+  <% if state[1] != state_none()  && state[1] < state_called_no_answer() %>
+    <td class="right"><%= stats[""+state[1].to_s]%></td>
+  <% else %>
+    <td></td>
+  <% end %>
+<% end %>
+
+<td><%= stats[:played] %></td>
+<td><%= stats[:goals] %></td>
+<td><%= stats[:penalties] %></td>
+<td><%= stats[:assists] %></td>
+<td><%= stats[:played_minutes] %></td>
+<td><%= stats[:own_goals] %></td>
+<td><%= stats[:yellows] %></td>
+<td><%= stats[:red] %></td>
+<td><%= stats[:stat_late_minutes] %></td>
+<td><%= stats[:pp_late_minutes] %></td>

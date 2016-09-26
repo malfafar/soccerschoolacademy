@@ -1,0 +1,30 @@
+<section class="sidebar">
+
+  <!-- sidebar menu: : style can be found in sidebar.less -->
+  <ul class="sidebar-menu">
+    <% savalue = admin_sidebar_active() %>
+
+    <li class="<%= admin_sidebar_active_to_class(savalue, 0) %>">
+      <%= link_to tips_path do %>
+        <i class="fa fa-futbol-o"></i> <span>Tips</span>
+        <!-- <small class="label pull-right bg-green">new</small> -->
+      <% end %>
+    </li>
+
+    <li class="<%= admin_sidebar_active_to_class(savalue, 1) %>">
+      <%= link_to admin_users_path do %>
+        <i class="fa fa-users"></i> <span>Users</span>
+        <!-- <small class="label pull-right bg-green">new</small> -->
+      <% end %>
+    </li>
+
+    <li class="<%= admin_sidebar_active_to_class(savalue, 2) %>">
+      <%= link_to pricings_path do %>
+        <i class="fa fa-eur"></i> <span>Pricings</span>
+        <!-- <small class="label pull-right bg-green">new</small> -->
+      <% end %>
+    </li>
+
+  </ul>
+</section>
+<!-- /.sidebar -->

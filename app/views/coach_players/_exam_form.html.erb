@@ -1,0 +1,30 @@
+<%= link_to t("strings.close"), "#exam-form", id:"close-exam" %>
+<%= form_for Exam.new do |f| %>
+
+  <%= f.hidden_field :player_id, value: @player.id %>
+  <div class="form-group">
+    <%= f.label :exam_date %>
+    <%#= f.date_select :exam_date,{:start_year => Time.now.year, :end_year => 2014} %>
+    <%= f.text_field :exam_date, class: "form-control", id: "select-date", data: { date_format: 'YYYY-MM-DD'}, required: true  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :weight %>
+    <%= f.text_field :weight, class: "form-control", required: true  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :height %>
+    <%= f.text_field :height, class: "form-control", required: true  %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<script>
+  $("#close-exam").on("click", function(){
+    $('#exam-form').html("");
+  });
+</script>

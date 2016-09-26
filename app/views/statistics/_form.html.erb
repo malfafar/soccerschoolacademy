@@ -1,0 +1,39 @@
+<%= form_for(@statistic) do |f| %>
+  <%= render partial: 'admin_partials/errors/errors_form', locals: { current_object: @statistic} %>
+
+  <div class="field">
+    <%= f.label :yellows %><br>
+    <%= f.number_field :yellows %>
+  </div>
+  <div class="field">
+    <%= f.label :red %><br>
+    <%= f.check_box :red %>
+  </div>
+  <div class="field">
+    <%= f.label :goals %><br>
+    <%= f.number_field :goals %>
+  </div>
+  <div class="field">
+    <%= f.label :own_goals %><br>
+    <%= f.number_field :own_goals %>
+  </div>
+  <div class="field">
+    <%= f.label :state %><br>
+    <%= f.number_field :state %>
+  </div>
+  <div class="field">
+    <%= f.label :called %><br>
+    <%= f.check_box :called %>
+  </div>
+  <div class="field">
+    <%= f.label :player_id %><br>
+    <%= f.number_field :player_id %>
+  </div>
+  <div class="field">
+    <%= f.label :match_id %><br>
+    <%= f.number_field :match_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,21 @@
+---
+rails_env: production
+vm_swap: 4098
+port: 22
+username: deployer
+git_url: git@gitlab.com:HYP/ansible_test.git
+git_branch: railsbox
+server_name: localhost
+letsencrypt_install: "yes"
+letsencrypt_cert_domains:
+  - "ansible.hyp.pt"
+  - "www.ansible.hyp.pt"
+letsencrypt_email: software.hyp@gmail.com
+letsencrypt_cron_hour: 3
+# ssl_certificate_path: /etc/nginx/ssl/{{ server_name }}.crt
+# ssl_certificate_key_path: /etc/nginx/ssl/{{ server_name }}.key
+# Install 1 or more versions of ruby
+# The last ruby listed will be set as the default ruby
+rvm1_rubies:
+  - 'ruby-2.2.4'
+postgresql_version: 9.3

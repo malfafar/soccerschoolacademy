@@ -1,0 +1,54 @@
+<header class="main-header">
+  <!-- Logo -->
+  <a href="index2.html" class="logo">
+    <!-- mini logo for sidebar mini 50x50 pixels -->
+    <!-- <span class="logo-mini"><b>N10</b></span> -->
+    <!-- logo for regular state and mobile devices -->
+    <span class="logo-lg"><b>Global</b>SoccerTips</span>
+  </a>
+  <!-- Header Navbar: style can be found in header.less -->
+  <nav class="navbar navbar-static-top" role="navigation">
+    <!-- Sidebar toggle button-->
+    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+      <span class="sr-only">Toggle navigation</span>
+    </a>
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav">
+
+
+        <!-- User Account: style can be found in dropdown.less -->
+        <li class="dropdown user user-menu">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="hidden-xs">
+              <%= current_admin.email %>
+            </span>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="user-header">
+              <p>
+                <%= current_admin.email %>
+                <small>Member since <%= current_admin.created_at.strftime("%b %y") %>  </small>
+              </p>
+            </li>
+            <!-- Menu Body -->
+
+            <!-- Menu Footer-->
+            <li class="user-footer">
+              <div class="pull-left">
+                <%= link_to edit_admin_registration_path do %>
+                  <span class="btn btn-default btn-flat">Profile</span>
+                <% end %>
+              </div>
+              <div class="pull-right">
+                <%= link_to  destroy_admin_session_path, :method => :delete do %>
+                  <span class="btn btn-default btn-flat">Sign out</span>
+                <% end %>
+              </div>
+            </li>
+          </ul>
+        </li>
+        
+      </ul>
+    </div>
+  </nav>
+</header>

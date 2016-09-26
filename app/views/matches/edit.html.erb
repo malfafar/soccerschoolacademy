@@ -1,0 +1,332 @@
+
+<%= render partial: 'admin_partials/content_header', locals: {section_title: t("controller."+params[:controller]), section_sub_title: t("action."+params[:action])} %>
+
+<!-- Main content -->
+<section class="content">
+    <!-- Header -->
+  <%= form_for(@match) do |f| %>
+
+    <%= render partial: 'admin_partials/errors/errors_form', locals: { current_object: @match} %>
+
+    <div class="box box-default">
+      <div class="box-header with-border">
+        <h3 class="box-title">
+
+            <div class="col-md-4"> <i class="fa fa-futbol-o"></i> <%= t("activerecord.attributes.match.matchday") + " "%> <%= f.number_field :matchday, style: "width: 30px;" %></div>
+            <div class="col-md-3"> <%= t("strings.match.match") + " " + @match.id.to_s %> </div>
+            <div class="col-md-5"> <%= f.text_field :match_date, class: "form-control", id: "select-date", data: { date_format: 'YYYY-MM-DD HH:mm'} %></div>
+
+        </h3>
+      </div>
+
+      <div class="box-body">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+          <%= @match.home_team.team.name %>
+        </div>
+        <div class="col-md-1">
+          -
+        </div>
+        <div class="col-md-2">
+          <%= f.number_field :home_goals, required: true %>
+        </div>
+        <div class="col-md-1">
+          x
+        </div>
+        <div class="col-md-2">
+          <%= f.number_field :away_goals, required: true %>
+        </div>
+        <div class="col-md-1">
+          -
+        </div>
+        <div class="col-md-2">
+          <%= @match.away_team.team.name %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Home Team -->
+      <div class="col-md-12">
+        <div class="box box-default">
+          <div class="box-header with-border">
+            <i class="fa fa-shield"></i>
+            <h3 class="box-title"><%= @match.home_team.team.name %></h3>
+          </div><!-- /.box-header -->
+
+          <div class="box-body">
+
+
+
+            <strong><%= t("strings.match.home_team_players") %></strong>
+            <br>
+            <p>
+              <div class="table_div">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th><%= t("strings.match.player") %></th>
+                    <th><%= t("strings.match.goals") %></th>
+                    <th><%= t("strings.match.penalties") %></th>
+                    <th><%= t("strings.match.assists") %></th>
+                    <th><%= t("strings.match.played_minutes") %> </th>
+                    <th><%= t("strings.match.yellows") %></th>
+                    <th><%= t("strings.match.red") %></th>
+                    <th><%= t("strings.match.own_goals") %> </th>
+                    <th><%= t("strings.match.state") %></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @match.home_team.players.each do |player| %>
+                    <%= f.fields_for :statistics, @match.statistics.where(player_id: player.id) do |ff| %>
+                      <tr>
+                        <%= ff.hidden_field :player_id, value: player.id %>
+                        <%= ff.hidden_field :match_id, value: @match.id %>
+                        <td><%= link_to player.name, coach_show_player_path(player) %></td>
+                        <% if !@match.home_team.coaches.where(id: current_coach.id).blank? %>
+                          <td><%= ff.number_field :goals, class: "form-control", required: true %></td>
+                          <td><%= ff.number_field :penalties, class: "form-control", required: true %></td>
+                          <td><%= ff.number_field :assists, class: "form-control", required: true %></td>
+                          <td><%= ff.number_field :played_minutes, class: "form-control", required: true %></td>
+                          <td><%= ff.check_box :first_yellow %><%= ff.check_box :second_yellow %></td>
+                          <td><%= ff.check_box :red %></td>
+                          <td><%= ff.number_field :own_goals, class: "form-control", required: true%></td>
+                          <td><%= ff.select :state, options_for_select(get_states_options(), @match.statistics.where(player_id: player.id).first.state), {}, {class: "form-control", style: "width: 150px;", required: true} %></td>
+                        <% else %>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        <% end %>
+                      </tr>
+                    <% end %>
+                  <% end %>
+                </tbody>
+              </table>
+              </div>
+            </p>
+
+            <strong><%= t("activerecord.attributes.match.home_observations") %></strong>
+            <p class="form-group">
+              <%= f.text_area :home_observations, class: "form-control" %>
+            </p>
+          </div><!-- /.box-body -->
+        </div><!-- /.box -->
+      </div><!-- /.col -->
+
+      <!-- Away Team -->
+      <div class="col-md-12">
+        <div class="box box-default">
+          <div class="box-header with-border">
+            <i class="fa fa-shield"></i>
+            <h3 class="box-title"><%= @match.away_team.team.name %></h3>
+          </div><!-- /.box-header -->
+
+          <div class="box-body">
+          <strong><%= t("strings.match.away_team_players") %></strong>
+          <br>
+          <p>
+            <div class="table_div">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th><%= t("strings.match.player") %></th>
+                  <th><%= t("strings.match.goals") %></th>
+                  <th><%= t("strings.match.penalties") %></th>
+                  <th><%= t("strings.match.assists") %></th>
+                  <th><%= t("strings.match.played_minutes") %> </th>
+                  <th><%= t("strings.match.yellows") %></th>
+                  <th><%= t("strings.match.red") %></th>
+                  <th><%= t("strings.match.own_goals") %> </th>
+                  <th><%= t("strings.match.state") %></th>
+                </tr>
+              </thead>
+                <tbody>
+                  <% @match.away_team.players.each do |player| %>
+                    <%= f.fields_for :statistics, @match.statistics.where(player_id: player.id) do |ff| %>
+                      <tr>
+                        <%= ff.hidden_field :player_id, value: player.id %>
+                        <%= ff.hidden_field :match_id, value: @match.id %>
+
+                        <td><%= link_to player.name, coach_show_player_path(player) %></td>
+                        <% if !@match.away_team.coaches.where(id: current_coach.id).blank? %>
+                        <td><%= ff.number_field :goals, class: "form-control", required: true %></td>
+                        <td><%= ff.number_field :penalties, class: "form-control", required: true %></td>
+                        <td><%= ff.number_field :assists, class: "form-control", required: true %></td>
+                        <td><%= ff.number_field :played_minutes, class: "form-control", required: true %></td>
+                        <td><%= ff.check_box :first_yellow %><%= ff.check_box :second_yellow %></td>
+                        <td><%= ff.check_box :red %></td>
+                        <td><%= ff.number_field :own_goals, class: "form-control", required: true%></td>
+                        <td><%= ff.select :state, options_for_select(get_states_options(), @match.statistics.where(player_id: player.id).first.state), {}, {class: "form-control", style: "width: 150px;", required: true} %></td>
+                          <% else %>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          <% end %>
+                      </tr>
+                    <% end %>
+                  <% end %>
+                </tbody>
+              </table>
+              </div>
+            </p>
+
+            <strong><%= t("activerecord.attributes.match.away_observations") %></strong>
+            <p class="form-group">
+              <%= f.text_area :away_observations, class: "form-control" %>
+            </p>
+          </div><!-- /.box-body -->
+        </div><!-- /.box -->
+      </div><!-- /.col -->
+      <div class="col-md-12">
+        <div class="box box-default">
+          <div class="box-header with-border">
+            <i class="fa fa-shield"></i>
+            <h3 class="box-title"><%= t("strings.match.calling_message")%></h3>
+          </div><!-- /.box-header -->
+
+          <div class="box-body">
+            <%= f.label t("strings.match.message_to_send") %><br>
+            <small><%= t("strings.match.disclaimer")%></small>
+            <%= text_area_tag :message, @message, class: "form-control" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Observations and Aditional Information -->
+    <div class="box box-info collapsed-box">
+      <div class="box-header with-border">
+        <h3 class="box-title"><%= t("strings.match.additional_info") %></h3>
+        <div class="box-tools pull-right">
+          <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+        </div><!-- /.box-tools -->
+      </div><!-- /.box-header -->
+      <div class="box-body">
+        <strong><%= t("activerecord.attributes.match.delegate1") %></strong>
+        <div class="form-group">
+          <%= f.text_field :delegate1, class: "form-control" %>
+        </div>
+
+        <strong><%= t("activerecord.attributes.match.delegate2") %></strong>
+        <div class="form-group">
+          <%= f.text_field :delegate2, class: "form-control" %>
+        </div>
+
+
+        <strong><%= t("activerecord.attributes.match.referee1") %></strong>
+        <div class="form-group">
+          <%= f.text_field :referee1, class: "form-control" %>
+        </div>
+
+        <strong><%= t("activerecord.attributes.match.referee2") %></strong>
+        <div class="form-group">
+          <%= f.text_field :referee2, class: "form-control"  %>
+        </div>
+
+        <strong><%= t("activerecord.attributes.match.referee3") %></strong>
+        <div class="form-group">
+          <%= f.text_field :referee3, class: "form-control"  %>
+        </div>
+
+
+        <strong><%= t("activerecord.attributes.match.ref_observations") %></strong>
+        <div class="form-group">
+          <%= f.text_area :ref_observations, class: "form-control"  %>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Fotografias -->
+    <div class="box box-info collapsed-box">
+      <div class="box-header with-border">
+        <h3 class="box-title"><%= t("strings.match.photos") %></h3>
+        <div class="box-tools pull-right">
+          <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+        </div><!-- /.box-tools -->
+      </div><!-- /.box-header -->
+      <div class="box-body">
+        <% if params[:action] == "edit" %>
+          <%= f.nested_fields_for :photos do |fff| %>
+            <%= fff.remove_nested_fields_link %>
+
+            <%= fff.hidden_field :approved, value: true %>
+            <%= fff.hidden_field :private, value: true %>
+            <%= fff.hidden_field :match_id, value: @match.id %>
+
+            <div class="form-group">
+              <%= fff.label :title %>
+              <%= fff.text_field :title %><br>
+            </div>
+            <div class="form-group">
+              <%= fff.label :description %>
+              <%= fff.text_area :description %><br>
+            </div>
+
+            <div class="form-group">
+              <%= fff.label :video %><br>
+              <%= fff.check_box :video, {class: "is-video"}  %>
+            </div>
+
+            <div class="photo-image">
+              <div class="form-group">
+                <%= fff.label :photo %><br>
+                <%= fff.file_field :photo, class: "form-control" %>
+              </div>
+            </div>
+
+            <div class="video-url">
+              <div class="form-group">
+                <%= fff.label :video_url %><br>
+                <%= fff.text_field :video_url, class: "form-control" %>
+              </div>
+            </div>
+          <% end %>
+
+        <%= f.add_nested_fields_link :photos %>
+        <% end %>
+      </div>
+    </div>
+
+
+    <div class="box box-default">
+      <div class="box-body">
+        <%= f.submit class: "btn btn-primary"  %>
+      </div>
+    </div>
+  <% end %>
+
+    <div class="box box-default">
+      <div class="box-body">
+        <%= link_to 'Edit', edit_match_path(@match) %> |
+        <%= link_to 'Back', :back %>
+      </div>
+    </div>
+
+</section>
+
+<script type="text/javascript">
+  $(document).on("ready page:load", function () {
+      $('#select-date').datetimepicker(
+      {
+        icons: {
+          time: "fa fa-clock-o",
+          date: "fa fa-calendar",
+          up: "fa fa-arrow-up",
+          down: "fa fa-arrow-down",
+          previous: "fa fa-arrow-left",
+          next:  "fa fa-arrow-right"
+        }
+      });
+  });
+</script>

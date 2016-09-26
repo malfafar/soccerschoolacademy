@@ -1,0 +1,37 @@
+<%= render partial: 'admin_partials/index/header', locals: { section_title: t("controller."+params[:controller]),
+                                                  section_sub_title: t("action."+params[:action]),
+                                                  page_title: t("strings.player.listing"),
+                                                  new_path: nil,
+                                                  new_button_name: "",
+                                                  search_form_path: nil } %>
+
+<%= render "admin_partials/errors/notices" %>
+
+        <div class="box-body table-responsive no-padding">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <td><%= t("activerecord.attributes.player.name") %></th>
+                <td><%= t("activerecord.attributes.player.phone") %></th>
+                <th></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @players.each do |player| %>
+                <tr>
+                  <td><%= player.abrv_name %></td>
+                  <td><%= player.phone %></td>
+                  <td>
+                    <div class="btn-group">
+                      <%= link_to t("strings.admin.show"), guardian_show_player_path(player), class:"btn btn-info" %>
+                      <%= link_to t("strings.admin.edit"), guardian_edit_player_path(player), class:"btn btn-info" %>
+                      </div>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div><!-- /.box-body -->
+
+<%= render partial: 'admin_partials/index/footer', locals: { paginate_object: @players} %>

@@ -1,0 +1,26 @@
+<%= ff.fields_for :team, Team.new do |fff| %>
+  <div class="form-group">
+    <%= fff.label :name %><br>
+    <%= fff.text_field :name, class: "form-control", required: true %>
+  </div>
+  <div class="form-group">
+    <%= fff.label :description %><br>
+    <%= fff.text_area :description, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= fff.label :n10 %><br>
+    <%= fff.check_box :n10 %>
+  </div>
+
+  <div class="form-group">
+    <%= fff.label :level %><br>
+    <% if params[:action] == "edit" %>
+      <%= fff.select :level, options_for_select(get_levels_options, selected:  @team.level.to_s), {}, class: "form-control", required: true %>
+    <% else %>
+      <%= fff.select :level, options_for_select(get_levels_options), {}, class: "form-control", required: true %>
+    <% end %>
+  </div>
+
+
+<% end %>

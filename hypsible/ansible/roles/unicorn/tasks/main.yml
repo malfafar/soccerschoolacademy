@@ -1,0 +1,14 @@
+---
+
+- name: Unicorn | Copy init template to init.d dir
+  template: src=unicorn_init.j2 dest=/etc/init.d/unicorn mode=0751
+  become: true
+
+- name: Enable unicorn service
+  service: name=unicorn enabled=yes
+
+# - name: Ensure unicorn is started
+#   command: sudo update-rc.d unicorn defaults
+
+# - name: Ensure unicorn is started
+#   action: service name=unicorn state=started

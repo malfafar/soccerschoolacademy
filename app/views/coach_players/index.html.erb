@@ -1,0 +1,80 @@
+<%= render partial: 'admin_partials/index/header', locals: { section_title: t("controller."+params[:controller]),
+                                                  section_sub_title: t("action."+params[:action]),
+                                                  page_title: t("strings.player.listing"),
+                                                  new_path: coach_new_player_path,
+                                                  new_button_name: t("strings.player.new"),
+                                                  search_form_path: coach_index_players_path } %>
+
+<%= render "admin_partials/errors/notices" %>
+
+<!-- <section class="content-header">
+  <h1>
+    <%= "Jogadores" %>
+    <small> <%= "Lista" %> </small>
+  </h1>
+</section> -->
+
+<!-- <section class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Player Index</h3>
+          <div class="box-tools">
+            <%= link_to coach_new_player_path, class:"btn btn-info btn-sm pull-right" do %>
+              <i class="fa fa-plus-square-o"></i>  New Player
+            <% end %>
+
+            <%= form_tag(coach_index_players_path, :method => "get", id: "search-form") do %>
+              <div class="input-group">
+                <%= text_field_tag :search, params[:search], placeholder: "Search", class: "form-control input-sm pull-right", style: "width: 150px;" %>
+                <div class="input-group-btn">
+                  <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <%= render "admin_partials/errors/notices" %> -->
+        <div class="box-body table-responsive no-padding">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th><%= t("activerecord.attributes.player.name") %></th>
+                <th><%= t("activerecord.attributes.player.phone") %></th>
+                <th><%= t("activerecord.attributes.player_email.email") %> </th>
+                <th><%= t("activerecord.attributes.player.school") %> </th>
+                <th colspan="2"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @players.each do |player| %>
+                <tr>
+                  <td><%= player.abrv_name %></td>
+                  <td><%= player.phone %></td>
+                  <td><%= player.player_auth ? player.player_auth.email : t("strings.no_email") %></td>
+                  <td><%= player.school ? player.school.name : t("strings.no_school") %></td>
+                  <td>
+                    <div class="btn-group">
+                      <%= link_to t("strings.admin.show") , coach_show_player_path(player), class:"btn btn-info" %>
+                      <%= link_to t("strings.admin.edit"), coach_edit_player_path(player), class:"btn btn-info" %>
+                      <%#= link_to 'Destroy', practice, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-info" %>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div><!-- /.box-body -->
+
+<%= render partial: 'admin_partials/index/footer', locals: { paginate_object: @players} %>
+        <!-- <div class="box-footer clearfix">
+          <ul class="pagination pagination-sm no-margin pull-right">
+            <%= paginate @players, :theme => 'twitter-bootstrap-3' %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->

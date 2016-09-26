@@ -1,0 +1,101 @@
+<%= render partial: 'admin_partials/edit/header', locals: { section_title: t("controller."+params[:controller]),
+                                                  section_sub_title: t("action."+params[:action]),
+                                                  page_title: t("strings.player.edit") } %>
+
+
+        <%#= @player.inspect %>
+        <div class="box-body">
+          <%= form_for @player, url: guardian_update_player_path do |f| %>
+            <%#= devise_error_messages! %>
+            <%# if @player_auth.id %>
+              <%#= f.hidden_field :id, value: @player_auth.id %>
+            <%# end %>
+            <%= render partial: 'admin_partials/errors/errors_form', locals: { current_object: @player} %>
+
+
+
+
+            <%= f.fields_for :player_auth do |ff| %>
+              <div class="form-group">
+                <%= ff.label :email %><br />
+                <%= ff.email_field :email, autofocus: true, class: "form-control" %>
+              </div>
+            <% end %>
+
+
+            <div class="form-group">
+              <%= f.label :name %>
+              <%= f.text_field :name, class: "form-control", required: true %>
+            </div>
+            <div class="form-group">
+              <%= f.label :birthday %>
+              <%= f.text_field :birthday, class: "form-control", id: "select-date", data: { date_format: 'YYYY-MM-DD'} %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :address %>
+              <%= f.text_field :address, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :district %>
+              <%= f.text_field :district, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :zipcode %>
+              <%= f.text_field :zipcode, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :phone %>
+              <%= f.text_field :phone, class: "form-control" %>
+            </div>
+
+            <%= t("strings.player.identication_cards_info") %>
+            <div class="form-group">
+              <%= f.label :id_card_number %>
+              <%= f.text_field :id_card_number, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :vat_id %>
+              <%= f.text_field :vat_id, class: "form-control"  %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :birthplace %>
+              <%= f.text_field :birthplace, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :nationality %>
+              <%= f.country_select :nationality, {priority_countries: ["PT"]} , {class: "form-control"}  %>
+            </div>
+
+            <div class="box-footer">
+              <%= f.submit class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+
+
+<%= render partial: 'admin_partials/edit/footer', locals: {object_to_show: guardian_show_player_path(@player), back_path: guardian_index_players_path}%>
+
+
+
+<script>
+  $(document).on("ready page:load", function () {
+    $('#select-date').datetimepicker(
+    {
+      icons: {
+        time: "fa fa-clock-o",
+        date: "fa fa-calendar",
+        up: "fa fa-arrow-up",
+        down: "fa fa-arrow-down",
+        previous: "fa fa-arrow-left",
+        next:  "fa fa-arrow-right"
+      }
+    });
+  });
+</script>

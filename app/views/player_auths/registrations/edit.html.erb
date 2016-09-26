@@ -1,0 +1,115 @@
+<%= render partial: 'admin_partials/edit/header', locals: { section_title: "player",
+                                                  section_sub_title: params[:action],
+                                                  page_title: "Edit player" } %>
+
+<%= render "admin_partials/errors/notices" %>
+
+        <div class="box-body">
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+            <%= render partial: 'admin_partials/errors/errors_form', locals: { current_object: resource} %>
+            <div class="form-group">
+              <%= f.label :email %><br />
+              <%= f.email_field :email, autofocus: true, class: "form-control", required: true  %>
+            </div>
+            <%= f.fields_for :player, current_player_auth.player do |ff| %>
+
+              <!-- <div class="form-group"> -->
+                <%# if resource.player.avatar.exists? %>
+                  <%#= image_tag resource.player.avatar.url(:thumb) %>
+                <%# end %>
+                <%#= ff.label :avatar %>
+                <%#= ff.file_field :avatar, class: "form-control" %>
+              <!-- </div> -->
+
+              <div class="form-group">
+                <%= ff.label :name %>
+                <%= ff.text_field :name, class: "form-control", required: true  %>
+              </div>
+              <div class="form-group">
+                <%= ff.label :birthday %>
+                <%= ff.text_field :birthday, class: "form-control", id: "select-date", data: { date_format: 'YYYY-MM-DD'} %>
+              </div>
+
+              <div class="form-group">
+                <%= ff.label :address %>
+                <%= ff.text_field :address, class: "form-control"  %>
+              </div>
+
+              <div class="form-group">
+                <%= ff.label :district %>
+                <%= ff.text_field :district, class: "form-control" %>
+              </div>
+
+              <div class="form-group">
+                <%= ff.label :zipcode %>
+                <%= ff.text_field :zipcode, class: "form-control"  %>
+              </div>
+
+              <div class="form-group">
+                <%= ff.label :phone %>
+                <%= ff.text_field :phone, class: "form-control"  %>
+              </div>
+
+              Identification Card Informations
+              <div class="form-group">
+                <%= ff.label :id_card_number %>
+                <%= ff.text_field :id_card_number, class: "form-control"  %>
+              </div>
+
+              <div class="form-group">
+                <%= ff.label :vat_id %>
+                <%= ff.text_field :vat_id, class: "form-control"  %>
+              </div>
+
+              <div class="form-group">
+                <%= ff.label :birthplace %>
+                <%= ff.text_field :birthplace, class: "form-control" %>
+              </div>
+
+              <div class="form-group">
+                <%= ff.label :nationality %>
+                <%= ff.country_select :nationality, {priority_countries: ["PT"]} , {class: "form-control"}  %>
+              </div>
+            <% end %>
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+            <% end %>
+
+            <div class="form-group">
+              <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+              <%= f.password_field :password, autocomplete: "off", class: "form-control"  %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :password_confirmation %><br />
+              <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control"  %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+              <%= f.password_field :current_password, autocomplete: "off", class: "form-control"  %>
+            </div>
+
+            <div class="box-footer">
+              <%= f.submit  "Update",  class: "btn btn-primary"  %>
+            </div>
+          <% end %>
+        </div>
+
+<%= render partial: 'admin_partials/new/footer', locals: {back_path: :back}%>
+
+<script>
+  $(document).on("ready page:load", function () {
+    $('#select-date').datetimepicker(
+    {
+      icons: {
+        time: "fa fa-clock-o",
+        date: "fa fa-calendar",
+        up: "fa fa-arrow-up",
+        down: "fa fa-arrow-down",
+        previous: "fa fa-arrow-left",
+        next:  "fa fa-arrow-right"
+      }
+    });
+  });
+</script>

@@ -1,0 +1,147 @@
+<%= render partial: 'admin_partials/show/header', locals: { section_title: t("controller."+params[:controller]),
+                                                  section_sub_title: t("action."+params[:action]),
+                                                  page_title: t("strings.team_season.show")  } %>
+
+<%= render "admin_partials/errors/notices" %>
+
+          <strong><%= t("activerecord.attributes.team_season.icon") %></strong>
+          <p class="text-muted">
+            <%= image_tag @team_season.icon.url(:thumb) %>
+          </p>
+
+
+          <strong><%= t("activerecord.attributes.team_season.photo") %></strong>
+          <p class="text-muted">
+            <%= image_tag @team_season.photo.url(:medium) %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.team_season.team") %></strong>
+          <p class="text-muted">
+            <%= @team_season.team.name %> - <%= @team_season.season.start_year %>/<%= @team_season.season.end_year %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.team_season.players") %></strong>
+          <br>
+          <p>
+          |
+          <% @team_season.players.each do |player| %>
+            <span><%= link_to player.name, coach_show_player_path(player) %> | </span>
+          <% end %>
+          </p>
+          <%= t("activerecord.attributes.team_season.photos") %>
+          <br>
+          <% @team_season.photos.where(video: false).each do |photo| %>
+            <%= link_to photo.photo.url(:original) do %>
+              <%= image_tag photo.photo.url(:thumb) %>
+            <% end %>
+          <% end %>
+          <br>
+          <%= t("activerecord.attributes.team_season.videos") %>
+          <br>
+          <% @team_season.photos.where(video: true).each do |photo| %>
+            <%= link_to photo.title, photo.video_url %> <br>
+          <% end %>
+                <%# if (params[:action] == "edit" && guardian_auth_signed_in?) || coach_signed_in? %>
+          <br>
+          <div class="box box-info collapsed-box">
+            <div class="box-header with-border">
+              <h3 class="box-title"><%= t("activerecord.attributes.team_season.photos") %></h3>
+              <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+              </div><!-- /.box-tools -->
+            </div><!-- /.box-header -->
+            <div class="box-body"  id="photos-nested">
+              <%= form_for @team_season,  url: guardian_team_season_path(@team_season) do |f| %>
+                <div id="photos-nested">
+                  <%= f.nested_fields_for :photos, Photo.new, class: "nested-photo-form", wrapper_tag: :div, wrapper_options: { class: 'col-md-4' } do |ff| %>
+                    <div class="box box-success box-solid">
+                      <div class="box-header with-border">
+                        <h3 class="box-title"><%= t("activerecord.attributes.team_season.photo") %></h3>
+                        <div class="box-tools pull-right">
+                            <%= ff.remove_nested_fields_link %>
+                        </div>
+                      </div>
+
+
+                    <%= ff.hidden_field :approved, value: false %>
+                    <%= ff.hidden_field :team_season_id, value: @team_season.id %>
+                    <%= ff.hidden_field :level, value: @team_season.team.level %>
+
+                    <div class="box-body">
+                      <div class="row">
+                        <div class="form-group col-md-12">
+                          <%= ff.label :title %>
+                          <%= ff.text_field :title, class: "form-control", required: true %>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                          <%= ff.label :description %>
+                          <%= ff.text_area :description, class: "form-control" %>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                          <%= ff.label :video %><br>
+                          <%= ff.check_box :video, {class: "is-video"}  %>
+                        </div>
+
+                        <div class="photo-image">
+                          <div class="form-group col-md-12">
+                            <%= ff.label :photo %><br>
+                            <%= ff.file_field :photo, class: "form-control" %>
+                          </div>
+                        </div>
+
+                        <div class="video-url">
+                          <!-- <div class="form-group">
+                            <%#= ff.label :video_url %><br>
+                            <%#= ff.text_field :video_url, class: "form-control" %>
+                          </div> -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <% end %>
+                  <%= f.add_nested_fields_link :photos, "Adicionar nova fotografia" %> <br>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            <%# end %>
+          <div class="box-footer">
+            <%= f.submit "Adicionar fotografias",  class: "btn btn-primary" %>
+          </div>
+        <% end %>
+        </div><!-- /.box-body -->
+
+<%= render partial: 'admin_partials/show/footer', locals: {edit_path: nil, back_path: guardian_team_seasons_path}%>
+
+
+<script>
+
+  $(document).on("ready page:load", function(){
+    $("#team_season_photos_attributes_0_video").on("change", function(){
+      if ($(this).is(':checked'))
+      {
+        $(this).parent().parent().find(".photo-image").html("");
+        $(this).parent().parent().find(".video-url").html('<div class="form-group col-md-12"><label for="team_season_photos_attributes_0_video_url">Video URL</label><input class="form-control" type="text" value="" name="team_season[photos_attributes][0][video_url]" id="team_season_photos_attributes_0_video_url"></div>');
+      }else {
+        $(this).parent().parent().find(".photo-image").html('<div class="form-group col-md-12"><label for="team_season_photos_attributes_0_photo">Photo</label><input class="form-control" type="file" name="team_season[photos_attributes][0][photo]" id="team_season_photos_attributes_0_photo"></div>');
+        $(this).parent().parent().find(".video-url").html('');
+      }
+    });
+  });
+
+  $("#photos-nested").on("fields_added.nested_form_fields", function(event, param){
+    var added_field_id = param.added_index;
+    var teamId = $("#team-select").val();
+
+    $(event.target).find(".is-video").on("change", function(){
+      if ($(this).is(':checked'))
+      {
+        $(this).parent().parent().find(".photo-image").html("");
+        $(this).parent().parent().find(".video-url").html('<div class="form-group col-md-12"><label for="team_season_photos_attributes_'+added_field_id+'_video_url">Video URL</label><input class="form-control" type="text" value="" name="team_season[photos_attributes]['+added_field_id+'][video_url]" id="team_season_photos_attributes_'+added_field_id+'_video_url"></div>');
+      }else {
+        $(this).parent().parent().find(".photo-image").html('<div class="form-group col-md-12"><label for="team_season_photos_attributes_'+added_field_id+'_photo">Photo</label><input class="form-control" type="file" name="team_season[photos_attributes]['+added_field_id+'][photo]" id="team_season_photos_attributes_'+added_field_id+'_photo"></div>');
+        $(this).parent().parent().find(".video-url").html('');
+      }
+    });
+  });
+</script>

@@ -1,0 +1,32 @@
+@include sticky-footer(150px);
+// @include sticky-footer(345px);
+
+$susy: (
+columns: 10,  // The number of columns in your grid
+gutters: 0, // The size of a gutter in relation to a single column
+);
+
+/* SIZES */
+$xs: 300px;
+$small: 480px;
+$sm: 616px;
+$medium: 768px;
+$ml: 900px;
+$mn: 1100px;
+$large: 1200px;
+$lxl: 1555px;
+$xl: 1800px;
+
+/* FONTS */
+$thin_font: 100;
+$extra_light_font: 200;
+$light_font: 300;
+$normal_font: 400;
+$medium_font: 500;
+$semi_bold_font: 600;
+$bold_font: 700;
+$extra_bold_font: 800;
+$ultra_bold_font: 900;
+
+/* OTHERS */
+$section_padding: 40px;

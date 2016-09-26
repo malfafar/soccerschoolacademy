@@ -1,0 +1,43 @@
+<%= render partial: 'admin_partials/show/header', locals: { section_title:  t("controller."+params[:controller]),
+                                                  section_sub_title:  t("action."+params[:action]),
+                                                  page_title: t("strings.post.show")  } %>
+
+<%= render "admin_partials/errors/notices" %>
+
+
+          <strong><%= t("activerecord.attributes.post.title") %></strong>
+          <p class="text-muted">
+            <%= @post.title %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.post.created_at") %></strong>
+          <p class="text-muted">
+            <%= @post.created_at.strftime("%d/%m/%Y") %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.post.updated_at") %></strong>
+          <p class="text-muted">
+            <%= @post.updated_at.strftime("%d/%m/%Y") %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.post.author") %></strong>
+          <p class="text-muted">
+            <%= @post.coach ? @post.coach.name : t("strings.post.no_author") %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.post.photo") %></strong>
+            <p class="text-muted">
+              <%= image_tag @post.photo.url(:medium) %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.post.text") %></strong>
+          <p class="text-muted">
+            <%= @post.text %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.post.private") %></strong>
+          <p class="text-muted">
+            <%= t @post.private.to_s %>
+          </p>
+
+<%= render partial: 'admin_partials/show/footer', locals: {edit_path: edit_post_path(@post), back_path: posts_path}%>

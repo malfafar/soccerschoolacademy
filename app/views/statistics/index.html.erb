@@ -1,0 +1,41 @@
+<%= render "admin_partials/errors/notices" %>
+
+<h1>Listing Statistics</h1>
+<div class="table_div">
+<table>
+  <thead>
+    <tr>
+      <th>Yellows</th>
+      <th>Red</th>
+      <th>Goals</th>
+      <th>Own goals</th>
+      <th>State</th>
+      <th>Called</th>
+      <th>Player</th>
+      <th>Match</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @statistics.each do |statistic| %>
+      <tr>
+        <td><%= statistic.yellows %></td>
+        <td><%= statistic.red %></td>
+        <td><%= statistic.goals %></td>
+        <td><%= statistic.own_goals %></td>
+        <td><%= statistic.state %></td>
+        <td><%= statistic.called %></td>
+        <td><%= statistic.player_id %></td>
+        <td><%= statistic.match_id %></td>
+        <td><%= link_to 'Show', statistic %></td>
+        <td><%= link_to 'Edit', edit_statistic_path(statistic) %></td>
+        <td><%= link_to 'Destroy', statistic, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<br>
+
+<%= link_to 'New Statistic', new_statistic_path %>

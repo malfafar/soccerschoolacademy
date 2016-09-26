@@ -1,0 +1,40 @@
+<%= render partial: 'admin_partials/show/header', locals: { section_title: t("controller."+params[:controller]),
+                                                  section_sub_title: t("action."+params[:action]),
+                                                  page_title: t("strings.team_season.show") } %>
+
+<%= render "admin_partials/errors/notices" %>
+
+          <strong><%= t("activerecord.attributes.team_season.photo") %></strong>
+          <p class="text-muted">
+            <%= image_tag @team_season.photo.url(:medium) %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.team_season.team") %></strong>
+          <p class="text-muted">
+            <%= @team_season.team.name %> - <%= @team_season.season.start_year %>/<%= @team_season.season.end_year %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.team_season.players") %></strong>
+          <br>
+          <p>
+          |
+          <% @team_season.players.each do |player| %>
+            <span><%= link_to player.name, coach_show_player_path(player) %> | </span>
+          <% end %>
+          </p>
+
+          <%= t("activerecord.attributes.team_season.photos") %>
+          <br>
+          <% @team_season.photos.where(video: false).each do |photo| %>
+            <%= link_to photo.photo.url(:original) do %>
+              <%= image_tag photo.photo.url(:thumb) %>
+            <% end %>
+          <% end %>
+          <br>
+          <%= t("activerecord.attributes.team_season.videos") %>
+          <br>
+          <% @team_season.photos.where(video: true).each do |photo| %>
+            <%= link_to photo.title, photo.video_url %> <br>
+          <% end %>
+
+<%= render partial: 'admin_partials/show/footer', locals: {edit_path: edit_team_season_path(@team_season), back_path: team_seasons_path}%>

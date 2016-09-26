@@ -1,0 +1,30 @@
+<%= render partial: 'admin_partials/show/header', locals: { section_title: t("controller."+params[:controller]),
+                                                  section_sub_title: t("action."+params[:action]),
+                                                  page_title: t("strings.team.show") } %>
+
+<%= render "admin_partials/errors/notices" %>
+
+
+          <strong><%= t("activerecord.attributes.team.name") %></strong>
+          <p class="text-muted">
+            <%= @team.name %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.team.description") %></strong>
+          <p class="text-muted">
+            <%= @team.description %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.team.n10") %></strong>
+          <p class="text-muted">
+            <%= t @team.n10.to_s %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.team.level") %></strong>
+          <p class="text-muted">
+            <%= get_level(@team.level) %>
+          </p>
+        </div>
+
+
+<%= render partial: 'admin_partials/show/footer', locals: {edit_path: edit_team_path(@team), back_path: teams_path}%>

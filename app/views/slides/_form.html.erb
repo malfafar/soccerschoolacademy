@@ -1,0 +1,19 @@
+  <div class="box-body">
+    <%= form_for(@slide, :html => { multipart: true }) do |f| %>
+      <%= render partial: 'admin_partials/errors/errors_form', locals: { current_object: @slide} %>
+
+
+      <div class="form-group">
+        <%= f.label :title %><br>
+        <%= f.text_field :title, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :photo %><br>
+        <%= f.file_field :photo %>
+      </div>
+      <div class="box-footer">
+        <%= f.submit "Submit",  class: "btn btn-primary"  %>
+      </div>
+    <% end %>
+  </div>
+</div>

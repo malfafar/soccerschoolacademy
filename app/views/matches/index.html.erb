@@ -1,0 +1,42 @@
+<%= render partial: 'admin_partials/index/header', locals: { section_title:  t("controller."+params[:controller]),
+                                                  section_sub_title:  t("action."+params[:action]),
+                                                  page_title: t("strings.match.listing"),
+                                                  new_path: new_match_path,
+                                                  new_button_name: t("strings.match.new"),
+                                                  search_form_path: matches_path } %>
+
+<%= render "admin_partials/errors/notices" %>
+
+        <div class="box-body table-responsive no-padding">
+          <div class="table_div">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th><%= t("activerecord.attributes.match.matchday") %></th>
+                <th><%= t("activerecord.attributes.match.home_team") %> </th>
+                <th><%= t("activerecord.attributes.match.home_goals") %></th>
+                <th><%= t("activerecord.attributes.match.away_goals") %></th>
+                <th><%= t("activerecord.attributes.match.away_team") %> </th>
+                <th><%= t("activerecord.attributes.match.match_date") %></th>
+                <th></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @matches.each do |match| %>
+                <tr>
+                  <td><%= match.matchday %></td>
+                  <td><%= match.home_team.team.name %></td>
+                  <td><%= match.home_goals %></td>
+                  <td><%= match.away_goals %></td>
+                  <td><%= match.away_team.team.name %></td>
+                  <td><%= match.match_date.strftime("%m/%d/%Y - %H:%M") %></td>
+                  <%= render partial: 'admin_partials/index/buttons', locals: { object: match, edit_path: edit_match_path(match) } %>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        </div><!-- /.box-body -->
+
+<%= render partial: 'admin_partials/index/footer', locals: { paginate_object: @matches} %>

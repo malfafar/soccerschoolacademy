@@ -1,0 +1,50 @@
+  <div class="box-body">
+    <%= form_for(@competition) do |f| %>
+      <%= render partial: 'admin_partials/errors/errors_form', locals: { current_object: @competition} %>
+
+      <div class="form-group">
+        <%= f.label :nr_teams %><br>
+        <%= f.number_field :nr_teams, class: "form-control", required: true %>
+      </div>
+      <div class="form-group">
+        <%= f.label :knockout %><br>
+        <%= f.check_box :knockout %>
+      </div>
+      <div class="form-group">
+        <%= f.label :name %><br>
+        <%= f.text_field :name, class: "form-control", required: true %>
+      </div>
+      <div class="form-group">
+        <%= f.label :season %><br>
+        <%= f.select :season_id, Season.all.collect {|p| [ p.start_year.to_s + "/" + p.end_year.to_s, p.id ] }, {selected: @season_id.to_s} , class: "form-control season-select"%>
+      </div>
+      <div class="form-group">
+        <%= f.label :team_season %><br>
+        <% if params[:action] == "new" %>
+          <%= f.collection_select :team_season_ids, TeamSeason.includes(:team, :season).where(season_id: @season_id), :id, lambda{|team_season| team_season.team.name + " " +team_season.season.start_year.to_s + "/" + team_season.season.end_year.to_s}, {}, {:multiple => true, class: "form-control", id: "team-select"} %>
+        <% else %>
+          <%= f.collection_select :team_season_ids, @competition.team_seasons.includes(:team, :season), :id, lambda{|team_season| team_season.team.name + " " +team_season.season.start_year.to_s + "/" + team_season.season.end_year.to_s}, {}, {:multiple => true, class: "form-control", id: "team-select"} %>
+        <% end %>
+      </div>
+      <div class="box-footer">
+        <%= f.submit class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  $(document).on('ready page:load', function(){
+    $( "#team-select" ).select2({
+    });
+  });
+
+  $('.season-select').on('change', function() {
+    console.log("Changed");
+    var selectedSeasonId = $('.season-select').val();
+    $.ajax({
+      url: '/filter_team_seasons/' +selectedSeasonId,
+      type: 'GET'
+    });
+  });
+</script>

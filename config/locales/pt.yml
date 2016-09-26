@@ -1,0 +1,669 @@
+---
+pt:
+  dictionary:
+    email: &email Email
+    name: &name "Nome"
+    password: &password "Password"
+    confirmation: &confirmation "Confirmação"
+  "true": "Sim"
+  "false": "Não"
+  controller:
+    coach_players: "Jogador"
+    player_team_seasons: "Equipa"
+    guardian_auth_team_seasons: "Equipa"
+    guardian_auth_players: "Jogadores"
+    guardians: "Encarregado de Educação"
+    teams: "Equipa"
+    team_seasons: "Equipa / Temporada"
+    matches: "Jogos"
+    practices: "Treinos"
+    competitions: "Competições"
+    posts: "Noticias"
+    photos: "Fotografias"
+    schools: "Escolas"
+    documents: "Documentos"
+    slides: "Slides"
+  action:
+    new: "Criar"
+    create: "Criar"
+    edit: "Editar"
+    update: "Editar"
+    index: "Listar"
+    show: "Mostrar"
+    index_pending: "Listar pendentes"
+    show_documents: "Listar documentos"
+  strings:
+    admin:
+      back: "Voltar"
+      show: "Ver"
+      edit: "Editar"
+      are_you_sure: "Tem a certeza?"
+      notice: "Aviso!"
+      alert: "Alerta!"
+      search: "Pesquisa"
+      destroy: "Apagar"
+      errors:
+        prohibited_save: "impediram o armazenamento das informações"
+        error: "error"
+    add: "Adicionar"
+    close: "Fechar"
+    no_email: "Sem email"
+    no_school: "Sem escola"
+    no_phone: "Sem telefone"
+    player:
+      new: "Novo Jogador"
+      listing: "Listagem de jogadores"
+      edit: "Editar jogador"
+      show: "Mostrar jogador"
+      measurement_exams: "Medições"
+      school_info: "Informações de Escola"
+      guardian_info: "Encarregado de educação"
+      identication_cards_info: "Cartões de identificação"
+    guardian:
+      new: "Novo Encarregado"
+      listing: "Listagem de Encarregado"
+      edit: "Editar Encarregado"
+      show: "Mostrar Encarregado"
+    medical:
+      title: "Exame médico"
+      date: "Data"
+      add: "Adicionar exame"
+      new: "Novo exame"
+    exams:
+      new: "Novas medições"
+    match:
+      home_team_players: "Jogadores da equipa da casa"
+      away_team_players: "Jogadores da equipa visitante"
+      player: "Jogador"
+      goals: "Golos"
+      penalties: "Penalties"
+      assists: "Assitências"
+      played_minutes: "Minutos Jogados"
+      yellows: "Amarelos"
+      red: "Vermelhos"
+      own_goals: "Auto-golos"
+      state: "Estado"
+      additional_info: "Informações adicionais"
+      photos: "Fotografias"
+      match: "Jogo"
+      disclaimer: "A data do jogo e algumas informações de jogador serão adicionadas posteriormente"
+      message_to_send: "Messagem a enviar"
+      calling_message: "Mensagem de convocatória"
+      listing: "Lista de Jogos"
+      new: "Novo Jogo"
+    team:
+      new: "Nova equipa"
+      edit: "Editar equipa"
+      show: "Ver equipa"
+      listing: "Listagem de equipas"
+    team_season:
+      new: "Nova equipa"
+      edit: "Editar equipa"
+      show: "Ver equipa"
+      listing: "Listagem de equipas"
+      player_season: "Jogadores da temporada"
+      photos: "Fotografias"
+      photo: "Fotografia"
+    practice:
+      new: "Novo treino"
+      listing: "Lista de treinos"
+      show: "Mostrar treino"
+      edit: "Editar treino"
+    competition:
+      new: "Nova competição"
+      listing: "Lista de competições"
+      show: "Mostrar competição"
+      edit: "Editar competição"
+    post:
+      new: "Nova noticía"
+      listing: "Lista de noticias"
+      show: "Mostrar noticía"
+      edit: "Editar noticía"
+      no_author: "Sem autor"
+    photo:
+      new: "Nova fotografia"
+      listing: "Lista de fotografias"
+      show: "Mostrar fotografia"
+      edit: "Editar fotografia"
+      match: "Jogo"
+      team: "Equipa"
+      general: "Geral"
+      no_info: "Sem informação"
+    school:
+      new: "Nova escola"
+      listing: "Lista de escolas"
+      show: "Mostrar escola"
+      edit: "Editar escola"
+    slide:
+      new: "Novo slide"
+      listing: "Lista de slides"
+      show: "Mostrar slide"
+      edit: "Editar slide"
+    document:
+      new: "Novo documento"
+      listing: "Lista de documentos"
+      edit: "Editar documento"
+    header:
+      general:
+        toggle_navigation:
+        member_since: "Membro desde "
+    sidebar:
+      title:
+        players: "Jogadores"
+        guardians: "Encarregados"
+        teams: "Equipas"
+        team_seasons: "Equipas/Temporada"
+        matches: "Jogos"
+        practices: "Treinos"
+        competitions: "Competições"
+        news: "Notícias"
+        photos: "Fotografias"
+        schools: "Escolas"
+        slides: "Slides"
+        documents: "Documentos"
+        coach_dashboard: "MENU TREINADOR"
+        guardian_dashboard: "MENU ENCARREGADO"
+        player_dashboard: "MENU JOGADOR"
+      all:
+        players: "Todos os jogadores"
+        guardians: "Todos os encarregados"
+        teams: "Todas as equipas"
+        team_seasons: "Todas as equipas/temporada"
+        matches: "Todos os jogos"
+        practices: "Todos os treinos"
+        competitions: "Todas as competições"
+        news: "Todas as noticias"
+        photos: "Fotografias aceites"
+        slides: "Slides"
+        schools: "Todas as escolas"
+        documents: "Todos os documentos"
+        pending_photos: "Fotografias pendentes"
+      new:
+        players: "Novo jogador"
+        guardians: "Novo encarregado"
+        teams: "Nova equipa"
+        team_seasons: "Nova equipa/temporada"
+        matches: "Novo jogo"
+        practices: "Novo treino"
+        competitions: "Nova competição"
+        news: "Nova noticia"
+        photos: "Nova fotografia"
+        slides: "Novo Slide"
+        schools: "Nova escola"
+        documents: "Novo documento"
+      attendance_board: "Quadro de presenças"
+      hidden_menu:
+        profile: "Perfil"
+        logout: "Logout"
+        extra_option: "Opções Extra"
+        season: "Temporada"
+    mailers:
+      coach:
+        called_without_mail:
+          title: "Os seguintes jogadores não foram avisados acerca da sua convocatória:"
+        devise:
+          confirmation:
+            welcome: "Bem-vindo"
+            phrase: "Podes confirmar o teu e-mail através do link abaixo:"
+            button: "Confirmar a minha conta"
+          reset_password:
+            hello: "Olá"
+            phrase: "Alguém pediu para repor a sua password. Podes prosseguir com este processo através do seguinte link:"
+            button: "Alterar a minha password"
+            warning_1: "Se não tiveres requisitado a alteração de password, por favor ignora este e-mail."
+            warning_2: "A password irá manter-se inalterada até aceder ao link acima e criar uma nova."
+    states:
+      disabled: "Desactivado"
+      none: "Nenhum"
+      present: "Presente"
+      miss: "Falhou"
+      late: "Atrasado"
+      called: "Convocado"
+      called_confirmed: "Convocado e Confirmado"
+      called_denied: "Convocado e Rejeitou"
+    permissions:
+      all_team: "Podem ver toda a equipa"
+      player_only: "Podem apenas ver o seu jogador"
+    levels:
+      no_level: "Sem escalão"
+  active_admin:
+    dashboard: Dashboard
+    dashboard_welcome:
+      call_to_action: Call to action
+      welcome: Bem vindo
+  activerecord:
+   models:
+     admin_user: "Administrador"
+     coach: "Treinador"
+     document: "Documento"
+     exam: "Exame"
+     guardian_auth: "Encarregado"
+     guardian: "Encarregado"
+     match: "Jogo"
+     photo: "Fotografia"
+     slide: "Slide"
+     player_auth: "Jogador"
+     player_practice: "Jogador"
+     player_season: "Jogador"
+     player: "Jogador"
+     post: "Noticias"
+     practice: "Treino"
+     school: "Escola"
+     statistic: "Estatisticas"
+     team: "Equipa"
+     competition: "Competição"
+     season: "Temporada"
+     team_season: "Equipa"
+     sponsor: "Patrocinador"
+   attributes:
+     admin_user:
+       id:
+       email:
+       created_at: "Data de criação"
+     coach:
+       id:
+       email:
+       created_at: "Data de criação"
+       name: *name
+       phone: "Telefone"
+     document:
+       id:
+       level: "Escalão"
+       created_at: "Data de criação"
+       file_file_name: "Nome do ficheiro"
+       file: "Ficheiro"
+     exam:
+       id:
+       exam_date: "Data de exame"
+       height: "Altura"
+       weight: "Peso"
+       created_at: "Data de criação"
+     guardian_auth:
+       id:
+       email: "Email"
+       created_at: "Data de criação"
+     guardian:
+       id:
+       name: *name
+       phone: "Telefone"
+       players: "Jogadores"
+       created_at: "Data de criação"
+       guardian_auth: "Guardian"
+     match:
+       id:
+       matchday: "Jornada"
+       home_goals: "Golos de casa"
+       away_goals: "Golos dos visitantes"
+       delegate1: "Delegado 1"
+       delegate2: "Delegado 2"
+       referee1: "Árbitro 1"
+       referee2: "Árbitro 2"
+       referee3: "Árbitro 3"
+       home_observations: "Observações da equipa da casa"
+       away_observations: "Observações da equipa visitante"
+       ref_observations: "Observações do árbitro"
+       match_date: "Data de jogo"
+       created_at: "Data de criação"
+       home_team: "Equipa da casa"
+       away_team: "Equipa visitante"
+       competition: "Competição"
+     photo:
+       id:
+       description: "Descrição"
+       title: "Titulo"
+       approved: "Aprovada"
+       main: "Principal"
+       private: "Privada"
+       level: "Escalão"
+       video: "Video"
+       video_url: "Link para o Video"
+       match: "Jogo"
+       photo: "Fotografia"
+     player_auth:
+       email: "Player Email"
+       remember_created_at: "Data de criação"
+       created_at: "Data de criação"
+     player_practice:
+       state: "Estado"
+       created_at: "Data de criação"
+       late_minutes: "Minutos de Atraso"
+     player_season:
+       id:
+       shirt_number: "Nº de camisola"
+       shoe_size: "Nº de calçado"
+       shirt_name: "Nome de camisola"
+       created_at: "Data de criação"
+       player_id: "Jogador"
+     player:
+       id:
+       name: *name
+       birthday: "Data de nascimento"
+       address: "Morada"
+       district: "Distrito"
+       zipcode: "Código Postal"
+       phone: "Telefone"
+       birthplace: "Naturalidade"
+       nationality: "Nacionalidade"
+       id_card_number: "Nº de cartão de identificação"
+       vat_id: "Número de Contribuinte"
+       guardian_family_degree: "Grau de parentesco do encarregado de educação"
+       created_at: "Data de criação"
+       avatar_file_name: "Nome do ficheiro"
+       second_parent: "Segundo pai/mãe"
+       medicals: "Exames médicos"
+       school: "Escola"
+       avatar: "Fotografia"
+       guardian: "Encarregado de educação"
+     post:
+       id:
+       title: "Titulo"
+       text: "Texto"
+       private: "Privado"
+       created_at: "Data de criação"
+       updated_at: "Ultima alteração"
+       author: "Autor"
+       level: "Escalão"
+       photo_file_name: "Nome do ficheiro"
+       photo: "Fotografia"
+     practice:
+       id:
+       practice_date: "Data de Treino"
+       observations: "Observações"
+       created_at: "Data de criação"
+       team_season: "Equipa/Temporada"
+     school:
+       id:
+       name: *name
+       created_at: "Data de criação"
+     slide:
+       title: "Titulo"
+       photo: "Fotografia"
+     statistic:
+       id:
+       red: "Vermelhos"
+       goals: "Golos"
+       own_goals: "Auto-golos"
+       state: "Estado"
+       called: "Convocado"
+       created_at: "Data de criação"
+       home: "Casa"
+       first_yellow: "Primeiro amarelo"
+       second_yellow: "Segundo amarelo"
+       played_minutes: "Minutos jogados"
+       penalties: "Penalties"
+       assists: "Assistências"
+       late_minutes: "Minutos de atraso"
+       called_confirmation: "Convocatória confirmada"
+     team:
+       id:
+       name: *name
+       description: "Descrição"
+       created_at: "Data de criação"
+       level: "Escalão"
+       n10: "Equipa n10"
+     competition:
+       id:
+       nr_teams: "Nº de Equipas"
+       knockout: "A eliminar"
+       name: *name
+       created_at: "Data de criação"
+       season: "Temporada"
+       team_season: "Equipas / Temporada"
+     season:
+       id:
+       start_year: "Ano de inicio"
+       end_year: "Ano de fim"
+       created_at: "Data de criação"
+     team_season:
+       id:
+       created_at: "Data de criação"
+       icon_file_name: "Nome do ficheiro"
+       photo_file_name: "Nome do ficheiro"
+       team_name: "Nome da equipa"
+       season: "Temporada"
+       main_photo: "Fotografia principal"
+       coaches: "Treinadores"
+       permission: "O que podem os jogadores e os encarregados de educação ver no quadro de presenças?"
+       icon: "Simbolo"
+       team: "Equipa"
+       photo: "Fotografia de equipa"
+       players: "Jogadores"
+       photos: "Fotografias"
+       videos: "Videos"
+     sponsor:
+       id:
+       homepage: "Principal"
+       name: *name
+       description: "Descrição"
+       url: "Link"
+       created_at: "Data de criação"
+       avatar_file_name: "Nome do ficheiro"
+  date:
+    abbr_day_names:
+    - Dom
+    - Seg
+    - Ter
+    - Qua
+    - Qui
+    - Sex
+    - Sáb
+    abbr_month_names:
+    -
+    - Jan
+    - Fev
+    - Mar
+    - Abr
+    - Mai
+    - Jun
+    - Jul
+    - Ago
+    - Set
+    - Out
+    - Nov
+    - Dez
+    day_names:
+    - Domingo
+    - Segunda-feira
+    - Terça-feira
+    - Quarta-feira
+    - Quinta-feira
+    - Sexta-feira
+    - Sábado
+    formats:
+      default: "%d/%m/%Y"
+      long: "%d de %B de %Y"
+      short: "%d de %B"
+    month_names:
+    -
+    - Janeiro
+    - Fevereiro
+    - Março
+    - Abril
+    - Maio
+    - Junho
+    - Julho
+    - Agosto
+    - Setembro
+    - Outubro
+    - Novembro
+    - Dezembro
+    order:
+    - :day
+    - :month
+    - :year
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: aproximadamente 1 hora
+        other: aproximadamente %{count} horas
+      about_x_months:
+        one: aproximadamente 1 mês
+        other: aproximadamente %{count} meses
+      about_x_years:
+        one: aproximadamente 1 ano
+        other: aproximadamente %{count} anos
+      almost_x_years:
+        one: quase 1 ano
+        other: quase %{count} anos
+      half_a_minute: meio minuto
+      less_than_x_minutes:
+        one: menos de um minuto
+        other: menos de %{count} minutos
+      less_than_x_seconds:
+        one: menos de 1 segundo
+        other: menos de %{count} segundos
+      over_x_years:
+        one: mais de 1 ano
+        other: mais de %{count} anos
+      x_days:
+        one: 1 dia
+        other: "%{count} dias"
+      x_minutes:
+        one: 1 minuto
+        other: "%{count} minutos"
+      x_months:
+        one: 1 mês
+        other: "%{count} meses"
+      x_seconds:
+        one: 1 segundo
+        other: "%{count} segundos"
+    prompts:
+      day: Dia
+      hour: Hora
+      minute: Minuto
+      month: Mês
+      second: Segundo
+      year: Ano
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: tem de ser aceite
+      blank: não pode estar em branco
+      confirmation: não coincide com a confirmação
+      empty: não pode estar vazio
+      equal_to: tem de ser igual a %{count}
+      even: tem de ser par
+      exclusion: é reservado
+      greater_than: tem de ser maior que %{count}
+      greater_than_or_equal_to: tem de ser maior ou igual a %{count}
+      inclusion: não está incluído na lista
+      invalid: é inválido
+      less_than: tem de ser menor que %{count}
+      less_than_or_equal_to: tem de ser menor ou igual a %{count}
+      not_a_number: não é um número
+      not_an_integer: tem de ser um inteiro
+      odd: tem de ser ímpar
+      record_invalid: 'A validação falhou: %{errors}'
+      taken: não está disponível
+      too_long: é demasiado grande (o máximo é de %{count} caracteres)
+      too_short: é demasiado pequeno (o mínimo é de %{count} caracteres)
+      wrong_length: comprimento errado (deve ter %{count} caracteres)
+    template:
+      body: 'Por favor, verifique os seguintes campos:'
+      header:
+        one: 'Não foi possível guardar %{model}: 1 erro'
+        other: 'Não foi possível guardar %{model}: %{count} erros'
+  helpers:
+    select:
+      prompt: Por favor seleccione
+    submit:
+      create: Criar %{model}
+      submit: Gravar %{model}
+      update: Actualizar %{model}
+  number:
+    currency:
+      format:
+        delimiter: " "
+        format: "%n %u"
+        precision: 2
+        separator: ","
+        significant: false
+        strip_insignificant_zeros: false
+        unit: "€"
+    format:
+      delimiter: "."
+      precision: 3
+      separator: ","
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: "%n %u"
+        units:
+          billion:
+            one: mil milhões
+            other: mil milhões
+          million:
+            one: milhão
+            other: milhões
+          quadrillion:
+            one: mil biliões
+            other: mil biliões
+          thousand: mil
+          trillion:
+            one: bilião
+            other: biliões
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 1
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one: Byte
+            other: Bytes
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ''
+    precision:
+      format:
+        delimiter: ''
+  support:
+    array:
+      last_word_connector: ", e"
+      two_words_connector: " e "
+      words_connector: ", "
+  time:
+    am: am
+    formats:
+      default: "%A, %d de %B de %Y, %H:%Mh"
+      long: "%A, %d de %B de %Y, %H:%Mh"
+      short: "%d/%m, %H:%M hs"
+    pm: pm
+  helpers:
+    submit:
+      # This will be the default ones, will take effect if no other
+      # are specifically defined for the models.
+      create: "Criar %{model}"
+      update: "Editar %{model}"
+    page_entries_info:
+      more_pages:
+        display_entries: A apresentar %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> de <b>%{total}</b> no total
+      one_page:
+        display_entries:
+          one: A apresentar <b>1</b> %{entry_name}
+          other: A apresentar <b>all %{count}</b> %{entry_name}
+  views:
+    pagination:
+      first: "<<"
+      last: ">>"
+      next: "Próximo >"
+      previous: "< Anterior"
+      truncate: "..."
+      # Those will however take effect for all the other models below
+      # for which we define a specific label.
+      # user:
+      #   create: "C"
+      #   update: "Mettre à jour mon compte"
+      # product:
+      #   create: "Déposer l'objet"
+      #   update: "Modifier l'objet"
+      # session:
+      #   create: "Se connecter"

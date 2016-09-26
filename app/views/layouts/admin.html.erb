@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>N10 Academia</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+
+    <%= favicon_link_tag 'favicon.ico' %>
+    <%= stylesheet_link_tag    'admin', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'admin', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body class="hold-transition skin-blue sidebar-mini fixed">
+    <div class="wrapper">
+
+      <% if guardian_auth_signed_in? %>
+        <%= render "layouts/guardian_header" %>
+      <% elsif player_auth_signed_in? %>
+        <%= render "layouts/player_header" %>
+      <% elsif coach_signed_in? %>
+        <%= render "layouts/coach_header" %>
+      <% end %>
+      <!-- Left side column. contains the logo and sidebar -->
+      <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+
+        <% if guardian_auth_signed_in? %>
+          <%= render "layouts/guardian_sidebar" %>
+        <% elsif player_auth_signed_in? %>
+          <%= render "layouts/player_sidebar" %>
+        <% elsif coach_signed_in? %>
+          <%= render "layouts/coach_sidebar" %>
+        <% end %>
+      </aside>
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+          <%= yield %>
+      </div><!-- /.content-wrapper -->
+
+      <footer class="main-footer">
+        <strong>Created by: <a href="http://hypsoftware.com">HYP</a></strong>
+      </footer>
+
+      <!-- Control Sidebar -->
+      <aside class="control-sidebar control-sidebar-dark control-sidebar">
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+          <li class="active">
+            <a href="#control-sidebar-home-tab" data-toggle="tab" aria-expanded="false">
+              <i class="fa fa-gears"></i>
+            </a>
+          </li>
+          <!-- <li class="">
+            <a href="#control-sidebar-second-tab" data-toggle="tab" aria-expanded="false">
+              <i class="fa fa-gears"></i>
+            </a>
+          </li> -->
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="control-sidebar-home-tab">
+            <h3 class="control-sidebar-heading"><%= t("strings.sidebar.hidden_menu.extra_option") %></h3>
+            <div class="form-group">
+              <label class="control-sidebar-subheading"><%= t("strings.sidebar.hidden_menu.season") %></label>
+              <p>
+                <%= form_tag change_season_path do %>
+                  <%= select_tag :current_season , options_for_select(Season.all.collect {|p| [ p.start_year.to_s + "/" + p.end_year.to_s, p.id ] }, session.has_key?(:current_season) ? session[:current_season] : Season.last.id.to_s), class: "select-season form-control",  onchange: "this.form.submit();"%>
+                <% end %>
+              </p>
+            </div>
+
+            <% if (params[:controller]=='team_seasons' && params[:action]=="attendance") %>
+              <h3 class="control-sidebar-heading">Attendance Board</h3>
+              <div class="form-group">
+                <%= form_tag attendance_team_seasons_path, method: :get do %>
+                  <label class="control-sidebar-subheading"><%= check_box_tag :matches, @show_matches, @show_matches, class: "pull-right" %> Hide Matches</label>
+                  <label class="control-sidebar-subheading"><%= check_box_tag :practices, @show_practices,  @show_practices, class: "pull-right" %> Hide Practices</label>
+                  <label class="control-sidebar-subheading"><%= check_box_tag :stats, @stat, @stat, class: "pull-right" %> Show Stats</label>
+                  <%= submit_tag "Filter", class: "pull-right btn-xs btn-block btn-default", style: "width: 50px;" %>
+
+                <% end %>
+              </div><!-- /.control-sidebar-menu -->
+            <% elsif params[:controller]=='attendance' && params[:action]="show" %>
+              <h3 class="control-sidebar-heading">Attendance Board</h3>
+              <ul class="control-sidebar-menu">
+                <li>
+                  <%= form_tag show_attendance_path, method: :get do %>
+                    <%= label_tag "Hide Matches" %>
+                    <%= check_box_tag :matches, @show_matches, @show_matches %>
+                    <br>
+                    <%= label_tag "Hide Practices" %>
+                    <%= check_box_tag :practices, @show_practices,  @show_practices %>
+                    <br>
+                    <%= label_tag "Show Stats" %>
+                    <%= check_box_tag :stats, @stat, @stat %>
+                    <br>
+                    <%= submit_tag %>
+                  <% end %>
+                </li>
+              </ul><!-- /.control-sidebar-menu -->
+            <% end %>
+          </div>
+          <!-- <div class="tab-pane" id="control-sidebar-second-tab">
+            <form method="post">
+              <h3 class="control-sidebar-heading">Secondary Tab</h3>
+              <div class="form-group">
+                <label class="control-sidebar-subheading">
+                  Report panel usage
+                </label>
+                <p>
+                  Some information about this general settings option
+                </p>
+              </div>
+            </form>
+          </div>  -->
+        </div>
+      </aside>
+      <!-- Add the sidebar's background. This div must be placed
+           immediately after the control sidebar -->
+      <div class="control-sidebar-bg"></div>
+    </div><!-- ./wrapper -->
+
+    <script>
+      $.widget.bridge('uibutton', $.ui.button);
+    </script>
+
+  </body>
+</html>

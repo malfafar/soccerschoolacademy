@@ -1,0 +1,20 @@
+<% get_states_options().each do |state| %>
+  <% if state[1] > state_presence() && state[1] < state_called_no_answer()%>
+    <th class="th-total"><%= get_state_initial(state[1].to_i)%></th>
+  <% elsif state[1] == state_presence()%>
+    <th class="th-total-first"><%= get_state_initial(state[1].to_i)%></th>
+  <% else %>
+    <th class="th-total"></th>
+  <% end %>
+<% end %>
+
+<th class="th-stat">J</th>
+<th class="th-stat">GM</th>
+<th class="th-stat">GP</th>
+<th class="th-stat">A</th>
+<th class="th-stat">MJ</th>
+<th class="th-stat">AG</th>
+<th class="th-stat">Am</th>
+<th class="th-stat">Ve</th>
+<th class="th-stat">Atraso T</th>
+<th class="th-stat">Atraso J</th>

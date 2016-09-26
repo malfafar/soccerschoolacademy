@@ -1,0 +1,32 @@
+<div class="players_page">
+	<div class="team_banner">
+		<%= image_tag @team_season.photo.url(:banner) %>
+		<h2><%= @team_season.team.name + " - " + @team_season.season.start_year.to_s + "/" + @team_season.season.end_year.to_s %></h2>
+	</div>
+
+
+	<h2>Plantel</h2>
+
+	<% @players.each do |player| %>
+		<%= link_to gp_player_path(params[:id],player) do %>
+			<div class="team_player">
+				<%= image_tag player.avatar.url(:medium) %>
+				<h5 class="player_name"><%= player.abrv_name %></h5>
+			</div>
+		<% end %>
+	<% end %>
+
+</div>
+
+<div class="home_sponsors">
+	<h2>Patrocinadores</h2>
+	<% @sponsors.each do |sponsor| %>
+		<%= link_to sponsor.got_to_url do %>
+			<div class="sponsor_box">
+					<%= image_tag sponsor.avatar.url(:thumb) %><br>
+					<%= sponsor.name %>
+			</div>
+
+		<% end %>
+	<% end %>
+</div>

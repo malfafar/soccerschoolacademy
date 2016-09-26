@@ -1,0 +1,29 @@
+---
+- apt: update_cache=yes cache_valid_time=3600
+
+- name: Install depends
+  apt: name={{ item }} state=present
+  with_items:
+    - bc
+    - git
+
+- name: Git clone client
+  git: repo=https://github.com/letsencrypt/letsencrypt dest={{ letsencrypt_src_directory }} accept_hostkey=yes
+  register: git
+
+- name: Stop nginx
+  service: name=nginx state=stopped
+
+- name: Run letsencrypt script
+  become: yes
+  become_method: sudo
+  command: sh {{ letsencrypt_src_directory }}/letsencrypt-auto certonly --standalone --renew-by-default --agree-tos --text -m {{ letsencrypt_email }} {% for domain in (letsencrypt_cert_domains | union(letsencrypt_cert_domains_alternative)) %}-d {{ domain }} {% endfor %}
+
+- name: Create script to renew the credentials
+  template: src=letsencrypt_cron.sh.j2 dest=/usr/local/sbin/letsencrypt_cron.sh owner=root group=root mode="u=rwx,g=r,o=r"
+
+- name: Add a cron job to renew the credentials
+  cron: name="renew letsencrypt" minute="0" hour="{{ letsencrypt_cron_hour }}" weekday="{{ letsencrypt_cron_weekday }}" job="/usr/local/sbin/letsencrypt_cron.sh"
+
+- name: Start nginx
+  service: name=nginx state=started

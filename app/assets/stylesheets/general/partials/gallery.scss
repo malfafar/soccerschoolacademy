@@ -1,0 +1,52 @@
+/* GALLERY */
+@include breakpoint($xs)
+{
+	.bluegallery
+	{
+		@include span(11 of 18);
+		margin-left: span(2 of 18);
+		display: inline-block;
+		margin-top: 80px;
+		overflow: auto;
+	}
+
+	.gallery_thumb
+	{
+		@include span(15 of 15);
+		margin-bottom: 50px;
+	}
+}
+
+
+@include breakpoint($medium)
+{
+	.bluegallery
+	{
+		@include span(13 of 18);
+		margin-left: span(2 of 18);
+	}
+
+	.gallery_thumb
+	{
+		@include span(14 of 48);
+		margin-right: span(1 of 48);
+		margin-bottom: 50px;
+	}
+}
+
+
+@include breakpoint($ml)
+{
+	.bluegallery
+	{
+		@include span(13 of 18);
+		margin-left: span(2 of 18);
+	}
+
+	.gallery_thumb
+	{
+		@include span(15 of 48);
+		margin-right: span(1 of 48);
+		margin-bottom: 50px;
+	}
+}

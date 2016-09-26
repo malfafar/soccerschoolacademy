@@ -1,0 +1,122 @@
+<%= render partial: 'admin_partials/new/header', locals: { section_title: params[:controller],
+                                                  section_sub_title: params[:action],
+                                                  page_title: "New Match" } %>
+
+        <div class="box-body">
+          <%= form_for(@match) do |f| %>
+            <%= render partial: 'admin_partials/errors/errors_form', locals: { current_object: @match} %>
+
+            <div class="form-group">
+              <%= f.label :matchday %><br>
+              <%= f.number_field :matchday, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :competition %><br>
+              <%= f.select :competition_id, Competition.where(season_id: @season).collect {|c| [ c.name, c.id ]}, {}, {class: "form-control", id: "select-away"} %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :match_date %><br>
+              <%= f.text_field :match_date, class: "form-control", id: "select-date", data: { date_format: 'YYYY-MM-DD HH:mm'}, required: true %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :home_team %><br>
+              <%= f.select :home_team_id , [["Select a Team", nil],["New team", -1]] + TeamSeason.includes(:team, :season).where(season_id: @season.id).collect {|p| [ p.team.name + " " + p.season.start_year.to_s + "/" + p.season.end_year.to_s, p.id ] }, {}, {class: "form-control", id: "select-home"} %>
+            </div>
+
+            <div class="home-new">
+            </div>
+
+            <div class="form-group">
+              <%= f.label :away_team %><br>
+              <%= f.select :away_team_id , [["Select a Team", nil],["New team", -1]] + TeamSeason.includes(:team, :season).where(season_id: @season.id).collect {|p| [ p.team.name + " " + p.season.start_year.to_s + "/" + p.season.end_year.to_s, p.id ] }, {}, {class: "form-control", id: "select-away"} %>
+            </div>
+
+            <div class="away-new">
+            </div>
+
+            <div class="form-group">
+              <%= f.label :delegate1 %><br>
+              <%= f.text_field :delegate1, class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :delegate2 %><br>
+              <%= f.text_field :delegate2, class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :referee1 %><br>
+              <%= f.text_field :referee1, class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :referee2 %><br>
+              <%= f.text_field :referee2, class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :referee3 %><br>
+              <%= f.text_field :referee3, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :home_observations %><br>
+              <%= f.text_area :home_observations, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :away_observations %><br>
+              <%= f.text_area :away_observations, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :ref_observations %><br>
+              <%= f.text_area :ref_observations, class: "form-control" %>
+            </div>
+
+            <div class="actions">
+              <%= f.submit class: "btn btn-primary" %>
+            </div>
+            <script>
+              // Script para adicao de menu para adicionar nova team Season
+              // tem de ser dentro do form para passar o f.
+              $("#select-home").on('change', function() {
+                if ($(this ).val() == -1){
+                  $(".home-new").html("<%= escape_javascript render partial: 'new_home_team_season', locals: {f: f} %>");
+                }
+                else {
+                  $(".home-new").html("");
+                };
+
+              });
+
+              $("#select-away").on('change', function() {
+                if ($(this).val() == -1){
+                  $(".away-new").html("<%= escape_javascript render partial: 'new_away_team_season', locals: {f: f} %>");
+                }
+                else {
+                  $(".away-new").html("");
+                };
+
+              });
+            </script>
+          <% end %>
+        </div>
+<%= render partial: 'admin_partials/new/footer', locals: {back_path: matches_path}%>
+
+
+
+<script type="text/javascript">
+  $(document).on("ready page:load", function () {
+      $('#select-date').datetimepicker(
+      {
+        icons: {
+          time: "fa fa-clock-o",
+          date: "fa fa-calendar",
+          up: "fa fa-arrow-up",
+          down: "fa fa-arrow-down",
+          previous: "fa fa-arrow-left",
+          next:  "fa fa-arrow-right"
+        }
+      });
+  });
+</script>

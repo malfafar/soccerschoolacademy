@@ -1,0 +1,211 @@
+  <div class="box-body">
+    <%= form_for(@team_season) do |f| %>
+      <%= render partial: 'admin_partials/errors/errors_form', locals: { current_object: @team_season} %>
+
+      <div class="form-group">
+        <%= f.label :team %><br>
+        <%= f.select :team_id, Team.all.collect {|p| [ p.name, p.id ] }, {}, class:"form-control", id: "team-select", required: true %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :icon %><br>
+        <%= f.file_field :icon, class:"form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :main_photo %><br>
+        <%= f.file_field :photo, class:"form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :permission %><br>
+        <%= f.select :permission, options_for_select(get_permission_types()) , {}, class:"form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :season %><br>
+        <%= f.select :season_id, Season.all.collect {|p| [ p.start_year.to_s + "/" + p.end_year.to_s, p.id ] }, {}, class:"form-control", required: true%>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :coaches %><br>
+        <%= f.collection_select :coach_ids, Coach.all, :id, :name, {:include_blank => "No coach"}, {:multiple => true,class:"form-control", id:"coach-select"}  %>
+      </div>
+      <%#= f.add_nested_fields_link :player_seasons %>
+      <div class="box box-info collapsed-box">
+        <div class="box-header with-border">
+          <h3 class="box-title"><%= t("strings.team_season.player_season")%></h3>
+          <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+          </div><!-- /.box-tools -->
+        </div><!-- /.box-header -->
+        <div class="box-body">
+          <%= f.nested_fields_for :player_seasons, wrapper_tag: :div, wrapper_options: { class: 'col-md-4' } do |ff| %>
+            <% index = f.object.player_seasons.index(ff.object) %>
+            <div class="box box-success box-solid">
+              <div class="box-header with-border">
+                <h3 class="box-title"><%= index ? t("activerecord.models.player") + " " + (index.to_i + 1).to_s : t("strings.player.new") %></h3>
+                <div class="box-tools pull-right">
+                  <%= ff.remove_nested_fields_link 'x', class: 'btn btn-box-tool', role: 'button', "data-widget" => "remove" %>
+                </div>
+                <!-- /.box-tools -->
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <div class="row">
+                  <div class="form-group col-md-12">
+                    <%= ff.label :player_id %><br>
+                    <%= ff.select :player_id, Player.all.collect {|p| [ p.name, p.id ] }, {}, class:"form-control"%>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <%= ff.label :shirt_name %><br>
+                    <%= ff.text_field :shirt_name, class:"form-control" %>
+                  </div>
+
+                  <div class="form-group col-md-3">
+                    <%= ff.label :shirt_number %><br>
+                    <%= ff.number_field :shirt_number, class:"form-control" %>
+                  </div>
+
+                  <div class="form-group col-md-3">
+                    <%= ff.label :shoe_size %><br>
+                    <%= ff.number_field :shoe_size, class:"form-control" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <%= f.add_nested_fields_link :player_seasons%>
+        </div>
+      </div>
+                <!-- /.box-body -->
+
+
+
+      <%# if (params[:action] == "edit" && guardian_auth_signed_in?) || coach_signed_in? %>
+        <div class="box box-info collapsed-box">
+          <div class="box-header with-border">
+            <h3 class="box-title"><%= t("strings.team_season.photos")%></h3>
+            <div class="box-tools pull-right">
+              <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+            </div><!-- /.box-tools -->
+          </div><!-- /.box-header -->
+          <div class="box-body"  id="photos-nested">
+            <%= f.nested_fields_for :photos, class: "nested-photo-form", wrapper_tag: :div, wrapper_options: { class: 'col-md-4' } do |fff| %>
+              <div class="box box-success box-solid">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><%= t("strings.team_season.photo") %></h3>
+                  <div class="box-tools pull-right">
+                    <%= fff.remove_nested_fields_link %>
+                  </div>
+                    <!-- /.box-tools -->
+                </div>
+                  <!-- /.box-header -->
+
+                    <%= fff.hidden_field :approved, value: true %>
+                    <%= fff.hidden_field :private, value: true %>
+                    <%= fff.hidden_field :team_season_id, value: @team_season.id %>
+
+                    <% if params[:action] == "edit" %>
+                      <%= fff.hidden_field :level, value: @team_season.team.level %>
+                    <% else %>
+                      <%= fff.hidden_field :level, value: "0", class: "team-level" %>
+                    <% end %>
+
+              <div class="box-body">
+                <div class="row">
+                  <div class="form-group col-md-12">
+                    <p class="team-level-name"></p>
+                  </div>
+                    <% if fff.object.photo.exists? %>
+                      <div class="form-group  col-md-12">
+                        <%= image_tag fff.object.photo.url(:thumb) %>
+                      </div>
+                    <% end %>
+
+                    <div class="form-group  col-md-12">
+                      <%= fff.label :video %><br>
+                      <%= fff.check_box :video, {class: "is-video"}  %>
+                    </div>
+
+                    <div class="photo-image">
+                      <div class="form-group col-md-12">
+                        <%= fff.label :photo %>
+                        <%= fff.file_field :photo, class: "form-control" %>
+                      </div>
+                    </div>
+
+                    <div class="video-url">
+                      <!-- <div class="form-group col-md-12"> -->
+                        <%#= fff.label :video_url %>
+                        <%#= fff.text_field :video_url, class: "form-control" %>
+                      <!-- </div> -->
+                    </div>
+
+                    <div class="form-group col-md-12">
+                      <%= fff.label :title %>
+                      <%= fff.text_field :title, class:"form-control"  %><br>
+                    </div>
+                    <div class="form-group col-md-12">
+                      <%= fff.label :description %>
+                      <%= fff.text_area :description, class:"form-control"  %><br>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+            <%= f.add_nested_fields_link :photos %>
+          </div><!-- /.box-body -->
+        </div><!-- /.box -->
+      <%# end %>
+    <div class="box-footer">
+      <%= f.submit class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
+
+
+<script>
+  $(document).on('ready page:load', function(){
+    $( "#coach-select" ).select2({});
+  });
+
+  $( "#team-select" ).on("change", function() {
+    var teamId = $(this).val();
+    $.ajax({
+      url: '/get_team_level/' +teamId,
+      type: 'GET'
+    });
+  });
+
+  $("#photos-nested").on("fields_added.nested_form_fields", function(event, param){
+
+    var added_field_id = param.added_index;
+
+    var teamId = $("#team-select").val();
+
+    $(event.target).find(".is-video").on("change", function(){
+      if ($(this).is(':checked'))
+      {
+
+        $(this).parent().parent().find(".photo-image").html("");
+        $(this).parent().parent().find(".video-url").html('<div class="form-group col-md-12"><label for="team_season_photos_attributes_'+added_field_id+'_video_url">Video URL</label><input class="form-control" type="text" value="" name="team_season[photos_attributes]['+added_field_id+'][video_url]" id="team_season_photos_attributes_'+added_field_id+'_video_url"></div>');
+      }else {
+        $(this).parent().parent().find(".photo-image").html('<div class="form-group col-md-12"><label for="team_season_photos_attributes_'+added_field_id+'_photo">Photo</label><input class="form-control" type="file" name="team_season[photos_attributes]['+added_field_id+'][photo]" id="team_season_photos_attributes_'+added_field_id+'_photo"></div>');
+        $(this).parent().parent().find(".video-url").html('');
+
+      }
+    });
+
+    if (teamId != ''){
+      $.ajax({
+        url: '/get_team_level/' +teamId,
+        type: 'GET'
+      });
+    };
+  });
+
+
+</script>

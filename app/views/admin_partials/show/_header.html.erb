@@ -1,0 +1,11 @@
+<%= render partial: 'admin_partials/content_header', locals: {section_title: section_title, section_sub_title: section_sub_title} %>
+
+<section class="content">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box <%= box_header_class %>">
+        <div class="box-header with-border">
+          <h3 class="box-title"><%= page_title.titleize %></h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">

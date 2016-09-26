@@ -1,0 +1,20 @@
+<%= render partial: 'admin_partials/index/header', locals: { section_title:  t("controller."+params[:controller]),
+                                                  section_sub_title:  t("action."+params[:action]),
+                                                  page_title: t("strings.document.listing"),
+                                                  new_path: nil,
+                                                  new_button_name: "",
+                                                  search_form_path: nil } %>
+
+<%= render "admin_partials/errors/notices" %>
+
+        <div class="box-body table-responsive no-padding">
+          <% current_level = -2 %>
+          <% @documents.each do |document| %>
+            <% if document.level != current_level %>
+              <strong><%= get_level(document.level) %><br>
+            <% end %>
+            <%= link_to document.file_file_name, document.file.url(:original) %><br>
+          <% end %>
+        </div><!-- /.box-body -->
+
+<%= render partial: 'admin_partials/index/footer', locals: { paginate_object: @documents} %>

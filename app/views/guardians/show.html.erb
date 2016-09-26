@@ -1,0 +1,34 @@
+<%= render partial: 'admin_partials/show/header', locals: { section_title: t("controller."+params[:controller]),
+                                                  section_sub_title: t("action."+params[:action]),
+                                                  page_title: t("strings.guardian.show")} %>
+
+<%= render "admin_partials/errors/notices" %>
+
+
+          <% if @guardian.guardian_auth %>
+            <strong> <%= t("activerecord.attributes.guardian_auth.email") %></strong>
+            <p class="text-muted">
+              <%= @guardian.guardian_auth.email %>
+            </p>
+          <% end %>
+
+          <strong><%= t("activerecord.attributes.guardian.name") %></strong>
+          <p class="text-muted">
+            <%= @guardian.name %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.guardian.phone") %></strong>
+          <p class="text-muted">
+            <%= @guardian.phone %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.guardian.players") %></strong>
+          <br>
+          <p>
+          |
+          <% @guardian.players.each do |player| %>
+            <span><%= link_to player.name, coach_show_player_path(player) %> | </span>
+          <% end %>
+          </p>
+
+<%= render partial: 'admin_partials/show/footer', locals: {edit_path: edit_guardian_path(@guardian), back_path: :back}%>

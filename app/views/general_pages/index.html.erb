@@ -1,0 +1,54 @@
+<div class="index">
+	<div class="owl_content">
+		<div class="min_width_full center">
+			<%= image_tag("mascote.png", :class => "image_over_slider") %>
+		</div>
+		<h1 class="center header_text main_slider_text">Bem vindo à academia N10!</h1>
+		<h3 class="center header_text sub_slider_text">Escalões dos 4 aos 13.</h3>
+
+	</div>
+	<% if !@slides.any? %>
+		<div class="owl-carousel">
+		  <div> <%= image_tag("home1.jpg", :class => "home_image") %> </div>
+		  <div> <%= image_tag("home2.jpg", :class => "home_image") %> </div>
+		  <div> <%= image_tag("home3.jpg", :class => "home_image") %> </div>
+		  <div> <%= image_tag("home4.jpg", :class => "home_image") %> </div>
+		</div>
+	<% else %>
+		<div class="owl-carousel">
+			<% @slides.each do |slide| %>
+				<div> <%= image_tag slide.photo.url(:slider), class: "home_image" %> </div>
+			<% end %>
+		</div>
+	<% end %>
+	<div class="home_news">
+		<h2>Últimas notícias</h2>
+		<% @posts.each do |post| %>
+			<%= link_to show_post_path(post) do %>
+				<div class="news_thumb">
+					<%= image_tag post.photo.url(:small), class: "news_image_thumb"  %>
+					<div class="news_post_thumb">
+						<h4><%= post.title %></h4>
+						<h5>Autor: <%= post.coach ? post.coach.name : "No author" %></h5>
+						<h5>Data: <%= post.updated_at.strftime("%d/%m/%Y") %></h5>
+						<p><%= truncate(post.text, length: 180) %></p>
+					</div>
+				</div>
+			<% end %>
+		<% end %>
+	</div>
+
+
+	<div class="home_sponsors">
+		<h2>Patrocinadores</h2>
+		<% @sponsors.each do |sponsor| %>
+			<%= link_to sponsor.got_to_url do %>
+				<div class="sponsor_box">
+						<%= image_tag sponsor.avatar.url(:thumb) %><br>
+						<%= sponsor.name %>
+				</div>
+
+			<% end %>
+		<% end %>
+	</div>
+</div>

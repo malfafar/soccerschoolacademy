@@ -1,0 +1,11 @@
+<div class="teams">
+  <h2>As nossas equipas</h2>
+  <% @team_seasons.each do |team_season| %>
+    <div class="single_team">
+      <%= link_to team_players_path(team_season) do %>
+        <%= image_tag team_season.photo.url(:medium), class: "team_image" %>
+        <h5 class="team_name"><%= team_season.team.name+" - "+team_season.season.start_year.to_s+"/"+team_season.season.end_year.to_s %></h5>
+        <% end %>
+    </div>
+  <% end %>
+</div>

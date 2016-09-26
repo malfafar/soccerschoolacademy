@@ -1,0 +1,45 @@
+<div style="font-family: 'Open Sans', sans-serif; width: 800px; padding: 20px 40px;">
+
+  <div style="padding: 30px 0px;background-color: #212228;max-width: 860px;text-align: center;">
+    <%= link_to root_path, 'data-no-turbolink' => true do %>
+      <%= image_tag("logo-mail.png") %>
+    <% end %>
+  </div>
+
+  <p style="font-family: 'Open Sans', sans-serif; font-weight: 600;">Hi there, <%= @player.guardian.name ? @player.guardian.name : @player.guardian.guardian_auth.email %>.</p>
+  <br>
+  <p>O jogador <%= @player.name ? @player.name : @player.player_auth.email %> <%= @message + " " + @match.match_date.to_s %></p>
+
+  <div style="margin-top:30px;">
+        <div style="border: none;
+          background-color: #FF8502;
+          border-radius: 4px;
+          color: #fff;
+          font-weight: 600;
+          text-transform: uppercase;
+          text-align: center;
+          cursor: pointer;
+          display: inline-block;
+          overflow: auto;
+          font-size: 14px;
+          padding: 8px 20px 8px 20px;
+          font-family: 'Work Sans', sans-serif;">
+          <%= link_to "confirm", guardian_confirm_call_url(id: @player.id, m_id: @match.id), {:style=>'color:#FFFFFF; text-decoration:none;'} %>
+        </div>
+        <div style="border: none;
+            background-color: #212228;
+            border-radius: 4px;
+            color: #fff;
+            font-weight: 600;
+            text-transform: uppercase;
+            text-align: center;
+            cursor: pointer;
+            display: inline-block;
+            overflow: auto;
+            font-size: 14px;
+            padding: 8px 20px 8px 20px;
+            font-family: 'Work Sans', sans-serif;">
+            <%= link_to "deny", guardian_deny_call_url(id: @player.id, m_id: @match.id), {:style=>'color:#FFFFFF; text-decoration:none;'} %>
+        </div>
+  </div>
+</div>

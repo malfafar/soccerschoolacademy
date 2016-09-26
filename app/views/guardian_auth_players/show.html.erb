@@ -1,0 +1,103 @@
+<%= render partial: 'admin_partials/show/header', locals: { section_title: t("controller."+params[:controller]),
+                                                  section_sub_title: t("action."+params[:action]),
+                                                  page_title: t("strings.player.show") } %>
+
+<%= render "admin_partials/errors/notices" %>
+
+          <% if @player.player_auth %>
+            <strong>Email:</strong>
+            <p class="text-muted">
+              <%= @player.player_auth.email %>
+            </p>
+          <% end %>
+
+          <strong>Fotografia:</strong>
+          <p class="text-muted">
+            <%= image_tag @player.avatar.url(:thumb) %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.player.name") %></strong>
+          <p class="text-muted">
+            <%= @player.name %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.player.birthday") %></strong>
+          <p class="text-muted">
+            <%= @player.birthday %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.player.address")  %></strong>
+          <p class="text-muted">
+            <%= @player.address %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.player.district")  %></strong>
+          <p class="text-muted">
+            <%= @player.district %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.player.zipcode")  %></strong>
+          <p class="text-muted">
+            <%= @player.zipcode %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.player.phone")  %></strong>
+          <p class="text-muted">
+            <%= @player.phone %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.player.school")  %></strong>
+          <p class="text-muted">
+            <%= @player.school ? @player.school.name : "No School" %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.player.birthplace")  %></strong>
+          <p class="text-muted">
+            <%= @player.birthplace %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.player.nationality")  %></strong>
+          <p class="text-muted">
+            <%= @player.nationality %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.player.id_card_number")  %></strong>
+          <p class="text-muted">
+            <%= @player.id_card_number %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.player.vat_id")  %></strong>
+          <p class="text-muted">
+            <%= @player.vat_id %>
+          </p>
+
+
+          <div class="box-header">
+            <h3 class="box-title"><%= t("strings.player.measurement_exams") %></h3>
+            <div class="box-tools">
+            </div>
+          </div><!-- /.box-header -->
+          <div class="box-body table-responsive no-padding">
+            <div class="table_div">
+            <table class="table table-hover">
+              <tr>
+                <th><%= t("activerecord.attributes.exam.id") %></th>
+                <th><%= t("activerecord.attributes.exam.exam_date") %></th>
+                <th><%= t("activerecord.attributes.exam.weight") %></th>
+                <th><%= t("activerecord.attributes.exam.height") %></th>
+              </tr>
+              <% @player.exams.each do |exam| %>
+                <tr>
+                  <td><%= exam.id %></td>
+                  <td><%= exam.exam_date %></td>
+                  <td><%= exam.weight %></td>
+                  <td><%= exam.height %></td>
+                </tr>
+              <% end %>
+            </table>
+          </div>
+          </div><!-- /.box-body -->
+
+          <div id="exam-form"></div>
+
+<%= render partial: 'admin_partials/show/footer', locals: {edit_path: guardian_edit_player_path(@player), back_path: :back}%>

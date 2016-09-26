@@ -1,0 +1,9 @@
+$("#statistic-state-<%= @statistic.id %>").val("<%= get_state_initial(@statistic.state) %>");
+$("#statistic-state-<%= @statistic.id %>").css("background-color", "<%= get_state_colors(@statistic.state) %>");
+
+<% if @statistic.state == 3 %>
+  $('.late-form').html("<%= escape_javascript render partial: 'late_modal', locals: {s: @statistic} %>")
+  $('#late-modal').modal()
+<% else %>
+  $('.late-form').html("")
+<% end %>

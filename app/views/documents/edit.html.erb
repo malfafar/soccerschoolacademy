@@ -1,0 +1,8 @@
+<%= render partial: 'admin_partials/edit/header', locals: { section_title:  t("controller."+params[:controller]),
+                                                  section_sub_title:  t("action."+params[:action]),
+                                                  page_title: t("strings.document.edit")  } %>
+
+
+<%= render 'form' %>
+
+<%= render partial: 'admin_partials/edit/footer', locals: {object_to_show: nil, back_path: :back}%>

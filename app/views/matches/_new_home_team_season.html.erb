@@ -1,0 +1,49 @@
+<%= f.fields_for :home_team, TeamSeason.new do |ff| %>
+  <div class="form-group">
+    <%= ff.label :team %><br>
+    <%= ff.select :team_id, Team.all.collect {|p| [ p.name, p.id ] }.prepend(["Select a team", nil],["Create new team", -1]), {}, {class:"form-control", id: "home-team-team-select", required: true}  %>
+  </div>
+  <div class="new-home-team-form">
+
+  </div>
+  <div class="form-group">
+    <%= ff.label :icon %><br>
+    <%= ff.file_field :icon, class:"form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= ff.label :main_photo %><br>
+    <%= ff.file_field :photo, class:"form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= ff.label "What do players and guardians get to see on the attendance board?" %><br>
+    <%= ff.select :permission, options_for_select(get_permission_types()) , {}, class:"form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= ff.label :season %><br>
+    <%= ff.select :season_id, Season.all.collect {|p| [ p.start_year.to_s + "/" + p.end_year.to_s, p.id ] }, {}, class:"form-control", required: true%>
+  </div>
+
+  <div class="form-group">
+    <%= ff.label :coaches %><br>
+    <%= ff.collection_select :coach_ids, Coach.all, :id, :name, {:include_blank => "No coach"}, {:multiple => true,class:"form-control", id:"coach-select"}  %>
+  </div>
+
+  <script>
+    // Script para adicao de menu para adicionar nova team Season
+    // tem de ser dentro do form para passar o f.
+    $("#home-team-team-select").on('change', function() {
+      if ($(this ).val() == -1){
+        $(".new-home-team-form").html("<%= escape_javascript render partial: 'new_home_team', locals: {ff: ff} %>");
+      }
+      else {
+        $(".new-home-team-form").html("");
+      };
+
+    });
+  </script>
+
+
+<% end %>

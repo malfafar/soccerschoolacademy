@@ -1,0 +1,33 @@
+<%= render partial: 'admin_partials/index/header', locals: { section_title: t("controller."+params[:controller]),
+                                                  section_sub_title:  t("action."+params[:action]),
+                                                  page_title: t("strings.school.listing")  ,
+                                                  new_path: new_school_path,
+                                                  new_button_name:  t("strings.school.new"),
+                                                  search_form_path: schools_path } %>
+
+<%= render "admin_partials/errors/notices" %>
+
+        <div class="box-body table-responsive no-padding">
+          <div class="table_div">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th><%= t("activerecord.attributes.school.name") %></th>
+                <th colspan="3"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @schools.each do |school| %>
+                <tr>
+                  <td><%= school.name %></td>
+                  <td></td>
+                  <td></td>
+                  <%= render partial: 'admin_partials/index/buttons', locals: { object: school, edit_path: edit_school_path(school) } %>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          </div>
+        </div><!-- /.box-body -->
+
+<%= render partial: 'admin_partials/index/footer', locals: { paginate_object: @schools} %>

@@ -1,0 +1,22 @@
+<% content_for :head do %>
+  <meta property="fb:app_id" content="767603536709269" />
+  <meta property="og:title" content="<%= @post.title %>"/>
+  <meta property="og:image" content="<%= URI.join(request.url, @post.photo.url(:medium)) %>"/>
+  <meta property="og:url" content="<%=request.original_url%>"/>
+<% end %>
+
+<% content_for :title do %>
+  <title>Academia N10 - <%= @post.title %>></title>
+<% end %>
+
+<div class="container">
+	<h2 class="highlight news_title"><%= @post.title %></h2>
+
+	<%= image_tag @post.photo.url(:large), class: "news_image" %>
+	<p class="news_full"><%= @post.text %></p>
+  <h5 class="news_author">By <%= @post.coach ? @post.coach.name : "No author" %></h5>
+  <div class="social_share">
+    <%= social_share_button_tag(@post.title, :popup => "true") %>
+  </div>
+
+</div>

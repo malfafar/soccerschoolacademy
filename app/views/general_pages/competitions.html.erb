@@ -1,0 +1,6 @@
+
+<% @competitions.each do |competition| %>
+  <%= competition.name %> | <%= competition.knockout %> | <%= competition.nr_teams %>
+  | <%= link_to "Classificação", ranking_path(id: @team_season.id, c_id: competition.id) %>
+  | <%= link_to "Calendario", calendar_path(id: @team_season.id, c_id: competition.id) %>
+<% end %>

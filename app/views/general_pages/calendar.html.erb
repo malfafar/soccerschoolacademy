@@ -1,0 +1,51 @@
+<div class="calendar_page">
+		<div class="tables">
+			<div class="table_div">
+			<table>
+				<tr>
+					<th>Jornada</th>
+					<th>Equipa Casa</th>
+					<th>Resultado</th>
+					<th>Equipa Fora</th>
+					<th>Data</th>
+					<th>Árbitro</th>
+				</tr>
+				<% if @team_season %>
+					<% @matches.each do |match| %>
+						<tr>
+
+								<td><%= match.matchday %></td>
+				 				<td><%= match.home_team.team.name == @team_season.team.name ? simple_format("<strong>"+match.home_team.team.name+"</strong>") : match.home_team.team.name %></td>
+									<% if match.has_happened? %>
+										<td> <%= link_to show_match_path(m_id: match.id, id: @team_season.id) do %> <%= match.home_goals %> x <%= match.away_goals %> <% end %></td>
+									<% else %>
+										<td> <%= link_to show_match_path(m_id: match.id, id: @team_season.id) do %> - x - <% end %></td>
+								<% end %>
+								<td><%= match.away_team.team.name == @team_season.team.name ? simple_format("<strong>"+match.away_team.team.name+"</strong>") : match.away_team.team.name %></td>
+								<td><%= match.match_date.strftime("%H:%M %d/%m/%Y") %></td>
+				 				<td><%= match.referee1 %></td>
+
+						</tr>
+					<% end %>
+				<% else %>
+					<% @matches.each do |match| %>
+						<tr>
+
+								<td><%= match.matchday %></td>
+								<td><%= match.home_team.team.name %></td>
+									<% if match.has_happened? %>
+										<td> <%= link_to show_match_path(m_id: match.id, id: @team_season.id) do %> <%= match.home_goals %> x <%= match.away_goals %> <% end %></td>
+									<% else %>
+										<td> <%= link_to show_match_path(m_id: match.id, id: @team_season.id) do %> - x - <% end %></td>
+								<% end %>
+								<td><%= match.away_team.team.name %></td>
+								<td><%= match.match_date.strftime("%H:%M %d/%m/%Y") %></td>
+								<td><%= match.referee1 %></td>
+
+						</tr>
+					<% end %>
+				<% end %>
+			</table>
+			</div>
+		</div>
+</div>

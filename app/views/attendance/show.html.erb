@@ -1,0 +1,91 @@
+<%= render partial: 'admin_partials/index/header', locals: { section_title: t("strings.sidebar.attendance_board"),
+                                                  section_sub_title: @team_season.team.name,
+                                                  page_title: @start_date.strftime("%m/%Y"),
+                                                  new_path: nil,
+                                                  new_button_name: "",
+                                                  search_form_path: nil } %>
+
+<%= render "admin_partials/errors/notices" %>
+
+        <div class="box-body right">
+
+
+          <%#= select_tag 'states', options_for_select([["Disabled", -1]]+get_states_options) %>
+
+          <div id="tableDiv_Arrays" class="tableDiv table table-hover">
+            <table id="Open_Text_Arrays" class="FixedTables" style="float: left; width: 626px; overflow: auto; height: 493px;">
+              <thead>
+                <tr class="header">
+                  <th><%= t('activerecord.models.player') %></th>
+                  <% @elements.each do |element| %>
+                    <% if element[1] %>
+                      <th class="th-match" style="background-color: pink;">
+                    <% else %>
+                      <th class="th-practice" style="background-color: yellow;">
+                    <% end %>
+                    <%= element[0].strftime("%d") %></th>
+                  <% end %>
+                  <% if @stat %>
+                    <%= render "attendance_stats_header" %>
+                  <% end %>
+                </tr>
+              </thead>
+              <tbody>
+                <% @players.each do |player| %>
+                  <tr>
+                    <td> <%= player.name %> </td>
+                    <% @elements.each do |element| %>
+                      <td>
+                        <% if element[1] %>
+                          <% statistic = player.statistics.where(match_id: element[2]).first %>
+                          <div style='background-color: <%= get_state_colors(statistic.state) %>; margin-right: 3px;'><%= get_state_initial(statistic.state) %>
+                          <% if statistic.state == state_late() %>
+                            <div class="late-time"><%= statistic.late_minutes %></div>
+                          <% end %>
+                        <% else %>
+                          <% practice = player.player_practices.where(practice_id: element[2]).first %>
+                          <div style='background-color: <%= get_state_colors(practice.state) %>; margin-right: 3px;'><%= get_state_initial(practice.state) %>
+                          <% if practice.state == state_late() %>
+                            <div class="late-time"><%= practice.late_minutes %></div>
+                          <% end %>
+                        <% end %>
+                      </td>
+                    <% end %>
+                    <% if @stat %>
+                      <% player_stats = get_player_totals(player, @start_date, @end_date) %>
+                      <%= render partial: "attendance_stats_body", locals: { stats: player_stats} %>
+                    <% end %>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+<%= render partial: 'admin_partials/index/footer', locals: { paginate_object: nil} %>
+
+<script>
+  $(".tableDiv").each(function() {
+    var Id = $(this).get(0).id;
+    var maintbheight = 50;
+    var maintbwidth = 100;
+
+    $("#" + Id + " .FixedTables").fixedTable({
+      width: maintbwidth,
+      height: maintbheight,
+      fixedColumns: 1,
+      // header style
+      classHeader: "fixedHead",
+      // footer style
+      classFooter: "fixedFoot",
+      // fixed column on the left
+      classColumn: "fixedColumn",
+      // the width of fixed column on the left
+      fixedColumnWidth: 10,
+      // table's parent div's id
+      outerId: Id,
+
+
+    });
+  });
+</script>

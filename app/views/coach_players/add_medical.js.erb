@@ -1,0 +1,5 @@
+<% if @flag %>
+  $( ".med-exam" ).last().append("<div class='med-exam'><%= @medical %></div>");
+<% else %>
+  $( ".med-exam" ).last().append("<div class='med-exam'><%= @medical %></div>");
+<% end %>

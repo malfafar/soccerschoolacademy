@@ -1,0 +1,99 @@
+@include breakpoint($xs)
+{
+
+	/* Footer */
+	#footer
+	{
+		height: 340px;
+		z-index: 100;
+		background-color: $footer;
+		padding-top: 30px;
+		margin-top: 40px;
+		// height: 345px;
+		text-align: center;
+
+		.footer_col
+		{
+			@include span(24 of 24);
+			display: inline-block;
+			color: $text_light;
+
+			ul
+			{
+				list-style-type: none;
+				padding-left: 0;
+			}
+
+			li
+			{
+				padding-bottom: 8px;
+				font-size: 12px;
+
+				a, a:visited
+				{
+					color: $text_light;
+				}
+			}
+		}
+
+		#footer_col1
+		{
+			margin-left: 0;
+		}
+
+		#footer_col2, #footer_col3
+		{
+			margin-left: 0;
+		}
+
+		#footer_col2
+		{
+			i
+			{
+				padding-right: 6px;
+			}
+
+			li
+			{
+				padding-bottom: 10px;
+
+				a
+				{
+					font-size: 12px;
+				}
+			}
+		}
+
+		.small_logo
+		{
+			max-width: 100px;
+		}
+	}
+}
+
+@include breakpoint($medium)
+{
+	#footer
+	{
+		height: 150px;
+		text-align: left;
+
+		.footer_col
+		{
+			@include span(6 of 24);
+		}
+
+		#footer_col1
+		{
+			margin-left: span(2 of 24);
+		}
+
+		#footer_col2, #footer_col3
+		{
+			margin-left: span(1 of 24);
+		}
+
+
+
+	}
+}

@@ -1,0 +1,7 @@
+var team_seasons = [];
+<% @team_seasons.each do |team_season| %>
+  team_seasons.push({id: "<%=team_season.id%>", text: "<%=team_season.team.name %> - <%=team_season.season.start_year %>/<%=team_season.season.end_year %>" });
+<% end %>
+
+$('#team-select').html('');
+$("#team-select").removeClass('select2-offscreen').select2({data: team_seasons});

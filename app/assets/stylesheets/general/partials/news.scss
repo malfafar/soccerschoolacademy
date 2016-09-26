@@ -1,0 +1,170 @@
+/* NEWS */
+
+@include breakpoint($xs)
+{
+	.news_thumb
+	{
+		@include span(12 of 12);
+		margin-right: 0;
+		font-weight: $normal_font;
+		color: $text_dark;
+		margin-bottom: 60px;
+
+		.news_image_thumb
+		{
+			@include span(12 of 12);
+			margin-right: 0;
+		}
+
+		.news_post_thumb
+		{
+			@include span(12 of 12);
+			margin-top: 20px;
+
+			p
+			{
+				font-size: 12px;
+			}
+		}
+	}
+
+	.news_image
+	{
+		@include span(12 of 12);
+	}
+
+	.news_author
+	{
+		@include span(12 of 12);
+		margin-top: 20px;
+	}
+	.social_share
+	{
+		@include span(12 of 12);
+		margin-top: 20px;
+		text-align: center;
+
+		/* SHARE BUTTONS */
+	  .social-share-button-twitter
+	  {
+	    background: none;
+	    background-image: image-url("twitter.png");
+	    width: 30px;
+	    height: 30px;
+	    margin: 0 5px;
+	  }
+
+	  .social-share-button-facebook
+	  {
+	    background: none;
+	    background-image: image-url("facebook.png");
+	    width: 30px;
+	    height: 30px;
+	    margin: 0 5px;
+	  }
+
+	  .social-share-button-google_plus
+	  {
+	    background: none;
+	    background-image: image-url("google_plus.png");
+	    width: 30px;
+	    height: 30px;
+	    margin: 0 5px;
+	  }
+
+	  .social-share-button
+	  {
+	    display: inline-block;
+	    vertical-align: middle;
+	  }
+
+	  .share_deal_section
+	  {
+	    display: block;
+	  }
+	}
+
+	h2.news_title
+	{
+		@include span(12 of 12);
+		margin-top: 100px;
+		font-size: 28px;
+	}
+
+	.news_full
+	{
+		@include span(12 of 12);
+		margin-top: 40px;
+		margin-bottom: 10px;
+		line-height: 32px;
+	}
+
+}
+
+
+@include breakpoint($ml)
+{
+	.news_thumb
+	{
+		@include span(5 of 12);
+		margin-right: span(1 of 12);
+		font-weight: $normal_font;
+		color: $text_dark;
+		margin-bottom: 60px;
+
+		.news_image_thumb
+		{
+			@include span(5 of 12);
+			margin-right: span(1 of 12);
+		}
+
+		.news_post_thumb
+		{
+			@include span(6 of 12);
+			margin-top: 0;
+
+			p
+			{
+				font-size: 12px;
+			}
+		}
+	}
+
+	.news_image
+	{
+		@include span(8 of 12);
+		margin-left: span(2 of 12);
+		margin-right: span(2 of 12);
+	}
+
+	.news_author
+	{
+		@include span(4 of 12);
+		margin-left: span(2 of 12);
+	}
+	.social_share
+	{
+		@include span(4 of 12);
+		margin-right: span(2 of 12);
+		text-align: right;
+	}
+
+	h2.news_title
+	{
+		@include span(8 of 12);
+		margin-left: span(2 of 12);
+		margin-right: span(2 of 12);
+		margin-top: 100px;
+		font-size: 38px;
+	}
+
+	.news_full
+	{
+		@include span(8 of 12);
+		margin-left: span(2 of 12);
+		margin-right: span(2 of 12);
+		margin-top: 40px;
+		margin-bottom: 10px;
+		line-height: 32px;
+	}
+}

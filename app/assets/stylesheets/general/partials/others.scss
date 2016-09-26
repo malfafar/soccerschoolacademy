@@ -1,0 +1,83 @@
+.ranking_page
+{
+	@include span(12 of 18);
+	margin-left: span(1 of 18);
+	margin-top: 30px;
+
+}
+
+.match_page
+{
+	@include span(12 of 18);
+	margin-left: span(1 of 18);
+	margin-top: 30px;
+
+	hr
+	{
+		height: 2px;
+		border: none;
+		background-color: $light_gray;
+		margin-top: 60px;
+	}
+
+	i
+	{
+		font-size: 30px;
+	}
+
+	h1
+	{
+		color: $dark_gray;
+	}
+
+	h3.box-title
+	{
+		color: $dark_gray;
+		display: inline-block;
+	}
+
+	.box-body-game
+	{
+		display: inline-block;
+		text-align: center;
+		width: 100%;
+
+		h4
+		{
+			display: inline-block;
+			font-size: 20px;
+		}
+
+		h4.versus
+		{
+			color: $dark_gray;
+			padding: 0 10px;
+		}
+
+	}
+}
+
+.social-share-button
+{
+	a
+	{
+		span.translation_missing
+		{
+			display: none;
+		}
+	}
+}
+
+
+.calendar_page
+{
+	@include span(12 of 18);
+	margin-left: span(1 of 18);
+	margin-top: 30px;
+}
+
+
+.state-button
+{
+	border: none !important;
+}

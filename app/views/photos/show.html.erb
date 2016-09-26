@@ -1,0 +1,53 @@
+<%= render partial: 'admin_partials/show/header', locals: {section_title: t("controller."+params[:controller]),
+                                                  section_sub_title:  t("action."+params[:action]),
+                                                  page_title: t("strings.photo.show") } %>
+
+<%= render "admin_partials/errors/notices" %>
+
+          <% if !@photo.video %>
+            <strong><%= t("activerecord.attributes.photo.photo") %></strong>
+            <%= image_tag @photo.photo.url(:medium) %>
+          <% else %>
+            <strong><%= t("activerecord.attributes.photo.video") %></strong>
+            <%= youtube_embed(@photo.video_url).html_safe %>
+          <% end %>
+          <br>
+          <strong><%= t("activerecord.attributes.photo.description") %></strong>
+          <p class="text-muted">
+            <%= @photo.description %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.photo.title") %></strong>
+          <p class="text-muted">
+            <%= @photo.title %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.photo.approved") %></strong>
+          <p class="text-muted">
+            <%= @photo.approved %>
+          </p>
+
+
+          <strong><%= t("activerecord.attributes.photo.private") %></strong>
+          <p class="text-muted">
+            <%= @photo.private %>
+          </p>
+
+          <% if @photo.match_id %>
+            <strong><%= t("activerecord.attributes.photo.match") %></strong>
+            <p class="text-muted">
+              <%= link_to @photo.match_id, match_path(id: @photo.match_id) %>
+            </p>
+          <% elsif @photo.team_season_id %>
+            <strong><%= t("activerecord.attributes.photo.team") %></strong>
+            <p class="text-muted">
+              <%= link_to @photo.team_season.team.name + " - " + @photo.team_season.season.start_year.to_s + "/" + @photo.team_season.season.end_year.to_s, team_season_path(@photo.team_season) %>
+            </p>
+          <% else %>
+            <strong><%= t("activerecord.attributes.photo.general") %></strong>
+            <p class="text-muted">
+            </p>
+          <% end %>
+
+
+<%= render partial: 'admin_partials/show/footer', locals: {edit_path: edit_photo_path(@photo, oldaction: params[:action]), back_path: :back}%>

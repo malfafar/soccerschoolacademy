@@ -1,0 +1,213 @@
+<%= render partial: 'admin_partials/edit/header', locals: { section_title: t("controller."+params[:controller]),
+                                                  section_sub_title: t("action."+params[:action]),
+                                                  page_title: t("strings.player.edit") } %>
+        <div class="box-body">
+
+          <%= form_for(@player, url: coach_update_player_path(@player)) do |f| %>
+            <%#= devise_error_messages! %>
+
+            <%= render partial: 'admin_partials/errors/errors_form', locals: { current_object: @player} %>
+
+            <%= f.fields_for :player_auth do |ff| %>
+              <%# if @player_auth.id %>
+                <%#= ff.hidden_field :id, value: @player_auth.id %>
+              <%# end %>
+
+              <div class="form-group">
+                <%= ff.label :email %><br />
+                <%= ff.email_field :email, autofocus: true, class: "form-control" %>
+              </div>
+            <% end %>
+
+            <div class="form-group">
+              <%= f.label :avatar %>
+              <%= f.file_field :avatar, class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :name %>
+              <%= f.text_field :name, class: "form-control", required: true %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :birthday %>
+              <%= f.text_field :birthday, class: "form-control", id: "select-date", data: { date_format: 'YYYY-MM-DD'} %>
+              <%#= f.date_select :birthday,{:start_year => Time.now.year, :end_year => 1900} %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :address %>
+              <%= f.text_field :address, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :district %>
+              <%= f.text_field :district, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :zipcode %>
+              <%= f.text_field :zipcode, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :phone %>
+              <%= f.text_field :phone, class: "form-control" %>
+            </div>
+
+            <%= t("strings.player.identication_cards_info") %>
+            <div class="form-group">
+              <%= f.label :id_card_number %>
+              <%= f.text_field :id_card_number, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :vat_id %>
+              <%= f.text_field :vat_id, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :birthplace %>
+              <%= f.text_field :birthplace, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :nationality %>
+              <%= f.country_select :nationality, {priority_countries: ["PT"]} , {class: "form-control"}  %>
+            </div>
+            <%= t("strings.player.guardian_info") %>
+            <div class="form-group">
+              <%= f.label "Guardian" %><br>
+              <%= f.select :guardian_id, [["Create new guardian", -1]] + (Guardian.includes(:guardian_auth).all.map { |g| [g.name  + " | " +  (!g.phone.blank? ? g.phone : "No phone") + " | " + (g.guardian_auth.present? ? g.guardian_auth.email : "No email"), g.id]}) ,
+                       { include_blank: true},
+                       { id: "choose-guardian", class: "form-control"} %>
+            </div>
+            <div class="guardian-form"></div>
+            <div class="form-group">
+              <%= f.label :guardian_family_degree %>
+              <%= f.text_field :guardian_family_degree, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :second_parent %>
+              <%= f.text_field :second_parent, class: "form-control" %>
+            </div>
+
+            <%= t("strings.player.school_info") %>
+            <div class="form-group">
+              <%= f.label :school %><br>
+              <%= f.select :school_id, [["Create new school", -1]] + (School.all.map { |g| [g.name, g.id]}) ,
+                       { include_blank: true},
+                       { id: "choose-school", class: "form-control"} %>
+            </div>
+            <div class="school-form"></div>
+
+
+            <%= t("strings.player.measurement_exams") %>
+
+            <%= f.nested_fields_for :exams do |fe| %>
+              <%= fe.remove_nested_fields_link %>
+
+              <div class="form-group">
+                <%= fe.label :exam_date %>
+                <%#= fe.text_field :exam_date, class: "form-control", data: { date_format: 'YYYY-MM-DD HH:mm'} %>
+                <%= fe.date_select :exam_date, {:start_year => Time.now.year, :end_year => 2014}, required: true  %>
+              </div>
+
+              <div class="form-group">
+                <%= fe.label :weight %>
+                <%= fe.text_field :weight, class: "form-control", required: true  %>
+              </div>
+
+              <div class="form-group">
+                <%= fe.label :height %>
+                <%= fe.text_field :height, class: "form-control", required: true  %>
+              </div>
+            <% end %>
+            <%= f.add_nested_fields_link :exams, t("strings.medical.add")%>
+            <script>
+              if ($('#choose-guardian').val() == -1)
+              {
+                $('.guardian-form').html("");
+                $('.guardian-form').html("<%= escape_javascript render(partial: 'guardian_form', locals: {ff: f}) %>");
+                $('.guardian-form').show();
+              }
+
+              $('#choose-guardian').on('change', function() {
+                var selectedAddress = $("#choose-guardian").val();
+                if(selectedAddress == -1)
+                {
+                  console.log("Adicionar nova morada, mostrar o  formulario");
+                  $('.guardian-form').html("");
+                  $('.guardian-form').html("<%= escape_javascript render(partial: 'guardian_form', locals: {ff: f}) %>");
+                  $('.guardian-form').show();
+                }
+                else
+                {
+                  console.log("Mostrar só dropdown");
+                  $('.guardian-form').html("");
+
+                  $('.guardian-form').html("");
+                }
+              });
+              $('#choose-school').on('change', function() {
+                var selectedAddress = $("#choose-school").val();
+                if(selectedAddress == -1)
+                {
+                  console.log("Adicionar nova morada, mostrar o  formulario");
+                  $('.school-form').html("");
+                  $('.school-form').html("<%= escape_javascript render(partial: 'school_form', locals: {ff: f}) %>");
+                  $('.school-form').show();
+                }
+                else
+                {
+                  console.log("Mostrar só dropdown");
+                  $('.school-form').html("");
+
+                  $('.school-form').html("");
+                }
+              });
+            </script>
+
+            <div class="actions">
+              <%= f.submit class: "btn btn-primary" %>
+            </div>
+            <% end %>
+          </div>
+<%= render partial: 'admin_partials/edit/footer', locals: {object_to_show: coach_show_player_path(@player), back_path: :back}%>
+        <!-- </div>
+        <div class="box-footer">
+          <%= link_to 'Show', coach_show_player_path(@player) %> |
+          <%= link_to 'Back', :back %>
+        </div>
+    </div>
+  </div>
+</section> -->
+
+<script type="text/javascript">
+  $(document).on("ready page:load", function () {
+    $('#select-date').datetimepicker(
+    {
+      icons: {
+        time: "fa fa-clock-o",
+        date: "fa fa-calendar",
+        up: "fa fa-arrow-up",
+        down: "fa fa-arrow-down",
+        previous: "fa fa-arrow-left",
+        next:  "fa fa-arrow-right"
+      }
+    });
+  });
+  // $(document).on("fields_added.nested_form_fields", function(){
+  //   $('#select-exam-date').datetimepicker(
+  //   {
+  //     icons: {
+  //       time: "fa fa-clock-o",
+  //       date: "fa fa-calendar",
+  //       up: "fa fa-arrow-up",
+  //       down: "fa fa-arrow-down",
+  //       previous: "fa fa-arrow-left",
+  //       next:  "fa fa-arrow-right"
+  //     }
+  //   });
+  // });
+</script>

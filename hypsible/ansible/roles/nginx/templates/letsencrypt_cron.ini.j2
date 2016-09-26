@@ -1,0 +1,8 @@
+# {{ ansible_managed }}
+rsa-key-size = 4096
+
+email = {{ letsencrypt_email }}
+
+domains = {% for domain in letsencrypt_cert_domains %}{{ domain }}, {% endfor %}
+
+webroot-path = {{ app_path }}

@@ -1,0 +1,8 @@
+<%= render partial: 'admin_partials/new/header', locals: { section_title:  t("controller."+params[:controller]),
+                                                  section_sub_title:  t("action."+params[:action]),
+                                                  page_title: t("strings.post.new")  } %>
+
+
+<%= render 'form' %>
+
+<%= render partial: 'admin_partials/new/footer', locals: {back_path: posts_path}%>

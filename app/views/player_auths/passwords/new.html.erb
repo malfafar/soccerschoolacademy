@@ -1,0 +1,18 @@
+<div class="password_page">
+    <h2>Forgot your password?</h2>
+
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+      <%= render partial: "general_partials/errors/errors_form", locals: {current_object: resource} %>
+
+      <div class="field">
+        <%= f.label :email %>
+        <%= f.email_field :email, autofocus: true %>
+      </div>
+
+      <div class="actions center">
+        <%= f.submit "Recuperar password", class:"btn primary_button medium_button" %>
+      </div>
+    <% end %>
+
+    <%#= render "player_auths/shared/links" %>
+</div>

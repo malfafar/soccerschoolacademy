@@ -1,0 +1,28 @@
+<div style="font-family: 'Open Sans', sans-serif; width: 800px; padding: 20px 40px;">
+
+  <div style="padding: 30px 0px;background-color: #212228;max-width: 860px;text-align: center;">
+    <%= link_to root_path, 'data-no-turbolink' => true do %>
+      <%= image_tag("logo-mail.png") %>
+    <% end %>
+  </div>
+
+
+  <p style="font-family: 'Open Sans', sans-serif; font-weight: 600;">Hello, <<%= @contact_info[:name] %> sent you a message throught the contact form on the website.</p>
+  <br>
+  <p>His E-mail contact is:
+    <%= @contact_info[:email] %>,
+    his phone number
+    <%= @contact_info[:phone] %>
+    <% if @contact_info[:company] %>
+    as his company is
+    <%= @contact_info[:company] %>.
+    <%else%>.
+    <% end %>
+  </p>
+
+  <p>The message is: <br>
+    <%= @contact_info[:message] %>
+  </p>  
+
+
+</div>

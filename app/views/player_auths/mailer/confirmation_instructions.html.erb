@@ -1,0 +1,28 @@
+<div style="font-family: 'Open Sans', sans-serif; width: 800px; padding: 20px 40px;">
+
+  <div style="padding: 30px 0px;background-color: #212228;max-width: 860px;text-align: center;">
+    <%= link_to root_path, 'data-no-turbolink' => true do %>
+      <%= image_tag("logo-mail.png") %>
+    <% end %>
+  </div>
+
+  <p style="font-family: 'Open Sans', sans-serif; font-weight: 600;">
+    Welcome <%= @email %>!</p>
+  <p> You have been registered in N10 Academia, you should confirm your account and then ask for a forgotten password, so that you can login anytime you want. </p>
+  <p>You can confirm your account email through the link below:</p>
+
+  <div style="border: none;
+    background-color: #FF8502;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+    cursor: pointer;
+    display: inline-block;
+    overflow: auto;
+    font-size: 14px;
+    padding: 8px 20px 8px 20px;
+    font-family: 'Work Sans', sans-serif;"><%= link_to 'Confirm my account', player_auth_confirmation_url(confirmation_token: @token), {:style=>'color:#FFFFFF; text-decoration:none;'} %>
+  </div>
+</div>

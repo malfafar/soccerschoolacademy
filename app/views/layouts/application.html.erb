@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<% if content_for?(:title) %>
+		  <%= content_for(:title) %>
+		<% else %>
+		  <title>Academia N10</title>
+		<% end %>
+
+		<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+		<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+		<% if params[:action] == "photo_gallery" %>
+			<%= javascript_include_tag 'general/gallery', 'data-turbolinks-track' => false %>
+		<% end %>
+		<% if params[:action] == 'contact' %>
+			<%= javascript_include_tag 'general/map', 'data-turbolinks-track' => true %>
+			<script src="http://maps.googleapis.com/maps/api/js"></script>
+		<% end %>
+		<%= csrf_meta_tags %>
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+		<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+		<%= favicon_link_tag 'favicon.ico' %>
+		<%= yield :head %>
+		<!-- <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+		<link rel="icon" href="favicon.ico" type="image/x-icon"> -->
+	</head>
+
+	<body>
+		<div id="wrapper">
+		<!--
+				<%#= link_to "Login de Treinador", coach_index_players_path %>
+				|
+				<%#= link_to "Login de Encarregado de Educação", guardian_index_players_path %>
+				|
+				<%#= link_to "Login de Jogador", player_team_seasons_index_path %>
+
+				<div style="float: right; width: 300px;">
+						<br>
+								<%#= link_to "Teams", all_teams_path %>
+						| <%#= link_to "Fotografias", gallery_path %>
+						| <%#= link_to "Noticias", all_posts_path %>
+						| <%#= form_tag change_season_path do %>
+								<%#= select_tag :current_season , options_for_select(Season.all.collect {|p| [ p.start_year.to_s + "/" + p.end_year.to_s, p.id ] }, session.has_key?(:current_season) ? session[:current_season] : Season.last.id.to_s), class: "select-season",  onchange: "this.form.submit();"%>
+						<%# end %>
+				</div>
+-->
+
+			<nav class="menu">
+				<%= link_to root_path, 'data-no-turbolink' => true do %> <%= image_tag("logo.png", :class => "logo") %> <% end %>
+				 <%= fa_icon "bars", :class =>"burger" %>
+
+				<ul class="nav_list">
+					<% if current_page?(all_teams_path)%>
+							<li><%= link_to "Equipas", all_teams_path, :class =>"underlined" %></li>
+					<% else %>
+							<li><%= link_to "Equipas", all_teams_path %></li>
+					<% end %>
+
+					<% if current_page?(gallery_path)%>
+							<li><%= link_to "Galeria", gallery_path, :class =>"underlined" %></li>
+					<% else %>
+							<li><%= link_to "Galeria", gallery_path %></li>
+					<% end %>
+
+					<% if current_page?(all_posts_path)%>
+							<li><%= link_to "Notícias", all_posts_path, :class =>"underlined" %></li>
+					<% else %>
+							<li><%= link_to "Notícias", all_posts_path %></li>
+					<% end %>
+
+					<% if current_page?(contact_path)%>
+						<li><%= link_to "Contactos", contact_path, :class =>"underlined" %></li>
+					<% else %>
+						<li><%= link_to "Contactos", contact_path %></li>
+					<% end %>
+
+					<li>
+						<%= form_tag change_season_path, id: "form-season" do %>
+							<% if @team_season %>
+								<%= hidden_field_tag :current_team_season, @team_season.id.to_s %>
+								<%= select_tag :current_season , options_for_select(Season.all.collect {|p| [ p.start_year.to_s + "/" + p.end_year.to_s, p.id ] }, session.has_key?(:current_season) ? session[:current_season] : Season.last.id.to_s), class: "cs-select cs-skin-elastic select-season", onchange: "this.form.submit();" %>
+							<% else %>
+								<%= select_tag :current_season , options_for_select(Season.all.collect {|p| [ p.start_year.to_s + "/" + p.end_year.to_s, p.id ] }, session.has_key?(:current_season) ? session[:current_season] : Season.last.id.to_s), class: "cs-select cs-skin-elastic select-season", onchange: "this.form.submit();" %>
+							<% end %>
+						<% end %>
+					</li>
+				</ul>
+			</nav>
+
+
+			<% if @team_season %>
+				<% savalue = sidebar_active() %>
+				<ul class="side_nav">
+					<li class="team_name"> <%= @team_season.team.name %> </li>
+					<li class="<%= sidebar_active_to_class(savalue, 0) %>"><%= link_to "Plantel", team_players_path(@team_season) %></li>
+					<hr class="side_nav_separator">
+					<% if @team_season.competitions.any? %>
+						<li class="<%= sidebar_active_to_class(savalue, 1) %>"><%= link_to "Competições", ranking_path(id: @team_season.id, c_id: @team_season.competitions.first) %></li>
+						<% @team_season.competitions.each do |competition| %>
+
+								<li class="side_nav_sub"><%= link_to competition.name, ranking_path(id: @team_season.id, c_id: competition.id), class: sidebar_sub_active_to_class(params[:c_id].to_i, competition.id) %></li>
+						<% end %>
+
+					<% end %>
+					<li class="<%= sidebar_active_to_class(savalue, 2) %>"><%= link_to "Calendário", calendar_path(@team_season) %></li>
+					<hr class="side_nav_separator">
+					<li class="<%= sidebar_active_to_class(savalue, 3) %>"><%= link_to "Fotografias de Equipa", gallery_path(@team_season) %></li>
+					<hr class="side_nav_separator">
+					<li class="<%= sidebar_active_to_class(savalue, 4) %>"><%= link_to "Fotografias de Escalão", gallery_path(@team_season) + "/level/" + @team_season.team.level.to_s %></li>
+					<hr class="side_nav_separator">
+					<li class="<%= sidebar_active_to_class(savalue, 5) %>"><%= link_to "Noticias de Escalão", all_posts_path(@team_season) + "/level/" + @team_season.team.level.to_s %></li>
+				</ul>
+			<% end %>
+
+			<% if @team_season %>
+				<div class="team_container">
+						<%= yield %>
+				</div>
+			<% else %>
+				<%= yield %>
+			<% end %>
+		</div>
+
+		<div id="footer">
+			<div class="footer_col" id="footer_col1">
+				<ul>
+					<li><%= image_tag("logo.png", :class => "small_logo") %></li>
+					<li>Conheça a academia n10</li>
+					<li><span class="highlight">academiafuteboln10@gmail.com</span> | <span class="highlight">00351 239 496 378</span></li>
+				</ul>
+			</div>
+			<div class="footer_col" id="footer_col2">
+				<ul>
+
+					<li><i class="fa fa-bullhorn"></i><%= link_to "Login de Treinador", coach_index_players_path %></li>
+					<li><i class="fa fa-home"></i><%= link_to "Login de Encarregado de Educação", guardian_index_players_path %></li>
+					<li><i class="fa fa-soccer-ball-o"></i><%= link_to "Login de Jogador", player_team_seasons_index_path %></li>
+				</ul>
+			</div>
+			<div class="footer_col" id="footer_col3">
+				<ul>
+					<li>
+						<span class="white">
+							<i class="fa fa-facebook"></i> |
+							<i class="fa fa-twitter"></i> |
+							<i class="fa fa-google-plus"></i>
+						</span>
+					</li>
+					<li class="">Developed by <%= link_to "HYP", 'https:\\hypsoftware.com' %></li>
+				</ul>
+			</div>
+		</div>
+
+	</body>
+</html>

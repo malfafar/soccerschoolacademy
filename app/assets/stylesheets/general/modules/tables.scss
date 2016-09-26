@@ -1,0 +1,67 @@
+	/* TABLES */
+@include breakpoint($xs)
+{
+	table, th, td
+	{
+		border: none;
+	}
+
+	th, td
+	{
+		min-width: 80px;
+	}
+	
+	table
+	{
+	    width: 100%;
+	    border-collapse: collapse;
+			margin-bottom: 80px;
+	}
+
+	th
+	{
+	    height: 50px;
+	    text-align: center;;
+	    background-color: $orange;
+	    color: $white;
+	    font-weight: $light_font;
+			font-size: 14px;
+			padding: 0 10px;
+	    border-left: 2px solid $table_borders;
+			font-size: 12px;
+	}
+
+	td
+	{
+	    height: 50px;
+	    vertical-align: middle;
+	    padding-left: 20px;
+	    text-align: left;
+	    font-weight: $light_font;
+	    color: $text_dark;
+			font-size: 12px;
+	}
+
+
+	tr:nth-child(even)
+	{
+		background-color: $table_td_background;
+	}
+
+	.tables
+	{
+		@include span(12 of 12);
+		text-align: center;
+		margin-top: 40px;
+	}
+
+	.table_div
+	{
+		overflow-x: scroll;
+	}
+}
+
+@include breakpoint($medium)
+{
+
+}

@@ -1,0 +1,10 @@
+$("#practice-state-<%= @player_practice.id %>").val("<%= get_state_initial(@player_practice.state) %>");
+$("#practice-state-<%= @player_practice.id %>").css("background-color", "<%= get_state_colors(@player_practice.state) %>");
+
+<% if @player_practice.state == 3 %>
+  console.log("PP 3");
+  $('.late-form').html("<%= escape_javascript render partial: 'late_modal', locals: {pp: @player_practice} %>")
+  $('#late-modal').modal()
+<% else %>
+  $('.late-form').html("")
+<% end %>

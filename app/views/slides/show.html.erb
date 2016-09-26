@@ -1,0 +1,16 @@
+<%= render partial: 'admin_partials/show/header', locals: { section_title: t("controller."+params[:controller]),
+                                                  section_sub_title:  t("action."+params[:action]),
+                                                  page_title: t("strings.slide.show")   } %>
+
+<%= render "admin_partials/errors/notices" %>
+
+          <strong><%= t("activerecord.attributes.slide.title") %></strong>
+          <p class="text-muted">
+            <%= @slide.title %>
+          </p>
+
+          <strong><%= t("activerecord.attributes.slide.photo") %></strong>
+          <p class="text-muted">
+            <%= image_tag @slide.photo.url(:medium) %>
+          </p>
+<%= render partial: 'admin_partials/show/footer', locals: {edit_path: edit_slide_path(@slide), back_path: slides_path}%>

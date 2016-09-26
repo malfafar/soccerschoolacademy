@@ -1,0 +1,35 @@
+<%= render partial: 'admin_partials/index/header', locals: { section_title: t("controller."+params[:controller]),
+                                                  section_sub_title: t("action."+params[:action]),
+                                                  page_title: t("strings.guardian.listing"),
+                                                  new_path: new_guardian_path,
+                                                  new_button_name: t("strings.guardian.new"),
+                                                  search_form_path: guardians_path } %>
+
+<%= render "admin_partials/errors/notices" %>
+
+        <div class="box-body table-responsive no-padding">
+          <div class="table_div">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th><%= t("activerecord.attributes.guardian.name") %></th>
+                <th><%= t("activerecord.attributes.guardian.phone")%></th>
+                <th><%= t("activerecord.attributes.guardian_auth.email")%></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @guardians.each do |guardian| %>
+                <tr>
+                  <td><%= guardian.name %></td>
+                  <td><%= !guardian.phone.blank? ? guardian.phone : t("strings.no_phone")%></td>
+                  <td><%= guardian.guardian_auth ? guardian.guardian_auth.email : t("strings.no_email") %></td>
+                  <%= render partial: 'admin_partials/index/buttons', locals: { object: guardian, edit_path: edit_guardian_path(guardian) } %>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        </div><!-- /.box-body -->
+
+<%= render partial: 'admin_partials/index/footer', locals: { paginate_object: @guardians} %>

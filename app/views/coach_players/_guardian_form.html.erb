@@ -1,0 +1,19 @@
+<% if !@player.errors.any? %>
+  <% @player.build_guardian %>
+<% end %>
+<%= ff.fields_for :guardian do |fg| %>
+  <%= fg.fields_for :guardian_auth do |fff| %>
+    <div class="form-group">
+      <%= fff.label :email %>
+      <%= fff.text_field :email, class: "form-control" %>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <%= fg.label :name %>
+    <%= fg.text_field :name, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= fg.label :phone %>
+    <%= fg.text_field :phone, class: "form-control" %>
+  </div>
+<% end %>

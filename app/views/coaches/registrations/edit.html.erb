@@ -1,0 +1,54 @@
+<%= render partial: 'admin_partials/edit/header', locals: { section_title: "Treinador",
+                                                  section_sub_title: params[:action],
+                                                  page_title: "Editar Treinador" } %>
+
+<%= render "admin_partials/errors/notices" %>
+
+        <div class="box-body">
+
+
+        <%= form_for(resource, as: resource_name, url: coach_registration_path(), html: { method: :put }) do |f| %>
+          <%= render partial: 'admin_partials/errors/errors_form', locals: { current_object: resource} %>
+
+          <div class="form-group">
+            <%= f.label :email %><br />
+            <%= f.email_field :email, autofocus: true, class: "form-control", required: true %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :name %><br />
+            <%= f.text_field :name, class: "form-control", required: true  %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :phone %><br />
+            <%= f.text_field :phone, class: "form-control" %>
+            <!-- <%= f.text_field :phone, {class: "form-control", pattern: "((\+|(00)))?\b\d{8,14}\b"} %> -->
+          </div>
+
+          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+            <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+          <% end %>
+
+          <div class="form-group">
+            <%= f.label :password %> <i>(deixe em branco caso não deseje alterar)</i><br />
+            <%= f.password_field :password, autocomplete: "off", class: "form-control"  %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :password_confirmation %><br />
+            <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control"  %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :current_password %> <i>(é necessária a password actual para confirmar as alterações)</i><br />
+            <%= f.password_field :current_password, autocomplete: "off", class: "form-control"  %>
+          </div>
+
+          <div class="box-footer">
+            <%= f.submit  class: "btn btn-primary"  %>
+          </div>
+          <% end %>
+        </div>
+
+<%= render partial: 'admin_partials/new/footer', locals: {back_path: :back}%>

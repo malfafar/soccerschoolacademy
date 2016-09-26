@@ -1,0 +1,98 @@
+@include breakpoint($xs)
+{
+
+		.players_page
+		{
+			@include span(14 of 18);
+			margin-left: span(1 of 18);
+			margin-right: span(3 of 18);
+			margin-top: 30px;
+		}
+
+		.player_page
+		{
+			@include span(8 of 10);
+			margin-left: span(1 of 10);
+
+			.social_share
+			{
+				@include span(12 of 12);
+				margin-top: 20px;
+				text-align: left;
+			}
+		}
+
+		.team_player
+		{
+			@include span(12 of 12);
+			margin-right: 0;
+			margin-bottom: 60px;
+
+			img
+			{
+				width: 100%;
+			}
+
+		}
+
+		.player_name
+		{
+			display: block;
+			color: $text_dark;
+			font-size: 14px;
+			font-weight: $bold_font;
+		}
+
+		.player_picture
+		{
+			@include span(9 of 10);
+			margin-right: span(1 of 10);
+
+			img
+			{
+				width: 100%;
+			}
+		}
+
+		.player_info
+		{
+			@include span(10 of 10);
+		}
+}
+
+
+@include breakpoint($medium)
+{
+	.player_name
+	{
+		font-size: 18px;
+	}
+
+	.team_player
+	{
+		@include span(4 of 15);
+		margin-right: span(1 of 15);
+		margin-bottom: 60px;
+
+		img
+		{
+			width: 100%;
+		}
+
+	}
+
+	.player_picture
+	{
+		@include span(3 of 10);
+		margin-right: span(1 of 10);
+
+		img
+		{
+			width: 100%;
+		}
+	}
+	.player_info
+	{
+		@include span(6 of 10);
+	}
+}

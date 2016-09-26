@@ -1,0 +1,28 @@
+
+<% content_for :head do %>
+  <meta property="fb:app_id" content="767603536709269" />
+  <meta property="og:title" content="<%= @player.name %>"/>
+  <meta property="og:image" content="<%= URI.join(request.url, @player.avatar.url(:medium)) %>"/>
+  <meta property="og:url" content="<%=request.original_url%>"/>
+<% end %>
+
+<% content_for :title do %>
+  <title>Academia N10 - <%= @player.name %></title>
+<% end %>
+
+<div class="player_page">
+  <h2>Informações do Jogador</h2>
+  <div class="player_picture">
+    <%= image_tag @player.avatar.url(:medium) %>
+  </div>
+  <div class="player_info">
+    <p><span class="highlight">Nome: </span><%= @player.name %></p>
+    <p><span class="highlight">Idade: </span><%= @player.age %></p>
+    <p><span class="highlight">Nacionalidade: </span><%= country_name(@player.nationality) %></p>
+    <p><span class="highlight">Equipa: </span><%= @p_team.team.name + " " + @p_team.season.start_year.to_s + "/" + @p_team.season.end_year.to_s %></p>
+    <p><span class="highlight">Golos: </span><%= @p_stats[:goals] %></p>
+  </div>
+  <div class="social_share">
+  <%= social_share_button_tag(@player.name, :popup => "true") %>
+  </div>
+</div>

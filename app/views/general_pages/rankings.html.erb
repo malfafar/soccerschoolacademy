@@ -1,0 +1,64 @@
+<div class="ranking_page">
+	<h2>Competição</h2>
+
+
+		<div class="tables">
+			<div class="table_div">
+			<table>
+				<tr>
+					<th>Pos</th>
+					<th>Equipa</th>
+					<th>Pontos</th>
+					<th>J</th>
+					<th>V</th>
+					<th>E</th>
+					<th>D</th>
+					<th>GM</th>
+					<th>GS</th>
+					<th>DG</th>
+				</tr>
+				<% @sorted.each_with_index do |team, index| %>
+					<tr>
+						<% if team[:team_id] == @team_season.id %>
+							<td><%= index + 1 %></td>
+							<td><%= team[:name] %></td>
+							<td><%= team[:points] %></td>
+							<td><%= team[:played] %></td>
+							<td><%= team[:wins] %></td>
+							<td><%= team[:draws] %></td>
+							<td><%= team[:losses] %></td>
+							<td><%= team[:goals_for] %></td>
+							<td><%= team[:goals_against] %></td>
+							<td><%= team[:goal_diff] %></td>
+						<% else %>
+							<td><%= index + 1 %></td>
+							<td><%= team[:name] %></td>
+							<td><%= team[:points] %></td>
+							<td><%= team[:played] %></td>
+							<td><%= team[:wins] %></td>
+							<td><%= team[:draws] %></td>
+							<td><%= team[:losses] %></td>
+							<td><%= team[:goals_for] %></td>
+							<td><%= team[:goals_against] %></td>
+							<td><%= team[:goal_diff] %></td>
+						<% end %>
+					</tr>
+				<% end %>
+			</table>
+			</div>
+		</div>
+</div>
+
+
+<div class="home_sponsors">
+	<h2>Patrocinadores</h2>
+	<% @sponsors.each do |sponsor| %>
+		<%= link_to sponsor.got_to_url do %>
+			<div class="sponsor_box">
+					<%= image_tag sponsor.avatar.url(:thumb) %><br>
+					<%= sponsor.name %>
+			</div>
+
+		<% end %>
+	<% end %>
+</div>

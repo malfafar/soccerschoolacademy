@@ -1,0 +1,5 @@
+Minutos de atraso: <br>
+<%= form_tag add_stat_late_time_path(s), remote: true do %>
+  <%= number_field_tag :minutes %>
+  <%= submit_tag "Submit"%>
+<% end %>

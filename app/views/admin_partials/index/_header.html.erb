@@ -1,0 +1,21 @@
+<%= render partial: 'admin_partials/content_header', locals: {section_title: section_title, section_sub_title: section_sub_title} %>
+
+<section class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box <%= box_header_class %>">
+        <div class="box-header">
+          <h3 class="box-title"><%= page_title.titleize %></h3>
+          <div class="box-tools">
+            <% if new_path %>
+              <%= link_to new_path, class:"btn btn-info btn-sm pull-right" do %>
+                <i class="fa fa-plus-square-o"></i>  <%= new_button_name.titleize %>
+              <% end %>
+            <% end %>
+
+            <% if search_form_path %>
+              <%= render partial: 'admin_partials/search_form', locals: { search_form_path: search_form_path } %>
+            <% end %>
+
+          </div>
+        </div><!-- /.box-header -->

@@ -1,0 +1,6 @@
+---
+- hosts: application
+  sudo: no
+  remote_user: '{{ username }}'
+  roles:
+    - deploy

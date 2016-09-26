@@ -1,0 +1,164 @@
+/* Navigation */
+@include breakpoint($xs)
+{
+	.menu
+	{
+		background-color: $nav_background;
+		padding: 0 30px;
+	}
+
+	.active_menu
+	{
+		-webkit-animation-duration: 0.7s;
+		animation-duration: 0.7s;
+		-webkit-animation-fill-mode: both;
+		animation-fill-mode: both;
+
+		-webkit-animation-name: fadeIn;
+		animation-name: fadeIn;
+
+		margin-top: 15px;
+		display: block !important;
+
+		li
+		{
+			padding-top: 12px;
+			padding-bottom: 12px;
+			background-color: $nav_background;
+			width: 100%;
+			text-align: center;
+			color: $nav_text;
+
+			a
+			{
+				color: $nav_text;
+			}
+		}
+
+		li:hover
+		{
+			background-color: $nav_background;
+
+			a
+			{
+				color: $nav_text_hover !important;
+			}
+		}
+	}
+
+	.nav_bar
+	{
+		margin-bottom: 25px;
+		overflow: auto;
+		overflow-y: hidden;
+	}
+
+	.nav_list
+	{
+	    display: none;
+	    margin-left: auto;
+	    margin-right: auto;
+	}
+
+	.nav_list a
+	{
+	    font-weight: 600;
+	    color: $nav_text;
+	    text-decoration: none;
+	    padding-right: 0px;
+	}
+
+	.logo
+	{
+		width: 120px;
+		display: inline-block;
+		text-align: center;
+		margin-bottom: 24px;
+		margin-left: 0px;
+    margin-top: 24px;
+	}
+
+	.burger
+	{
+		@include span(6 of 12);
+		float: right;
+		font-size: 34px;
+    position: relative;
+    text-align: right;
+    margin-right: 10px;
+    margin-top: 35px;
+    display: block;
+    z-index: 100;
+    color: $nav_burger;
+	}
+
+	.burger:hover
+	{
+	    cursor: pointer;
+	    color: $nav_burger_hover;
+	}
+}
+
+
+@include breakpoint($mn)
+{
+	.nav_bar
+	{
+		margin-bottom: 0px;
+	    height: 60px;
+	    background-color: $nav_background;
+	}
+
+    .nav_list
+    {
+        position: relative !important;
+        display: inline-block;
+        float: right;
+        z-index: 120;
+        margin-right: 40px;
+        padding-top: 15px;
+    }
+
+    .nav_list a
+    {
+        color: $nav_text;
+        z-index: 120;
+    }
+
+    .nav_list a:hover
+    {
+        color: $nav_text_hover;
+        text-decoration: none;
+    }
+
+    .nav_list ul
+    {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        z-index: 100;
+    }
+
+    .nav_list li
+    {
+        padding-right: 50px;
+        display: inline;
+        z-index: 100;
+    }
+
+    .underlined
+    {
+        border-bottom: 3px solid $nav_underline;
+    }
+
+    .burger
+	{
+		display: none !important;
+	}
+
+	.logo
+	{
+		margin-left: 70px;
+		display: inline-block;
+	}
+}

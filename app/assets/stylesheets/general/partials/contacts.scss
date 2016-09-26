@@ -1,0 +1,88 @@
+@include breakpoint($xs)
+{
+	.map
+	{
+		width: 100%;
+		height: 450px;
+	}
+
+	.form
+	{
+		@include span(10 of 12);
+		margin-left: span(1 of 12);
+		margin-right: span(1 of 12);
+	}
+
+	.form_column
+	{
+		@include span(11 of 11);
+		margin-bottom: 30px;
+	}
+
+	#col1
+	{
+		margin-right:0;
+	}
+
+	.form_input
+	{
+		input
+		{
+			width: 100%;
+			height: 30px;
+		}
+		input:focus
+		{
+	    outline: none;
+		}
+
+		textarea
+		{
+			resize: none;
+			width: 100%;
+			height: 186px;
+			font-family: 'Open Sans', sans-serif;
+		}
+
+		margin-bottom: 20px;
+	}
+
+	.form_label
+	{
+		color: $label;
+	}
+
+	.form_button
+	{
+		float: right;
+		margin-bottom: 40px;
+		cursor: pointer;
+	}
+
+	.form_button
+	{
+		input
+		{
+			cursor: pointer;
+		}
+
+	}
+
+}
+
+@include breakpoint($medium)
+{
+
+
+	.form_column
+	{
+		@include span(5 of 11);
+		margin-bottom: 30px;
+	}
+
+	#col1
+	{
+		margin-right: span(1 of 11);
+	}
+
+}
